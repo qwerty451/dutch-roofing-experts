@@ -40,6 +40,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Uploaded images
-/public/uploads/*
-!/public/uploads/.gitkeep
+# Uploaded images - uncomment to ignore
+# /public/uploads/*
