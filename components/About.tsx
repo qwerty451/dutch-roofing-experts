@@ -61,12 +61,7 @@ export default function About({ aboutImage }: { aboutImage: string }) {
             {t("about.title")}
           </h2>
           <p className="text-gray-400 text-lg leading-relaxed mb-6">
-            {locale === "nl" 
-              ? "Wij zijn Dutch Roofing Experts - uw vertrouwde dakdekker aan de Costa Blanca South. Met meer dan 25 jaar Nederlandse ervaring brengen wij Nederlandse kwaliteit en vakmanschap naar Spanje. Wij gebruiken uitsluitend Nederlandse materialen van topkwaliteit."
-              : locale === "en"
-              ? "We are Dutch Roofing Experts - your trusted roofer in Costa Blanca South. With over 25 years of Dutch experience, we bring Dutch quality craftsmanship to Spain. We only use Dutch materials of the highest quality."
-              : "Somos Dutch Roofing Experts - su confianza de tejados en Costa Blanca South. Con más de 25 años de experiencia holandesa, traemos calidad holandesa a España. Solo usamos materiales holandeses de la más alta calidad."
-            }
+            {t("about.text")}
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
