@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+:root {
+  --primary: #cc0000;
+  --primary-dim: #a30000;
+  --secondary: #d4af37;
+  --secondary-dim: #b8962e;
+  --gold: #d4af37;
+  --gold-dim: #b8962e;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #000;
+  color: #fff;
+}
+
+.neon-text {
+  color: var(--primary);
+}
+
+.neon-border {
+  border-color: var(--primary);
+}
+
+.neon-glow {
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+}
+
+.neon-glow-text {
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+}
+
+.gold-glow {
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+}
+
+.gold-glow-text {
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+}
