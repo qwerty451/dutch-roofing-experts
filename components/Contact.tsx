@@ -23,16 +23,20 @@ export default function Contact() {
     roofType: "" as RoofType | "",
     description: "",
     urgency: "regular" as Urgency,
-    preferredContact: "phone" as "phone" | "email",
-    bestTime: "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1500));
-    setSent(true);
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    });
     setLoading(false);
+    if (res.ok) {
+      setSent(true);
+    }
   };
 
   const serviceOptions: { value: ServiceType; label: string }[] = [
@@ -182,10 +186,9 @@ export default function Contact() {
 
                 <div>
                   <label className="block text-sm text-gray-400 mb-2">
-                    {locale === "nl" ? "E-mailadres *" : locale === "en" ? "Email *" : "Correo electrónico *"}
+                    {locale === "nl" ? "E-mailadres" : locale === "en" ? "Email" : "Correo electrónico"}
                   </label>
                   <input
-                    required
                     type="email"
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
@@ -277,35 +280,6 @@ export default function Contact() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm text-gray-400 mb-2">
-                      {locale === "nl" ? "Voorkeur contact" : locale === "en" ? "Contact preference" : "Preferencia de contacto"}
-                    </label>
-                    <div className="flex gap-4">
-                      <label className="flex items-center gap-2 cursor-pointer">
-                        <input
-                          type="radio"
-                          name="preferredContact"
-                          value="phone"
-                          checked={form.preferredContact === "phone"}
-                          onChange={() => setForm({ ...form, preferredContact: "phone" })}
-                          className="accent-[#cc0000]"
-                        />
-                        <span className="text-gray-300">{locale === "nl" ? "Telefoon" : locale === "en" ? "Phone" : "Teléfono"}</span>
-                      </label>
-                      <label className="flex items-center gap-2 cursor-pointer">
-                        <input
-                          type="radio"
-                          name="preferredContact"
-                          value="email"
-                          checked={form.preferredContact === "email"}
-                          onChange={() => setForm({ ...form, preferredContact: "email" })}
-                          className="accent-[#cc0000]"
-                        />
-                        <span className="text-gray-300">Email</span>
-                      </label>
-                    </div>
-                  </div>
                   <div>
                     <label className="block text-sm text-gray-400 mb-2">
                       {locale === "nl" ? "Urgentie" : locale === "en" ? "Urgency" : "Urgencia"}

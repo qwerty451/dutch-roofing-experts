@@ -33,6 +33,14 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# gh-cli (authentication, do not commit)
+gh
+gh-cli/
+.ssh/
+id_ed25519
+id_ed25519.pub
+ssh_key.txt
+
 # vercel
 .vercel
 
