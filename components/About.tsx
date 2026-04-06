@@ -3,9 +3,10 @@
 import { useLanguage } from "@/context/LanguageContext";
 import { Shield, Award, CheckCircle } from "lucide-react";
 
-export default function About({ aboutImage }: { aboutImage: string }) {
+export default function About({ aboutImage, whatsappImage }: { aboutImage: string; whatsappImage?: string }) {
   const { t, locale } = useLanguage();
   const secondImage = "/uploads/standing_on_roof.jpeg";
+  const thirdImage = whatsappImage || "/uploads/whatsapp-horizontal.jpeg";
 
   const stats = [
     { value: "about.stat1.value" as const, label: "about.stat1.label" as const },
@@ -48,6 +49,14 @@ export default function About({ aboutImage }: { aboutImage: string }) {
                 className="w-full h-full object-cover"
               />
             </div>
+          </div>
+          <div className="mt-4 relative h-48 lg:h-56 rounded-2xl overflow-hidden border border-gray-800">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={thirdImage}
+              alt="Dutch Roofing Experts - Project work"
+              className="w-full h-full object-cover"
+            />
           </div>
           <div className="absolute -bottom-4 -right-4 w-24 h-24 border-b-2 border-r-2 border-gray-700 rounded-br-2xl" />
           <div className="absolute -top-4 -left-4 w-24 h-24 border-t-2 border-l-2 border-gray-700 rounded-tl-2xl" />

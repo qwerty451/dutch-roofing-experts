@@ -125,7 +125,7 @@ export default function AdminDashboardClient({ initialContent }: { initialConten
     }
   };
 
-  const updateImage = (key: "hero" | "about", value: string) => {
+  const updateImage = (key: "hero" | "about" | "whatsapp", value: string) => {
     setContent((c) => ({ ...c, images: { ...c.images, [key]: value } }));
   };
 
@@ -220,6 +220,14 @@ export default function AdminDashboardClient({ initialContent }: { initialConten
                   value={content.images.about}
                   aspect={4 / 5}
                   onChange={(url) => updateImage("about", url)}
+                />
+              </div>
+              <div className="bg-gray-950 border border-gray-800 rounded-xl p-5">
+                <ImageUploader
+                  label="WhatsApp foto (horizontaal)"
+                  value={content.images.whatsapp || ""}
+                  aspect={16 / 9}
+                  onChange={(url) => updateImage("whatsapp", url)}
                 />
               </div>
             </div>

@@ -18,7 +18,7 @@ export default function Home() {
       <main>
         <Hero heroImage={content.images.hero} />
         <Services images={content.images.services} />
-        <About aboutImage={content.images.about} />
+        <About aboutImage={content.images.about} whatsappImage={content.images.whatsapp} />
         <Contact />
       </main>
       <Footer />

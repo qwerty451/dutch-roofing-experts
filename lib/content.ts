@@ -10,6 +10,7 @@ export interface SiteContent {
     hero: string;
     about: string;
     services: string[];
+    whatsapp?: string;
   };
 }
 
@@ -32,6 +33,7 @@ export function getContent(): SiteContent {
       hero: "",
       about: "",
       services: ["", "", "", ""],
+      whatsapp: "",
     },
   };
 }
