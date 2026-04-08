@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Menu, X, Phone } from "lucide-react";
+import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import LanguageSwitcher from "./LanguageSwitcher";
 
@@ -37,14 +38,13 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         <a href="#home" className="flex items-center gap-2">
-          <svg width="40" height="40" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M30 5L55 18V42L30 55L5 42V18L30 5Z" fill="#d4af37" stroke="#d4af37" strokeWidth="2"/>
-            <text x="30" y="30" textAnchor="middle" fill="black" fontSize="10" fontWeight="bold">DRE</text>
-            <text x="30" y="48" textAnchor="middle" fill="#d4af37" fontSize="5" fontWeight="bold">COSTA BLANCA SOUTH</text>
-          </svg>
-          <span className="text-white font-semibold text-sm hidden sm:block">
-            Dutch Roofing Experts
-          </span>
+          <Image
+            src="/uploads/logo.png"
+            alt="Dutch Roofing Experts"
+            width={40}
+            height={40}
+            className="w-auto h-10"
+          />
         </a>
 
         <div className="hidden md:flex items-center gap-6">

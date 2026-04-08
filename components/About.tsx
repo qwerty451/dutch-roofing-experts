@@ -2,6 +2,7 @@
 
 import { useLanguage } from "@/context/LanguageContext";
 import { Shield, Award, CheckCircle } from "lucide-react";
+import Image from "next/image";
 
 export default function About({ aboutImage, whatsappImage }: { aboutImage: string; whatsappImage?: string }) {
   const { t, locale } = useLanguage();
@@ -22,11 +23,14 @@ export default function About({ aboutImage, whatsappImage }: { aboutImage: strin
             <div className="relative h-80 lg:h-[450px] rounded-2xl overflow-hidden border border-gray-800">
               <div className="w-full h-full bg-gradient-to-br from-gray-900 via-[#1a1a1a] to-gray-900 flex flex-col items-center justify-center relative overflow-hidden">
                 <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'linear-gradient(rgba(204,0,0,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(204,0,0,0.2) 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
-                <div className="w-20 h-20 rounded-full bg-gray-800 border-2 border-gray-700 flex items-center justify-center mb-4">
-                  <svg width="40" height="40" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M30 5L55 18V42L30 55L5 42V18L30 5Z" fill="#d4af37" stroke="#d4af37" strokeWidth="2"/>
-                    <text x="30" y="35" textAnchor="middle" fill="white" fontSize="12" fontWeight="bold">DRE</text>
-                  </svg>
+                <div className="w-20 h-20 rounded-full bg-gray-800 border-2 border-gray-700 flex items-center justify-center mb-4 overflow-hidden">
+                  <Image
+                    src="/uploads/logo.png"
+                    alt="DRE"
+                    width={60}
+                    height={60}
+                    className="w-full h-full object-contain"
+                  />
                 </div>
                 <div className="text-center">
                   <span className="text-[#d4af37] text-2xl font-black">25+</span>

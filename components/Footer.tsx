@@ -2,16 +2,20 @@
 
 import { useLanguage } from "@/context/LanguageContext";
 import { Phone } from "lucide-react";
+import Image from "next/image";
 
 export default function Footer() {
   const { t, locale } = useLanguage();
   return (
     <footer className="border-t border-gray-900 py-8 px-6 bg-black">
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-        <svg width="32" height="32" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M30 5L55 18V42L30 55L5 42V18L30 5Z" fill="#d4af37" stroke="#d4af37" strokeWidth="2"/>
-          <text x="30" y="30" textAnchor="middle" fill="black" fontSize="10" fontWeight="bold">DRE</text>
-        </svg>
+        <Image
+          src="/uploads/logo.png"
+          alt="Dutch Roofing Experts"
+          width={32}
+          height={32}
+          className="w-auto h-8"
+        />
         <div className="flex items-center gap-2 text-gray-400 text-sm">
           <Phone size={14} className="text-[#d4af37]" />
           <span>(+31) 6 45577172</span>
