@@ -14,7 +14,7 @@ export default function Footer() {
         </svg>
         <div className="flex items-center gap-2 text-gray-400 text-sm">
           <Phone size={14} className="text-[#d4af37]" />
-          <span>(+31) 6 123 456 78</span>
+          <span>(+31) 6 45577172</span>
         </div>
         <p className="text-gray-600 text-sm">
           © {new Date().getFullYear()} Dutch Roofing Experts. {t("footer.rights")}
