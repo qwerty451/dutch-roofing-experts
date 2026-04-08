@@ -59,8 +59,8 @@ export default function RootLayout({
               "image": "/uploads/hero-roof.jpg",
               "@id": "https://dutchroofingexperts.com",
               "url": "https://dutchroofingexperts.com",
-              "telephone": "+34-123-456-789",
-              "email": "info@dutchroofingexperts.com",
+              "telephone": "+31 6 45577172",
+              "email": "dutchroofingexperts@yahoo.com",
               "address": {
                 "@type": "PostalAddress",
                 "addressLocality": "Costa Blanca South",

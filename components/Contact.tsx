@@ -93,7 +93,7 @@ export default function Contact() {
               </div>
               <div>
                 <h3 className="font-semibold text-white mb-1">Email</h3>
-                <p className="text-gray-400">info@dutchroofingexperts.es</p>
+                <p className="text-gray-400">dutchroofingexperts@yahoo.com</p>
               </div>
             </div>
 

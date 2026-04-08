@@ -61,10 +61,10 @@ export default function Navbar() {
 
         <div className="hidden md:flex items-center gap-4">
           <a
-href="tel:+31612345678"
+href="tel:+31645577172"
             >
             <Phone size={18} className="text-[#d4af37]" />
-            <span className="text-sm font-medium">(+31) 6 123 456 78</span>
+            <span className="text-sm font-medium">(+31) 6 45577172</span>
           </a>
           <LanguageSwitcher />
           <a
