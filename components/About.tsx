@@ -23,12 +23,12 @@ export default function About({ aboutImage, whatsappImage }: { aboutImage: strin
             <div className="relative h-80 lg:h-[450px] rounded-2xl overflow-hidden border border-gray-800">
               <div className="w-full h-full bg-gradient-to-br from-gray-900 via-[#1a1a1a] to-gray-900 flex flex-col items-center justify-center relative overflow-hidden">
                 <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'linear-gradient(rgba(204,0,0,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(204,0,0,0.2) 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
-                <div className="w-20 h-20 rounded-full bg-gray-800 border-2 border-gray-700 flex items-center justify-center mb-4 overflow-hidden">
+                <div className="w-24 h-24 rounded-full bg-white/90 border-2 border-gray-600 flex items-center justify-center mb-4 overflow-hidden">
                   <Image
                     src="/uploads/logo.png"
                     alt="DRE"
-                    width={60}
-                    height={60}
+                    width={80}
+                    height={80}
                     className="w-full h-full object-contain"
                   />
                 </div>

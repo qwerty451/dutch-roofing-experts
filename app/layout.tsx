@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   authors: [{ name: "Dutch Roofing Experts" }],
   creator: "Dutch Roofing Experts",
   publisher: "Dutch Roofing Experts",
+  icons: {
+    icon: "/favicon.png",
+  },
   robots: {
     index: true,
     follow: true,

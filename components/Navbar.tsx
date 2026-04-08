@@ -38,13 +38,15 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         <a href="#home" className="flex items-center gap-2">
-          <Image
-            src="/uploads/logo.png"
-            alt="Dutch Roofing Experts"
-            width={40}
-            height={40}
-            className="w-auto h-10"
-          />
+          <div className="bg-white/90 p-1 rounded-lg">
+            <Image
+              src="/uploads/logo.png"
+              alt="Dutch Roofing Experts"
+              width={50}
+              height={50}
+              className="w-auto h-12"
+            />
+          </div>
         </a>
 
         <div className="hidden md:flex items-center gap-6">
