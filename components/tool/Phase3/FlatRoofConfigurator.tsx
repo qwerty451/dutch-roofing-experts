@@ -60,8 +60,9 @@ function getOptionChoice(
   choiceId: string
 ): number {
   const item = getItem(itemId);
-  if (!item?.options) return 0;
-  const option = item.options[optionKey as keyof typeof item.options] as
+  if (!item || !("options" in item) || !item.options) return 0;
+  const opts = item.options as Record<string, { choices?: Array<{ id: string; priceModifier?: number }> }>;
+  const option = opts[optionKey] as
     | { choices?: Array<{ id: string; priceModifier?: number }> }
     | undefined;
   const choice = option?.choices?.find((c) => c.id === choiceId);

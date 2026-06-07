@@ -28,6 +28,7 @@ import SkylightsConfigurator from "./SkylightsConfigurator";
 import SolarConfigurator from "./SolarConfigurator";
 import InsulationConfigurator from "./InsulationConfigurator";
 import OtherWorkConfigurator from "./OtherWorkConfigurator";
+import SpoedConfigurator from "./SpoedConfigurator";
 import EquipmentRentals from "./EquipmentRentals";
 import LabourConfigurator from "./LabourConfigurator";
 import CustomItems from "./CustomItems";
@@ -69,7 +70,8 @@ type TabId =
   | "skylights"
   | "solar"
   | "insulation"
-  | "other";
+  | "other"
+  | "spoed";
 
 const TABS: { id: TabId; nl: string; en: string }[] = [
   { id: "flat_roof", nl: "Plat Dak", en: "Flat Roof" },
@@ -80,6 +82,7 @@ const TABS: { id: TabId; nl: string; en: string }[] = [
   { id: "solar", nl: "Zonnepanelen", en: "Solar" },
   { id: "insulation", nl: "Isolatie", en: "Insulation" },
   { id: "other", nl: "Overig", en: "Other" },
+  { id: "spoed", nl: "Spoed 🚨", en: "Emergency 🚨" },
 ];
 
 // ---------------------------------------------------------------------------
@@ -99,6 +102,7 @@ const DEFAULT_BUILDING: BuildingInfo = {
   verdiepingen: 1,
   gebouwtype: "",
   bereikbaarheid: "",
+  urgentie: "",
   notities: "",
 };
 
@@ -177,6 +181,7 @@ export default function Phase3Quote({
   const [solarItems, setSolarItems] = useState<LineItem[]>([]);
   const [insulationItems, setInsulationItems] = useState<LineItem[]>([]);
   const [otherItems, setOtherItems] = useState<LineItem[]>([]);
+  const [spoedItems, setSpoedItems] = useState<LineItem[]>([]);
 
   // Equipment, labour & custom items
   const [equipmentItems, setEquipmentItems] = useState<LineItem[]>([]);
@@ -211,6 +216,14 @@ export default function Phase3Quote({
     savePhase3Session({ customer, building, discount, paymentTerms, activeTab });
   }, [customer, building, discount, paymentTerms, activeTab]);
 
+  // Auto-switch to Spoed tab when urgentie is set to urgent
+  useEffect(() => {
+    const u = building.urgentie;
+    if (u.startsWith("Dringend") || u.startsWith("Spoedreparatie")) {
+      setActiveTab("spoed");
+    }
+  }, [building.urgentie]);
+
   // -------------------------------------------------------------------------
   // Merged items
   // -------------------------------------------------------------------------
@@ -223,6 +236,7 @@ export default function Phase3Quote({
     ...solarItems,
     ...insulationItems,
     ...otherItems,
+    ...spoedItems,
     ...equipmentItems,
     ...labourItems,
     ...customItems,
@@ -320,6 +334,14 @@ export default function Phase3Quote({
             onItemsChange={setOtherItems}
           />
         );
+      case "spoed":
+        return (
+          <SpoedConfigurator
+            {...sharedProps}
+            urgentie={building.urgentie}
+            onItemsChange={setSpoedItems}
+          />
+        );
     }
   }
 
@@ -403,8 +425,10 @@ export default function Phase3Quote({
               solar: solarItems.length,
               insulation: insulationItems.length,
               other: otherItems.length,
+              spoed: spoedItems.length,
             };
             const count = itemCounts[tab.id];
+            const isSpoed = tab.id === "spoed";
             return (
               <button
                 key={tab.id}
@@ -412,13 +436,15 @@ export default function Phase3Quote({
                 onClick={() => setActiveTab(tab.id)}
                 className={`shrink-0 px-4 py-3 text-sm font-medium whitespace-nowrap transition-colors border-b-2 ${
                   isActive
-                    ? "border-[#d4af37] text-[#d4af37] bg-gray-800"
+                    ? isSpoed
+                      ? "border-[#cc0000] text-[#cc0000] bg-gray-800"
+                      : "border-[#d4af37] text-[#d4af37] bg-gray-800"
                     : "border-transparent text-gray-400 hover:text-white hover:bg-gray-800"
                 }`}
               >
                 {language === "nl" ? tab.nl : tab.en}
                 {count > 0 && (
-                  <span className="ml-1.5 inline-flex items-center justify-center w-5 h-5 rounded-full bg-[#d4af37] text-black text-xs font-bold">
+                  <span className={`ml-1.5 inline-flex items-center justify-center w-5 h-5 rounded-full text-xs font-bold ${isSpoed ? "bg-[#cc0000] text-white" : "bg-[#d4af37] text-black"}`}>
                     {count}
                   </span>
                 )}
