@@ -17,6 +17,7 @@ export interface BuildingInfo {
   verdiepingen: number;
   gebouwtype: string;
   bereikbaarheid: string;
+  urgentie: string;
   notities: string;
 }
 
