@@ -378,7 +378,7 @@ function drawTotals(doc: JsPDFDoc, quoteData: QuoteData, language: Language, y: 
   // Separator before grand total
   setDrawHex(doc, COLOR_GOLD);
   doc.setLineWidth(0.5);
-  doc.line(labelX, y - 1, PAGE_W - MARGIN_R, y - 1);
+  doc.line(labelX, y - 3, PAGE_W - MARGIN_R, y - 3);
   y += 2;
 
   // Grand total row — gold accent left bar
