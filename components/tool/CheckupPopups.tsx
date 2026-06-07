@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useMemo, useEffect } from "react";
 import type { LineItem } from "../../types/tool";
 import type { Phase3State } from "./Phase3/index";
 
@@ -165,36 +165,44 @@ export default function CheckupPopups({
   onReturnToPhase3,
   onComplete,
 }: CheckupPopupsProps) {
-  const [checkIndex, setCheckIndex] = useState(0);
-
-  // Auto-advance past checks whose condition is false
-  useEffect(() => {
-    advanceToNextActiveCheck(checkIndex);
+  // Pre-filter once on mount — only checks whose condition is currently true
+  const activeChecks = useMemo(
+    () => CHECKS.filter((c) => c.condition(quoteState)),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [checkIndex]);
+    [] // intentional: evaluate conditions against the snapshot taken at mount
+  );
 
-  function advanceToNextActiveCheck(startIndex: number) {
-    let idx = startIndex;
-    while (idx < CHECKS.length) {
-      if (CHECKS[idx].condition(quoteState)) {
-        // Found an active check — stop here
-        return;
-      }
-      idx += 1;
+  const [step, setStep] = useState(0);
+
+  // If no checks triggered at all, call onComplete immediately after mount
+  useEffect(() => {
+    if (activeChecks.length === 0) {
+      onComplete();
     }
-    // All checks passed
-    onComplete();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (activeChecks.length === 0 || step >= activeChecks.length) {
+    return null;
+  }
+
+  const check = activeChecks[step];
+  const message = check.message(quoteState);
+  const isLast = step === activeChecks.length - 1;
+
+  function advance() {
+    if (isLast) {
+      onComplete();
+    } else {
+      setStep((s) => s + 1);
+    }
   }
 
   function handleYes() {
-    const check = CHECKS[checkIndex];
-    if (!check) return;
-
     if (check.onYes === "return_to_phase3") {
       onReturnToPhase3();
       return;
     }
-
     if (
       check.onYes === "add_item_and_return" ||
       check.onYes === "add_item_and_continue"
@@ -206,26 +214,13 @@ export default function CheckupPopups({
         onReturnToPhase3();
         return;
       }
-      // add_item_and_continue → move to next check
     }
-
-    setCheckIndex((prev) => prev + 1);
+    advance();
   }
 
   function handleNo() {
-    setCheckIndex((prev) => prev + 1);
+    advance();
   }
-
-  // Find the current active check (condition is true)
-  const activeCheck = CHECKS[checkIndex];
-
-  // If no check at this index (exhausted), trigger complete
-  if (!activeCheck || !activeCheck.condition(quoteState)) {
-    // useEffect will handle advancing; render nothing while waiting
-    return null;
-  }
-
-  const message = activeCheck.message(quoteState);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
@@ -238,21 +233,25 @@ export default function CheckupPopups({
         {/* Message */}
         <p className="text-base text-white leading-relaxed">{message}</p>
 
-        {/* Progress indicator */}
-        <div className="flex gap-1.5">
-          {CHECKS.map((_, i) => (
-            <div
-              key={i}
-              className={`h-1 flex-1 rounded-full transition-colors ${
-                i < checkIndex
-                  ? "bg-green-600"
-                  : i === checkIndex
-                  ? "bg-[#d4af37]"
-                  : "bg-gray-700"
-              }`}
-            />
-          ))}
-        </div>
+        {/* Progress dots */}
+        {activeChecks.length > 1 && (
+          <div className="flex gap-1.5">
+            {activeChecks.map((_, i) => (
+              <div
+                key={i}
+                className="h-1 flex-1 rounded-full transition-colors"
+                style={{
+                  backgroundColor:
+                    i < step
+                      ? "#22c55e"
+                      : i === step
+                      ? "#d4af37"
+                      : "#374151",
+                }}
+              />
+            ))}
+          </div>
+        )}
 
         {/* Actions */}
         <div className="flex flex-col gap-3">

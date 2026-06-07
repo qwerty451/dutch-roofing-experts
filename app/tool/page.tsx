@@ -10,7 +10,6 @@ import Phase3Quote from '../../components/tool/Phase3/index';
 import CheckupPopups from '../../components/tool/CheckupPopups';
 import Phase4Review from '../../components/tool/Phase4Review';
 import LanguageToggle from '../../components/tool/LanguageToggle';
-import PhaseProgress from '../../components/tool/PhaseProgress';
 
 type Phase = 1 | 2 | 3 | 4;
 
@@ -82,13 +81,6 @@ export default function ToolPage() {
       {/* Language toggle always visible (except Phase 1 which has its own minimal UI) */}
       {phase !== 1 && (
         <LanguageToggle language={language} onChange={setLanguage} />
-      )}
-
-      {/* Phase progress shown explicitly for phases 3 and 4 (1+2 render it internally) */}
-      {(phase === 3 || phase === 4) && !showCheckup && (
-        <div className="pt-4 px-4">
-          <PhaseProgress currentPhase={phase} />
-        </div>
       )}
 
       {phase === 1 && (

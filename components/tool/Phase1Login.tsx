@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import PhaseProgress from './PhaseProgress';
 
 interface Phase1LoginProps {
   onLogin: (employeeName: string) => void;
@@ -52,7 +51,6 @@ export default function Phase1Login({ onLogin, currentPhase = 1 }: Phase1LoginPr
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-950 text-white">
-      <PhaseProgress currentPhase={currentPhase} />
 
       <div className="flex flex-col items-center justify-center flex-1 px-4 py-8 gap-8">
         {/* Logo */}

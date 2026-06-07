@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import type { Margins } from '../../types/tool';
-import PhaseProgress from './PhaseProgress';
 
 interface Phase2MarginsProps {
   onComplete: (margins: Margins) => void;
@@ -68,7 +67,6 @@ export default function Phase2Margins({ onComplete, currentPhase = 2 }: Phase2Ma
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-950 text-white">
-      <PhaseProgress currentPhase={currentPhase} />
 
       <div className="flex flex-col flex-1 px-4 py-8 gap-8 max-w-lg mx-auto w-full">
         {/* Header */}
