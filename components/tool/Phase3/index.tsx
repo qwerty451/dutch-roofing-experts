@@ -1,7 +1,22 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import type { LineItem, Margins, CustomerInfo, BuildingInfo } from "../../../types/tool";
+
+// ---------------------------------------------------------------------------
+// Session helpers (Phase 3 form data only — items are not persisted because
+// sub-configurators manage their own form state internally)
+// ---------------------------------------------------------------------------
+
+const PHASE3_SESSION_KEY = "dre_tool_phase3";
+
+interface Phase3FormSession {
+  customer: CustomerInfo;
+  building: BuildingInfo;
+  discount: number;
+  paymentTerms: string;
+  activeTab: string;
+}
 
 import CustomerInfoForm from "./CustomerInfo";
 import BuildingInfoForm from "./BuildingInfo";
@@ -90,6 +105,19 @@ const DEFAULT_BUILDING: BuildingInfo = {
 const DEFAULT_PAYMENT_TERMS =
   "50% aanbetaling voor aanvang werkzaamheden, 50% na oplevering.";
 
+function loadPhase3Session(): Phase3FormSession | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = sessionStorage.getItem(PHASE3_SESSION_KEY);
+    if (raw) return JSON.parse(raw) as Phase3FormSession;
+  } catch {}
+  return null;
+}
+
+function savePhase3Session(s: Phase3FormSession) {
+  try { sessionStorage.setItem(PHASE3_SESSION_KEY, JSON.stringify(s)); } catch {}
+}
+
 // ---------------------------------------------------------------------------
 // Labels
 // ---------------------------------------------------------------------------
@@ -122,13 +150,24 @@ export default function Phase3Quote({
   const labels = t[language];
 
   // -------------------------------------------------------------------------
+  // Restore session once on mount
+  // -------------------------------------------------------------------------
+  const restoredSession = loadPhase3Session();
+  const wasRestored = restoredSession !== null;
+
+  // -------------------------------------------------------------------------
   // Customer & building state
   // -------------------------------------------------------------------------
-  const [customer, setCustomer] = useState<CustomerInfo>(DEFAULT_CUSTOMER);
-  const [building, setBuilding] = useState<BuildingInfo>(DEFAULT_BUILDING);
+  const [customer, setCustomer] = useState<CustomerInfo>(
+    restoredSession?.customer ?? DEFAULT_CUSTOMER
+  );
+  const [building, setBuilding] = useState<BuildingInfo>(
+    restoredSession?.building ?? DEFAULT_BUILDING
+  );
 
   // -------------------------------------------------------------------------
   // Roof configurator item arrays (one per category)
+  // These are NOT persisted — sub-configurators manage their own form state.
   // -------------------------------------------------------------------------
   const [flatRoofItems, setFlatRoofItems] = useState<LineItem[]>([]);
   const [tiledRoofItems, setTiledRoofItems] = useState<LineItem[]>([]);
@@ -147,16 +186,30 @@ export default function Phase3Quote({
   // -------------------------------------------------------------------------
   // Discount & payment terms
   // -------------------------------------------------------------------------
-  const [discount, setDiscount] = useState<number>(0);
-  const [paymentTerms, setPaymentTerms] = useState<string>(DEFAULT_PAYMENT_TERMS);
+  const [discount, setDiscount] = useState<number>(
+    restoredSession?.discount ?? 0
+  );
+  const [paymentTerms, setPaymentTerms] = useState<string>(
+    restoredSession?.paymentTerms ?? DEFAULT_PAYMENT_TERMS
+  );
 
   // -------------------------------------------------------------------------
   // Tab & validation state
   // -------------------------------------------------------------------------
-  const [activeTab, setActiveTab] = useState<TabId>("flat_roof");
+  const [activeTab, setActiveTab] = useState<TabId>(
+    (restoredSession?.activeTab as TabId) ?? "flat_roof"
+  );
   const [validationError, setValidationError] = useState(false);
+  const [showRestoredBanner, setShowRestoredBanner] = useState(wasRestored);
 
   const topRef = useRef<HTMLDivElement>(null);
+
+  // -------------------------------------------------------------------------
+  // Persist form data to sessionStorage on every change
+  // -------------------------------------------------------------------------
+  useEffect(() => {
+    savePhase3Session({ customer, building, discount, paymentTerms, activeTab });
+  }, [customer, building, discount, paymentTerms, activeTab]);
 
   // -------------------------------------------------------------------------
   // Merged items
@@ -275,6 +328,23 @@ export default function Phase3Quote({
   // -------------------------------------------------------------------------
   return (
     <div ref={topRef} className="flex flex-col gap-6 pb-28">
+      {/* Session restored banner */}
+      {showRestoredBanner && (
+        <div className="sticky top-0 z-40 flex items-start justify-between gap-3 rounded bg-gray-800 border border-[#d4af37] px-4 py-3 text-sm text-white shadow-lg">
+          <span>
+            <span className="font-semibold" style={{ color: "#d4af37" }}>Sessie hersteld.</span>{" "}
+            Klant- en gebouwgegevens zijn teruggezet. Voer de dakwerkzaamheden opnieuw in.
+          </span>
+          <button
+            type="button"
+            onClick={() => setShowRestoredBanner(false)}
+            className="shrink-0 text-gray-400 hover:text-white text-lg leading-none"
+          >
+            ×
+          </button>
+        </div>
+      )}
+
       {/* Validation error banner */}
       {validationError && (
         <div className="sticky top-0 z-40 rounded bg-[#cc0000] px-4 py-3 text-sm font-semibold text-white shadow-lg">
