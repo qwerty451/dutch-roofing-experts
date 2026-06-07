@@ -18,6 +18,11 @@ interface ConfiguratorProps {
 type CoatingWerk = "reiniging" | "anti_mos" | "coating";
 type VogelType = "pennen" | "net" | "spikes";
 
+interface SimpleItemState {
+  enabled: boolean;
+  quantity: string;
+}
+
 interface CoatingState {
   enabled: boolean;
   m2: string;
@@ -39,6 +44,9 @@ const VAT = pricingData.meta.vatRate;
 const otherCategory = pricingData.categories.find((c) => c.id === "other_work")!;
 const cleaningItem = otherCategory.items.find((i) => i.id === "roof_cleaning")!;
 const birdItem = otherCategory.items.find((i) => i.id === "bird_proofing")!;
+const onderlaagNormaalItem = otherCategory.items.find((i) => i.id === "onderlaag_normaal")!;
+const onderlaagZelfklevendItem = otherCategory.items.find((i) => i.id === "onderlaag_zelfklevend")!;
+const mastiekeRandenItem = otherCategory.items.find((i) => i.id === "mastieke_randen")!;
 
 const coatingModifiers: Record<CoatingWerk, number> = {
   reiniging: 0,
@@ -78,6 +86,9 @@ const t = {
       net: "Net",
       spikes: "Spikes (breed)",
     },
+    onderlaagNormaalTitle: "Normale onderlaag",
+    onderlaagZelfklevendTitle: "Zelfklevende onderlaag",
+    mastiekeRandenTitle: "Mastieke randen",
   },
   en: {
     title: "Other Roofwork",
@@ -100,6 +111,9 @@ const t = {
       net: "Bird net",
       spikes: "Wide spikes",
     },
+    onderlaagNormaalTitle: "Standard underlay",
+    onderlaagZelfklevendTitle: "Self-adhesive underlay",
+    mastiekeRandenTitle: "Mastic edge sealing",
   },
 } as const;
 
@@ -243,6 +257,10 @@ export default function OtherWorkConfigurator({
     type: "pennen",
   });
 
+  const [onderlaagNormaal, setOnderlaagNormaal] = useState<SimpleItemState>({ enabled: false, quantity: "" });
+  const [onderlaagZelfklevend, setOnderlaagZelfklevend] = useState<SimpleItemState>({ enabled: false, quantity: "" });
+  const [mastiekeRanden, setMastiekeRanden] = useState<SimpleItemState>({ enabled: false, quantity: "" });
+
   // -------------------------------------------------------------------------
   // Build LineItems
   // -------------------------------------------------------------------------
@@ -298,13 +316,71 @@ export default function OtherWorkConfigurator({
       }
     }
 
+    // --- Normale onderlaag ---
+    if (onderlaagNormaal.enabled) {
+      const m2 = parseFloat(onderlaagNormaal.quantity);
+      if (m2 > 0) {
+        const unitPrice = applyMargins(onderlaagNormaalItem.basePrice, margins, "material");
+        items.push({
+          id: "other_onderlaag_normaal",
+          description: { nl: "Normale onderlaag", en: "Standard underlay", es: "Capa base estándar" },
+          unit: "m²",
+          quantity: m2,
+          unitPrice,
+          total: unitPrice * m2,
+          vatRate: VAT,
+        });
+      }
+    }
+
+    // --- Zelfklevende onderlaag ---
+    if (onderlaagZelfklevend.enabled) {
+      const m2 = parseFloat(onderlaagZelfklevend.quantity);
+      if (m2 > 0) {
+        const unitPrice = applyMargins(onderlaagZelfklevendItem.basePrice, margins, "material");
+        items.push({
+          id: "other_onderlaag_zelfklevend",
+          description: { nl: "Zelfklevende onderlaag", en: "Self-adhesive underlay", es: "Capa base autoadhesiva" },
+          unit: "m²",
+          quantity: m2,
+          unitPrice,
+          total: unitPrice * m2,
+          vatRate: VAT,
+        });
+      }
+    }
+
+    // --- Mastieke randen ---
+    if (mastiekeRanden.enabled) {
+      const meters = parseFloat(mastiekeRanden.quantity);
+      if (meters > 0) {
+        const unitPrice = applyMargins(mastiekeRandenItem.basePrice, margins, "material");
+        items.push({
+          id: "other_mastieke_randen",
+          description: { nl: "Mastieke randen", en: "Mastic edge sealing", es: "Sellado de bordes con masilla" },
+          unit: "m",
+          quantity: meters,
+          unitPrice,
+          total: unitPrice * meters,
+          vatRate: VAT,
+        });
+      }
+    }
+
     onItemsChange(items);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [coating, vogel, margins]);
+  }, [coating, vogel, onderlaagNormaal, onderlaagZelfklevend, mastiekeRanden, margins]);
 
   // -------------------------------------------------------------------------
   // Computed display values
   // -------------------------------------------------------------------------
+
+  const onderlaagNormaalM2 = parseFloat(onderlaagNormaal.quantity) || 0;
+  const onderlaagNormaalUnitPrice = applyMargins(onderlaagNormaalItem.basePrice, margins, "material");
+  const onderlaagZelfklevendM2 = parseFloat(onderlaagZelfklevend.quantity) || 0;
+  const onderlaagZelfklevendUnitPrice = applyMargins(onderlaagZelfklevendItem.basePrice, margins, "material");
+  const mastiekeRandenM = parseFloat(mastiekeRanden.quantity) || 0;
+  const mastiekeRandenUnitPrice = applyMargins(mastiekeRandenItem.basePrice, margins, "material");
 
   const coatingM2 = parseFloat(coating.m2) || 0;
   const coatingUnitPrice = applyMargins(
@@ -398,6 +474,93 @@ export default function OtherWorkConfigurator({
               </span>{" "}
               <span className="text-gray-500">
                 ({formatEur(vogelUnitPrice)}/m × {vogelMeters} m)
+              </span>
+            </p>
+          )}
+        </div>
+      </Section>
+
+      {/* Normale onderlaag */}
+      <Section
+        title={labels.onderlaagNormaalTitle}
+        enabled={onderlaagNormaal.enabled}
+        onToggle={() => setOnderlaagNormaal((s) => ({ ...s, enabled: !s.enabled }))}
+        enableLabel={labels.enable}
+        removeLabel={labels.remove}
+      >
+        <div className="flex flex-col gap-4">
+          <NumInput
+            label={labels.m2Label}
+            value={onderlaagNormaal.quantity}
+            onChange={(v) => setOnderlaagNormaal((s) => ({ ...s, quantity: v }))}
+            unit="m²"
+          />
+          {onderlaagNormaalM2 > 0 && (
+            <p className="text-sm text-gray-400 border-t border-gray-700 pt-2">
+              {labels.priceLabel}:{" "}
+              <span className="font-semibold text-white">
+                {formatEur(onderlaagNormaalUnitPrice * onderlaagNormaalM2)}
+              </span>{" "}
+              <span className="text-gray-500">
+                ({formatEur(onderlaagNormaalUnitPrice)}/m² × {onderlaagNormaalM2} m²)
+              </span>
+            </p>
+          )}
+        </div>
+      </Section>
+
+      {/* Zelfklevende onderlaag */}
+      <Section
+        title={labels.onderlaagZelfklevendTitle}
+        enabled={onderlaagZelfklevend.enabled}
+        onToggle={() => setOnderlaagZelfklevend((s) => ({ ...s, enabled: !s.enabled }))}
+        enableLabel={labels.enable}
+        removeLabel={labels.remove}
+      >
+        <div className="flex flex-col gap-4">
+          <NumInput
+            label={labels.m2Label}
+            value={onderlaagZelfklevend.quantity}
+            onChange={(v) => setOnderlaagZelfklevend((s) => ({ ...s, quantity: v }))}
+            unit="m²"
+          />
+          {onderlaagZelfklevendM2 > 0 && (
+            <p className="text-sm text-gray-400 border-t border-gray-700 pt-2">
+              {labels.priceLabel}:{" "}
+              <span className="font-semibold text-white">
+                {formatEur(onderlaagZelfklevendUnitPrice * onderlaagZelfklevendM2)}
+              </span>{" "}
+              <span className="text-gray-500">
+                ({formatEur(onderlaagZelfklevendUnitPrice)}/m² × {onderlaagZelfklevendM2} m²)
+              </span>
+            </p>
+          )}
+        </div>
+      </Section>
+
+      {/* Mastieke randen */}
+      <Section
+        title={labels.mastiekeRandenTitle}
+        enabled={mastiekeRanden.enabled}
+        onToggle={() => setMastiekeRanden((s) => ({ ...s, enabled: !s.enabled }))}
+        enableLabel={labels.enable}
+        removeLabel={labels.remove}
+      >
+        <div className="flex flex-col gap-4">
+          <NumInput
+            label={labels.metersLabel}
+            value={mastiekeRanden.quantity}
+            onChange={(v) => setMastiekeRanden((s) => ({ ...s, quantity: v }))}
+            unit="m"
+          />
+          {mastiekeRandenM > 0 && (
+            <p className="text-sm text-gray-400 border-t border-gray-700 pt-2">
+              {labels.priceLabel}:{" "}
+              <span className="font-semibold text-white">
+                {formatEur(mastiekeRandenUnitPrice * mastiekeRandenM)}
+              </span>{" "}
+              <span className="text-gray-500">
+                ({formatEur(mastiekeRandenUnitPrice)}/m × {mastiekeRandenM} m)
               </span>
             </p>
           )}

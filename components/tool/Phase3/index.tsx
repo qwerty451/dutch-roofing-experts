@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import type { LineItem, Margins, CustomerInfo, BuildingInfo } from "../../../types/tool";
+import type { LineItem, Margins, CustomerInfo, BuildingInfo, Warranty } from "../../../types/tool";
 
 // ---------------------------------------------------------------------------
 // Session helpers (Phase 3 form data only — items are not persisted because
@@ -16,6 +16,7 @@ interface Phase3FormSession {
   discount: number;
   paymentTerms: string;
   activeTab: string;
+  warranty?: Warranty;
 }
 
 import CustomerInfoForm from "./CustomerInfo";
@@ -47,6 +48,7 @@ export interface Phase3State {
   discount: number;
   paymentTerms: string;
   margins: Margins;
+  warranty: Warranty;
 }
 
 interface Phase3QuoteProps {
@@ -197,6 +199,9 @@ export default function Phase3Quote({
   const [paymentTerms, setPaymentTerms] = useState<string>(
     restoredSession?.paymentTerms ?? DEFAULT_PAYMENT_TERMS
   );
+  const [warranty, setWarranty] = useState<Warranty>(
+    restoredSession?.warranty ?? { enabled: false, period: "2 jaar" }
+  );
 
   // -------------------------------------------------------------------------
   // Tab & validation state
@@ -213,8 +218,8 @@ export default function Phase3Quote({
   // Persist form data to sessionStorage on every change
   // -------------------------------------------------------------------------
   useEffect(() => {
-    savePhase3Session({ customer, building, discount, paymentTerms, activeTab });
-  }, [customer, building, discount, paymentTerms, activeTab]);
+    savePhase3Session({ customer, building, discount, paymentTerms, activeTab, warranty });
+  }, [customer, building, discount, paymentTerms, activeTab, warranty]);
 
   // Auto-switch to Spoed tab when urgentie is set to urgent
   useEffect(() => {
@@ -267,6 +272,7 @@ export default function Phase3Quote({
       discount,
       paymentTerms,
       margins,
+      warranty,
     };
 
     onReadyForCheckup(state);
@@ -489,6 +495,45 @@ export default function Phase3Quote({
         onChange={setPaymentTerms}
         language={language}
       />
+
+      {/* Warranty */}
+      <div className="rounded-lg border border-gray-700 bg-gray-900 p-4 flex flex-col gap-4">
+        <div className="flex items-center justify-between">
+          <h3 className="text-sm font-bold uppercase tracking-wider" style={{ color: '#d4af37' }}>
+            {language === 'nl' ? 'Garantie' : 'Warranty'}
+          </h3>
+          <button
+            type="button"
+            onClick={() => setWarranty(w => ({ ...w, enabled: !w.enabled }))}
+            className={`min-h-10 px-4 py-2 rounded text-sm font-medium transition-colors ${warranty.enabled ? 'bg-red-700 text-white hover:bg-red-800' : 'text-black hover:opacity-90'}`}
+            style={warranty.enabled ? undefined : { backgroundColor: '#d4af37' }}
+          >
+            {warranty.enabled
+              ? (language === 'nl' ? 'Verwijderen' : 'Remove')
+              : (language === 'nl' ? 'Toevoegen' : 'Add')}
+          </button>
+        </div>
+        {warranty.enabled && (
+          <div className="flex flex-col gap-2">
+            <span className="text-sm text-gray-400">
+              {language === 'nl' ? 'Garantieperiode:' : 'Warranty period:'}
+            </span>
+            <div className="flex flex-wrap gap-2">
+              {['1 jaar', '2 jaar', '5 jaar', '10 jaar'].map(p => (
+                <button
+                  key={p}
+                  type="button"
+                  onClick={() => setWarranty(w => ({ ...w, period: p }))}
+                  className={`min-h-10 px-4 py-2 rounded text-sm font-medium transition-colors ${warranty.period === p ? 'text-black' : 'bg-gray-700 text-white hover:bg-gray-600'}`}
+                  style={warranty.period === p ? { backgroundColor: '#d4af37' } : undefined}
+                >
+                  {p}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
 
       {/* Fixed price footer — receives all merged items */}
       <PriceFooter

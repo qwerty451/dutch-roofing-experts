@@ -25,6 +25,9 @@ export interface PdfTranslations {
   companyPhone: string;
   companyEmail: string;
   companyLocation: string;
+  // Warranty
+  warranty: string;
+  warrantyPeriod: string;
 }
 
 export const translations: Record<Language, PdfTranslations> = {
@@ -52,6 +55,8 @@ export const translations: Record<Language, PdfTranslations> = {
     companyPhone: 'Tel: +31 6 45577172',
     companyEmail: 'dutchroofingexperts@yahoo.com',
     companyLocation: 'Costa Blanca South',
+    warranty: 'Garantie',
+    warrantyPeriod: 'Garantieperiode',
   },
   en: {
     offerteTitle: 'QUOTATION',
@@ -77,6 +82,8 @@ export const translations: Record<Language, PdfTranslations> = {
     companyPhone: 'Tel: +31 6 45577172',
     companyEmail: 'dutchroofingexperts@yahoo.com',
     companyLocation: 'Costa Blanca South',
+    warranty: 'Warranty',
+    warrantyPeriod: 'Warranty period',
   },
   es: {
     offerteTitle: 'PRESUPUESTO',
@@ -102,5 +109,7 @@ export const translations: Record<Language, PdfTranslations> = {
     companyPhone: 'Tel: +31 6 45577172',
     companyEmail: 'dutchroofingexperts@yahoo.com',
     companyLocation: 'Costa Blanca South',
+    warranty: 'Garantía',
+    warrantyPeriod: 'Período de garantía',
   },
 };

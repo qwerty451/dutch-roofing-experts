@@ -30,6 +30,13 @@ const BEREIKBAARHEID_OPTIONS = [
   "Zeer moeilijk (geen oprit/lift)",
 ] as const;
 
+const URGENTIE_OPTIONS = [
+  { value: "Normaal / Gepland", emoji: "📅", color: "gray" },
+  { value: "Zo snel mogelijk (1–2 weken)", emoji: "🔶", color: "yellow" },
+  { value: "Dringend (2–3 dagen)", emoji: "🔴", color: "red" },
+  { value: "Spoedreparatie (zelfde/volgende dag)", emoji: "🚨", color: "red" },
+] as const;
+
 // ---------------------------------------------------------------------------
 // Labels
 // ---------------------------------------------------------------------------
@@ -40,6 +47,8 @@ const t = {
     verdiepingen: "Aantal verdiepingen",
     gebouwtype: "Gebouwtype",
     bereikbaarheid: "Bereikbaarheid dak",
+    urgentie: "Hoe dringend?",
+    urgentieNote: "Spoedreparaties worden automatisch in het offerte-onderdeel toegevoegd.",
     notities: "Bijzonderheden / notities",
     notitiesPlaceholder: "Bijv. smal straatje, geen parkeerplaats, hoge dakrand...",
   },
@@ -48,6 +57,8 @@ const t = {
     verdiepingen: "Number of floors",
     gebouwtype: "Building type",
     bereikbaarheid: "Roof accessibility",
+    urgentie: "How urgent?",
+    urgentieNote: "Emergency repairs will be highlighted in the works section.",
     notities: "Notes / remarks",
     notitiesPlaceholder: "E.g. narrow street, no parking, high parapet...",
   },
@@ -168,6 +179,38 @@ export default function BuildingInfoForm({
               {opt}
             </button>
           ))}
+        </div>
+      </div>
+
+      {/* Urgentie */}
+      <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-0.5">
+          <span className="text-sm font-medium text-gray-300">{labels.urgentie}</span>
+          <span className="text-xs text-gray-500">{labels.urgentieNote}</span>
+        </div>
+        <div className="flex flex-col gap-2">
+          {URGENTIE_OPTIONS.map((opt) => {
+            const isActive = value.urgentie === opt.value;
+            const isSpoed =
+              opt.value.startsWith("Dringend") ||
+              opt.value.startsWith("Spoedreparatie");
+            return (
+              <button
+                key={opt.value}
+                type="button"
+                onClick={() => set("urgentie")(opt.value)}
+                className={`min-h-12 w-full rounded px-4 py-3 text-sm font-medium text-left transition-colors ${
+                  isActive
+                    ? isSpoed
+                      ? "bg-[#cc0000] text-white"
+                      : "bg-[#d4af37] text-black"
+                    : "bg-gray-700 text-white hover:bg-gray-600"
+                }`}
+              >
+                {opt.emoji} {opt.value}
+              </button>
+            );
+          })}
         </div>
       </div>
 

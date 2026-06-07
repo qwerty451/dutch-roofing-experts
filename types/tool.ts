@@ -32,6 +32,11 @@ export interface LineItem {
   isCustom?: boolean; // exempt from Phase 2 margins
 }
 
+export interface Warranty {
+  enabled: boolean;
+  period: string;
+}
+
 export interface QuoteData {
   customer: CustomerInfo;
   building: BuildingInfo;
@@ -40,6 +45,7 @@ export interface QuoteData {
   paymentTerms: string;
   margins: Margins;
   language: 'nl' | 'en' | 'es';
+  warranty: Warranty;
 }
 
 export interface SavedQuote {

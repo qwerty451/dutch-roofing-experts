@@ -1,5 +1,5 @@
 // Client-side only — no fs, no path, no Node.js APIs.
-import jsPDF from 'jspdf';
+import jsPDF, { GState } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import type { UserOptions, CellDef } from 'jspdf-autotable';
 import type { QuoteData, LineItem } from '../types/tool';
@@ -113,6 +113,24 @@ function resolveDescription(item: LineItem, language: Language): string {
 // ---------------------------------------------------------------------------
 // Section drawing helpers
 // ---------------------------------------------------------------------------
+
+/**
+ * Draw faded logo watermark centered on current page (behind all content).
+ * Must be called before drawing text/lines on the page.
+ */
+function drawWatermark(doc: JsPDFDoc, logoBase64: string): void {
+  doc.saveGraphicsState();
+  doc.setGState(new GState({ opacity: 0.07 }));
+  const wSize = 150;
+  const wX = (PAGE_W - wSize) / 2;
+  const wY = (PAGE_H - wSize) / 2;
+  try {
+    doc.addImage(logoBase64, 'PNG', wX, wY, wSize, wSize);
+  } catch {
+    // ignore
+  }
+  doc.restoreGraphicsState();
+}
 
 /**
  * Draw the dark header bar with logo (optional) and company info.
@@ -428,6 +446,34 @@ function drawPaymentTerms(doc: JsPDFDoc, paymentTerms: string, language: Languag
 }
 
 /**
+ * Draw warranty block if enabled.
+ * Returns the Y position immediately below.
+ */
+function drawWarranty(doc: JsPDFDoc, warranty: { enabled: boolean; period: string }, language: Language, y: number): number {
+  if (!warranty.enabled) return y;
+  const t = translations[language];
+
+  setDrawHex(doc, '#dddddd');
+  doc.setLineWidth(0.3);
+  doc.line(MARGIN_L, y, PAGE_W - MARGIN_R, y);
+  y += 6;
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(9);
+  setTextHex(doc, COLOR_GOLD);
+  doc.text(`${t.warranty}:`, MARGIN_L, y);
+  y += 5;
+
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(9);
+  setTextHex(doc, COLOR_TEXT_DARK);
+  doc.text(`${t.warrantyPeriod}: ${warranty.period}`, MARGIN_L, y);
+  y += 8;
+
+  return y;
+}
+
+/**
  * Draw the two-column signature block at the bottom.
  * Returns the Y position immediately below.
  */
@@ -494,6 +540,9 @@ export async function generatePDF(
   // Load logo (non-blocking, graceful on failure)
   const logoBase64 = await loadLogoBase64();
 
+  // --- Watermark (behind all content on page 1) ---
+  if (logoBase64) drawWatermark(doc, logoBase64);
+
   // --- Header ---
   let y = drawHeader(doc, logoBase64, language);
 
@@ -510,10 +559,17 @@ export async function generatePDF(
   y = drawTotals(doc, quoteData, language, y);
 
   // Check if we need a new page for the remaining blocks
-  const remainingBlocks = 55; // approximate mm needed for payment terms + signature
+  const warrantyExtra = quoteData.warranty?.enabled ? 18 : 0;
+  const remainingBlocks = 55 + warrantyExtra;
   if (y + remainingBlocks > PAGE_H - 10) {
     doc.addPage();
     y = 15;
+    if (logoBase64) drawWatermark(doc, logoBase64);
+  }
+
+  // --- Warranty (if enabled) ---
+  if (quoteData.warranty?.enabled) {
+    y = drawWarranty(doc, quoteData.warranty, language, y);
   }
 
   // --- Payment terms ---

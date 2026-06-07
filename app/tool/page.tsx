@@ -126,7 +126,7 @@ export default function ToolPage() {
   }
 
   return (
-    <main className="min-h-screen relative">
+    <main className="min-h-screen relative pt-14">
 
       {/* ── Start-over button ─────────────────────────────────────────────── */}
       <button

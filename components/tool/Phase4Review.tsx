@@ -167,6 +167,7 @@ export default function Phase4Review({
     paymentTerms: quoteState.paymentTerms,
     margins: quoteState.margins,
     language: selectedLanguage,
+    warranty: quoteState.warranty,
   };
 
   // -------------------------------------------------------------------------

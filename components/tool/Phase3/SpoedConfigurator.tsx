@@ -19,7 +19,7 @@ const labels = {
   nl: {
     title: "Spoedreparaties",
     urgentAlert: (u: string) => `⚠️ Urgentie: ${u}`,
-    noUrgency: "Geen urgentie ingesteld — stel urgentie in bij Gebouwinformatie voor automatische markering.",
+    noUrgency: "Items zijn altijd selecteerbaar. Stel urgentie in bij Gebouwinformatie om dit tabblad automatisch te activeren.",
     qty: "Aantal",
     meters: "Meter",
     sqm: "m²",
@@ -28,7 +28,7 @@ const labels = {
   en: {
     title: "Emergency Repairs",
     urgentAlert: (u: string) => `⚠️ Urgency: ${u}`,
-    noUrgency: "No urgency set — set urgency in Building Information for automatic highlighting.",
+    noUrgency: "Items can always be added. Set urgency in Building Information for automatic tab activation.",
     qty: "Qty",
     meters: "Metres",
     sqm: "m²",
