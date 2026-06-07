@@ -20,6 +20,12 @@ interface Phase4ReviewProps {
 // Helpers
 // ---------------------------------------------------------------------------
 
+function generateLocalId(): string {
+  const year = new Date().getFullYear();
+  const ts = Date.now().toString(36).toUpperCase().slice(-5);
+  return `DRE-${year}-${ts}`;
+}
+
 function formatCurrency(amount: number): string {
   return (
     "€ " +
@@ -65,9 +71,11 @@ export default function Phase4Review({
   // -------------------------------------------------------------------------
   // State
   // -------------------------------------------------------------------------
-  const [quoteId, setQuoteId] = useState<string | null>(null);
+  // Always initialise with a local fallback ID so Phase 4 is never blocked.
+  // The server save runs in the background and replaces it with a sequential ID.
+  const [quoteId, setQuoteId] = useState<string>(() => generateLocalId());
   const [saveError, setSaveError] = useState<string | null>(null);
-  const [isSaving, setIsSaving] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
 
   const [selectedLanguage, setSelectedLanguage] = useState<Language>("nl");
 
@@ -100,13 +108,14 @@ export default function Phase4Review({
   const grandTotal = subtotalExVat + vatAmount - discountAmount;
 
   // -------------------------------------------------------------------------
-  // Save quote on mount (once)
+  // Save quote — background best-effort (server assigns sequential ID)
+  // Phase 4 is never blocked: a local fallback ID is always available.
   // -------------------------------------------------------------------------
-  useEffect(() => {
-    if (hasSaved.current) return;
-    hasSaved.current = true;
+  async function performSave() {
+    setIsSaving(true);
+    setSaveError(null);
 
-    const savedQuoteBody: Omit<SavedQuote, "id"> = {
+    const body: Omit<SavedQuote, "id"> = {
       date: new Date().toISOString().slice(0, 10),
       employee,
       customer: {
@@ -122,24 +131,28 @@ export default function Phase4Review({
       language: selectedLanguage,
     };
 
-    fetch("/api/tool/quotes", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(savedQuoteBody),
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error("Server antwoordde met fout.");
-        return res.json();
-      })
-      .then((data: { id: string }) => {
-        setQuoteId(data.id);
-        setIsSaving(false);
-      })
-      .catch((err: unknown) => {
-        console.error("Save quote error:", err);
-        setSaveError("Opslaan mislukt. Controleer de verbinding en probeer opnieuw.");
-        setIsSaving(false);
+    try {
+      const res = await fetch("/api/tool/quotes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
       });
+      if (!res.ok) throw new Error(`Server fout (${res.status})`);
+      const data = (await res.json()) as { id: string };
+      setQuoteId(data.id);
+      setSaveError(null);
+    } catch (err: unknown) {
+      console.error("Save quote error:", err);
+      setSaveError("Opslaan op server mislukt — offerte gebruikt lokaal nummer. PDF werkt gewoon.");
+    } finally {
+      setIsSaving(false);
+    }
+  }
+
+  useEffect(() => {
+    if (hasSaved.current) return;
+    hasSaved.current = true;
+    void performSave();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -184,7 +197,7 @@ export default function Phase4Review({
   // -------------------------------------------------------------------------
   async function handleSendEmail(e: React.FormEvent) {
     e.preventDefault();
-    if (!quoteId || !emailAddress.trim()) return;
+    if (!emailAddress.trim()) return;
     setEmailLoading(true);
     setEmailError(null);
     setEmailSuccess(false);
@@ -228,43 +241,30 @@ export default function Phase4Review({
   const validUntil = addDays(today, 14);
 
   // -------------------------------------------------------------------------
-  // Loading / error state while saving
-  // -------------------------------------------------------------------------
-  if (isSaving) {
-    return (
-      <div className="flex min-h-64 items-center justify-center">
-        <div className="flex flex-col items-center gap-4 text-center">
-          <div className="h-10 w-10 animate-spin rounded-full border-4 border-gray-600 border-t-[#d4af37]" />
-          <p className="text-gray-400">Offerte opslaan…</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (saveError) {
-    return (
-      <div className="rounded-lg border border-red-800 bg-gray-900 p-6 text-center">
-        <p className="text-[#cc0000] font-semibold mb-4">{saveError}</p>
-        <button
-          type="button"
-          onClick={() => {
-            hasSaved.current = false;
-            setIsSaving(true);
-            setSaveError(null);
-          }}
-          className="rounded bg-[#cc0000] px-6 py-3 font-semibold text-white"
-        >
-          Opnieuw proberen
-        </button>
-      </div>
-    );
-  }
-
-  // -------------------------------------------------------------------------
   // Main render
   // -------------------------------------------------------------------------
   return (
     <div className="flex flex-col gap-6 pb-12">
+
+      {/* Save status banner — non-blocking */}
+      {isSaving && (
+        <div className="flex items-center gap-3 rounded-lg border border-gray-700 bg-gray-900 px-4 py-3 text-sm text-gray-400">
+          <span className="inline-block h-4 w-4 shrink-0 animate-spin rounded-full border-2 border-gray-600 border-t-[#d4af37]" />
+          Offerte opslaan op server…
+        </div>
+      )}
+      {saveError && !isSaving && (
+        <div className="flex flex-col gap-2 rounded-lg border border-orange-800 bg-gray-900 px-4 py-3 text-sm">
+          <p className="text-orange-400">{saveError}</p>
+          <button
+            type="button"
+            onClick={() => void performSave()}
+            className="self-start rounded bg-gray-700 px-4 py-2 text-xs font-semibold text-white hover:bg-gray-600"
+          >
+            Opnieuw proberen
+          </button>
+        </div>
+      )}
 
       {/* ------------------------------------------------------------------ */}
       {/* Section 1: Quote header                                             */}
@@ -525,7 +525,7 @@ export default function Phase4Review({
         <button
           type="button"
           onClick={handleDownloadPDF}
-          disabled={!quoteId || pdfLoading}
+          disabled={pdfLoading}
           className="min-h-12 rounded-lg px-6 py-3 font-semibold text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           style={{ backgroundColor: "#d4af37", color: "#000" }}
         >
@@ -551,8 +551,7 @@ export default function Phase4Review({
               setEmailSuccess(false);
               setEmailError(null);
             }}
-            disabled={!quoteId}
-            className="min-h-12 rounded-lg px-6 py-3 font-semibold text-sm bg-gray-800 text-white border border-gray-600 hover:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="min-h-12 rounded-lg px-6 py-3 font-semibold text-sm bg-gray-800 text-white border border-gray-600 hover:bg-gray-700 transition-colors"
           >
             Per e-mail versturen
           </button>
