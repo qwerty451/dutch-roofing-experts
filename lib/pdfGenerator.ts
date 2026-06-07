@@ -183,7 +183,7 @@ function drawQuoteInfo(
   doc.setLineWidth(0.3);
   doc.line(MARGIN_L, y, PAGE_W - MARGIN_R, y);
 
-  y += 7;
+  y += 12;
 
   // Title: OFFERTE / QUOTATION / PRESUPUESTO — big red text
   doc.setFont('helvetica', 'bold');
@@ -191,7 +191,7 @@ function drawQuoteInfo(
   setTextHex(doc, COLOR_RED);
   doc.text(t.offerteTitle, MARGIN_L, y);
 
-  // Quote number — right side
+  // Quote number — right side (aligned with top of OFFERTE letters)
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(9);
   setTextHex(doc, COLOR_TEXT_DARK);
