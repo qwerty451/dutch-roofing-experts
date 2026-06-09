@@ -6,7 +6,7 @@
     "lastUpdated": "2026-06-09"
   },
   "labor": {
-    "baseHourlyRate": 46,
+    "baseHourlyRate": 45,
     "enabled": true
   },
   "categories": [
@@ -28,7 +28,7 @@
             "es": "Cubierta de betún"
           },
           "unit": "m²",
-          "basePrice": 39,
+          "basePrice": 10,
           "options": {
             "lagen": {
               "label": {
@@ -40,30 +40,18 @@
               "choices": [
                 {
                   "id": "1_laags",
-                  "label": {
-                    "nl": "1-laags",
-                    "en": "Single layer",
-                    "es": "1 capa"
-                  },
-                  "priceModifier": -6
+                  "label": { "nl": "1-laags", "en": "Single layer", "es": "1 capa" },
+                  "priceModifier": -3
                 },
                 {
                   "id": "2_laags",
-                  "label": {
-                    "nl": "2-laags",
-                    "en": "Double layer",
-                    "es": "2 capas"
-                  },
+                  "label": { "nl": "2-laags", "en": "Double layer", "es": "2 capas" },
                   "priceModifier": 0
                 },
                 {
                   "id": "3_laags",
-                  "label": {
-                    "nl": "3-laags",
-                    "en": "Triple layer",
-                    "es": "3 capas"
-                  },
-                  "priceModifier": 8
+                  "label": { "nl": "3-laags", "en": "Triple layer", "es": "3 capas" },
+                  "priceModifier": 4
                 }
               ]
             },
@@ -77,30 +65,18 @@
               "choices": [
                 {
                   "id": "standaard",
-                  "label": {
-                    "nl": "Standaard",
-                    "en": "Standard",
-                    "es": "Estándar"
-                  },
+                  "label": { "nl": "Standaard", "en": "Standard", "es": "Estándar" },
                   "priceModifier": 0
                 },
                 {
                   "id": "sbs",
-                  "label": {
-                    "nl": "SBS Gemodificeerd",
-                    "en": "SBS Modified",
-                    "es": "SBS Modificado"
-                  },
-                  "priceModifier": 5
+                  "label": { "nl": "SBS Gemodificeerd", "en": "SBS Modified", "es": "SBS Modificado" },
+                  "priceModifier": 3
                 },
                 {
                   "id": "app",
-                  "label": {
-                    "nl": "APP Gemodificeerd",
-                    "en": "APP Modified",
-                    "es": "APP Modificado"
-                  },
-                  "priceModifier": 7
+                  "label": { "nl": "APP Gemodificeerd", "en": "APP Modified", "es": "APP Modificado" },
+                  "priceModifier": 5
                 }
               ]
             },
@@ -114,30 +90,18 @@
               "choices": [
                 {
                   "id": "3mm",
-                  "label": {
-                    "nl": "3mm",
-                    "en": "3mm",
-                    "es": "3mm"
-                  },
+                  "label": { "nl": "3mm", "en": "3mm", "es": "3mm" },
                   "priceModifier": 0
                 },
                 {
                   "id": "4mm",
-                  "label": {
-                    "nl": "4mm",
-                    "en": "4mm",
-                    "es": "4mm"
-                  },
-                  "priceModifier": 4
+                  "label": { "nl": "4mm", "en": "4mm", "es": "4mm" },
+                  "priceModifier": 2
                 },
                 {
                   "id": "5mm",
-                  "label": {
-                    "nl": "5mm",
-                    "en": "5mm",
-                    "es": "5mm"
-                  },
-                  "priceModifier": 8
+                  "label": { "nl": "5mm", "en": "5mm", "es": "5mm" },
+                  "priceModifier": 4
                 }
               ]
             },
@@ -151,30 +115,18 @@
               "choices": [
                 {
                   "id": "zand",
-                  "label": {
-                    "nl": "Zand",
-                    "en": "Sand",
-                    "es": "Arena"
-                  },
+                  "label": { "nl": "Zand", "en": "Sand", "es": "Arena" },
                   "priceModifier": 0
                 },
                 {
                   "id": "leisteen",
-                  "label": {
-                    "nl": "Leisteen",
-                    "en": "Slate finish",
-                    "es": "Pizarra"
-                  },
-                  "priceModifier": 3
+                  "label": { "nl": "Leisteen", "en": "Slate finish", "es": "Pizarra" },
+                  "priceModifier": 2
                 },
                 {
                   "id": "alu_folie",
-                  "label": {
-                    "nl": "Alu-folie",
-                    "en": "Aluminium foil",
-                    "es": "Papel aluminio"
-                  },
-                  "priceModifier": 5
+                  "label": { "nl": "Alu-folie", "en": "Aluminium foil", "es": "Papel aluminio" },
+                  "priceModifier": 2
                 }
               ]
             },
@@ -185,7 +137,7 @@
                 "es": "¿Incluir aislamiento?"
               },
               "type": "boolean",
-              "pricePerM2WhenTrue": 14
+              "pricePerM2WhenTrue": 6
             },
             "verwijderen": {
               "label": {
@@ -194,7 +146,7 @@
                 "es": "¿Retirar cubierta existente primero?"
               },
               "type": "boolean",
-              "pricePerM2WhenTrue": 9
+              "pricePerM2WhenTrue": 2
             }
           }
         },
@@ -207,99 +159,59 @@
             "es": "EPDM (Cubierta de goma)"
           },
           "unit": "m²",
-          "basePrice": 42,
+          "basePrice": 7,
           "options": {
             "dikte": {
-              "label": {
-                "nl": "Dikte",
-                "en": "Thickness",
-                "es": "Grosor"
-              },
+              "label": { "nl": "Dikte", "en": "Thickness", "es": "Grosor" },
               "type": "select",
               "choices": [
                 {
                   "id": "1_0mm",
-                  "label": {
-                    "nl": "1.0mm",
-                    "en": "1.0mm",
-                    "es": "1.0mm"
-                  },
+                  "label": { "nl": "1.0mm", "en": "1.0mm", "es": "1.0mm" },
                   "priceModifier": 0
                 },
                 {
                   "id": "1_2mm",
-                  "label": {
-                    "nl": "1.2mm",
-                    "en": "1.2mm",
-                    "es": "1.2mm"
-                  },
-                  "priceModifier": 4
+                  "label": { "nl": "1.2mm", "en": "1.2mm", "es": "1.2mm" },
+                  "priceModifier": 2
                 },
                 {
                   "id": "1_5mm",
-                  "label": {
-                    "nl": "1.5mm",
-                    "en": "1.5mm",
-                    "es": "1.5mm"
-                  },
-                  "priceModifier": 9
+                  "label": { "nl": "1.5mm", "en": "1.5mm", "es": "1.5mm" },
+                  "priceModifier": 5
                 }
               ]
             },
             "bevestiging": {
-              "label": {
-                "nl": "Bevestiging",
-                "en": "Fixing method",
-                "es": "Método de fijación"
-              },
+              "label": { "nl": "Bevestiging", "en": "Fixing method", "es": "Método de fijación" },
               "type": "select",
               "choices": [
                 {
                   "id": "gelijmd",
-                  "label": {
-                    "nl": "Gelijmd",
-                    "en": "Glued",
-                    "es": "Encolado"
-                  },
+                  "label": { "nl": "Gelijmd", "en": "Glued", "es": "Encolado" },
                   "priceModifier": 0
                 },
                 {
                   "id": "mechanisch",
-                  "label": {
-                    "nl": "Mechanisch",
-                    "en": "Mechanical",
-                    "es": "Mecánico"
-                  },
-                  "priceModifier": 3
+                  "label": { "nl": "Mechanisch", "en": "Mechanical", "es": "Mecánico" },
+                  "priceModifier": 1
                 },
                 {
                   "id": "ballast",
-                  "label": {
-                    "nl": "Ballast",
-                    "en": "Ballast",
-                    "es": "Lastre"
-                  },
-                  "priceModifier": -4
+                  "label": { "nl": "Ballast", "en": "Ballast", "es": "Lastre" },
+                  "priceModifier": -1
                 }
               ]
             },
             "isolatie": {
-              "label": {
-                "nl": "Isolatie meenemen?",
-                "en": "Include insulation?",
-                "es": "¿Incluir aislamiento?"
-              },
+              "label": { "nl": "Isolatie meenemen?", "en": "Include insulation?", "es": "¿Incluir aislamiento?" },
               "type": "boolean",
-              "pricePerM2WhenTrue": 14
+              "pricePerM2WhenTrue": 6
             },
             "verwijderen": {
-              "label": {
-                "nl": "Oude bedekking verwijderen?",
-                "en": "Remove old roofing?",
-                "es": "¿Retirar cubierta antigua?"
-              },
+              "label": { "nl": "Oude bedekking verwijderen?", "en": "Remove old roofing?", "es": "¿Retirar cubierta antigua?" },
               "type": "boolean",
-              "pricePerM2WhenTrue": 9
+              "pricePerM2WhenTrue": 2
             }
           }
         },
@@ -312,44 +224,28 @@
             "es": "Cubierta de grava / lastre"
           },
           "unit": "m²",
-          "basePrice": 25,
+          "basePrice": 4,
           "options": {
             "grindlaag": {
-              "label": {
-                "nl": "Grindlaag dikte",
-                "en": "Gravel layer thickness",
-                "es": "Espesor de capa de grava"
-              },
+              "label": { "nl": "Grindlaag dikte", "en": "Gravel layer thickness", "es": "Espesor de capa de grava" },
               "type": "select",
               "choices": [
                 {
                   "id": "standaard",
-                  "label": {
-                    "nl": "Standaard",
-                    "en": "Standard",
-                    "es": "Estándar"
-                  },
+                  "label": { "nl": "Standaard", "en": "Standard", "es": "Estándar" },
                   "priceModifier": 0
                 },
                 {
                   "id": "extra_dik",
-                  "label": {
-                    "nl": "Extra dik",
-                    "en": "Extra thick",
-                    "es": "Extra grueso"
-                  },
-                  "priceModifier": 7
+                  "label": { "nl": "Extra dik", "en": "Extra thick", "es": "Extra grueso" },
+                  "priceModifier": 3
                 }
               ]
             },
             "vlieslaag": {
-              "label": {
-                "nl": "Vlieslaag vernieuwen?",
-                "en": "Renew fleece layer?",
-                "es": "¿Renovar capa de fieltro?"
-              },
+              "label": { "nl": "Vlieslaag vernieuwen?", "en": "Renew fleece layer?", "es": "¿Renovar capa de fieltro?" },
               "type": "boolean",
-              "pricePerM2WhenTrue": 5
+              "pricePerM2WhenTrue": 2
             }
           }
         },
@@ -362,70 +258,42 @@
             "es": "Impermeabilización líquida"
           },
           "unit": "m²",
-          "basePrice": 18,
+          "basePrice": 6,
           "options": {
             "type": {
-              "label": {
-                "nl": "Type coating",
-                "en": "Coating type",
-                "es": "Tipo de impermeabilización"
-              },
+              "label": { "nl": "Type coating", "en": "Coating type", "es": "Tipo de impermeabilización" },
               "type": "select",
               "choices": [
                 {
                   "id": "pur",
-                  "label": {
-                    "nl": "Polyurethaan (PUR)",
-                    "en": "Polyurethane (PUR)",
-                    "es": "Poliuretano (PUR)"
-                  },
-                  "priceModifier": 4
+                  "label": { "nl": "Polyurethaan (PUR)", "en": "Polyurethane (PUR)", "es": "Poliuretano (PUR)" },
+                  "priceModifier": 3
                 },
                 {
                   "id": "pmma",
-                  "label": {
-                    "nl": "PMMA acrylaat",
-                    "en": "PMMA acrylate",
-                    "es": "Acrilato PMMA"
-                  },
-                  "priceModifier": 8
+                  "label": { "nl": "PMMA acrylaat", "en": "PMMA acrylate", "es": "Acrilato PMMA" },
+                  "priceModifier": 6
                 }
               ]
             },
             "lagen": {
-              "label": {
-                "nl": "Aantal lagen",
-                "en": "Number of layers",
-                "es": "Número de capas"
-              },
+              "label": { "nl": "Aantal lagen", "en": "Number of layers", "es": "Número de capas" },
               "type": "select",
               "choices": [
                 {
                   "id": "1",
-                  "label": {
-                    "nl": "1 laag",
-                    "en": "1 layer",
-                    "es": "1 capa"
-                  },
+                  "label": { "nl": "1 laag", "en": "1 layer", "es": "1 capa" },
                   "priceModifier": 0
                 },
                 {
                   "id": "2",
-                  "label": {
-                    "nl": "2 lagen",
-                    "en": "2 layers",
-                    "es": "2 capas"
-                  },
-                  "priceModifier": 5
+                  "label": { "nl": "2 lagen", "en": "2 layers", "es": "2 capas" },
+                  "priceModifier": 3
                 },
                 {
                   "id": "3",
-                  "label": {
-                    "nl": "3 lagen",
-                    "en": "3 layers",
-                    "es": "3 capas"
-                  },
-                  "priceModifier": 10
+                  "label": { "nl": "3 lagen", "en": "3 layers", "es": "3 capas" },
+                  "priceModifier": 6
                 }
               ]
             }
@@ -451,73 +319,45 @@
             "es": "Tejas de hormigón"
           },
           "unit": "m²",
-          "basePrice": 32,
+          "basePrice": 10,
           "options": {
             "werkzaamheid": {
-              "label": {
-                "nl": "Werkzaamheid",
-                "en": "Work type",
-                "es": "Tipo de trabajo"
-              },
+              "label": { "nl": "Werkzaamheid", "en": "Work type", "es": "Tipo de trabajo" },
               "type": "select",
               "choices": [
                 {
                   "id": "volledig",
-                  "label": {
-                    "nl": "Volledig vervangen",
-                    "en": "Full replacement",
-                    "es": "Sustitución completa"
-                  },
+                  "label": { "nl": "Volledig vervangen", "en": "Full replacement", "es": "Sustitución completa" },
                   "priceModifier": 0
                 },
                 {
                   "id": "gedeeltelijk",
-                  "label": {
-                    "nl": "Gedeeltelijk repareren",
-                    "en": "Partial repair",
-                    "es": "Reparación parcial"
-                  },
-                  "priceModifier": -8
+                  "label": { "nl": "Gedeeltelijk repareren", "en": "Partial repair", "es": "Reparación parcial" },
+                  "priceModifier": -3
                 },
                 {
                   "id": "losse_pannen",
-                  "label": {
-                    "nl": "Losse pannen vervangen",
-                    "en": "Replace loose tiles",
-                    "es": "Sustituir tejas sueltas"
-                  },
-                  "priceModifier": -14
+                  "label": { "nl": "Losse pannen vervangen", "en": "Replace loose tiles", "es": "Sustituir tejas sueltas" },
+                  "priceModifier": -6
                 }
               ]
             },
             "nokvorsten": {
-              "label": {
-                "nl": "Nokvorsten meenemen?",
-                "en": "Include ridge tiles?",
-                "es": "¿Incluir caballetes?"
-              },
+              "label": { "nl": "Nokvorsten meenemen?", "en": "Include ridge tiles?", "es": "¿Incluir caballetes?" },
               "type": "boolean_with_quantity",
               "unit": "m",
-              "pricePerUnitWhenTrue": 22
-            },
-            "windveren": {
-              "label": {
-                "nl": "Windveren vervangen?",
-                "en": "Replace verge tiles?",
-                "es": "¿Sustituir tejas de alero?"
-              },
-              "type": "boolean_with_quantity",
-              "unit": "stuks",
               "pricePerUnitWhenTrue": 12
             },
+            "windveren": {
+              "label": { "nl": "Windveren vervangen?", "en": "Replace verge tiles?", "es": "¿Sustituir tejas de alero?" },
+              "type": "boolean_with_quantity",
+              "unit": "stuks",
+              "pricePerUnitWhenTrue": 5
+            },
             "folie_lat_regelwerk": {
-              "label": {
-                "nl": "Folie + lat + regelwerk vernieuwen?",
-                "en": "Renew underlay + battens?",
-                "es": "¿Renovar fieltro + rastreles?"
-              },
+              "label": { "nl": "Folie + lat + regelwerk vernieuwen?", "en": "Renew underlay + battens?", "es": "¿Renovar fieltro + rastreles?" },
               "type": "boolean",
-              "pricePerM2WhenTrue": 11
+              "pricePerM2WhenTrue": 4
             }
           }
         },
@@ -530,110 +370,66 @@
             "es": "Tejas cerámicas"
           },
           "unit": "m²",
-          "basePrice": 48,
+          "basePrice": 16,
           "options": {
             "werkzaamheid": {
-              "label": {
-                "nl": "Werkzaamheid",
-                "en": "Work type",
-                "es": "Tipo de trabajo"
-              },
+              "label": { "nl": "Werkzaamheid", "en": "Work type", "es": "Tipo de trabajo" },
               "type": "select",
               "choices": [
                 {
                   "id": "volledig",
-                  "label": {
-                    "nl": "Volledig vervangen",
-                    "en": "Full replacement",
-                    "es": "Sustitución completa"
-                  },
+                  "label": { "nl": "Volledig vervangen", "en": "Full replacement", "es": "Sustitución completa" },
                   "priceModifier": 0
                 },
                 {
                   "id": "gedeeltelijk",
-                  "label": {
-                    "nl": "Gedeeltelijk repareren",
-                    "en": "Partial repair",
-                    "es": "Reparación parcial"
-                  },
-                  "priceModifier": -10
+                  "label": { "nl": "Gedeeltelijk repareren", "en": "Partial repair", "es": "Reparación parcial" },
+                  "priceModifier": -4
                 },
                 {
                   "id": "losse_pannen",
-                  "label": {
-                    "nl": "Losse pannen vervangen",
-                    "en": "Replace loose tiles",
-                    "es": "Sustituir tejas sueltas"
-                  },
-                  "priceModifier": -18
+                  "label": { "nl": "Losse pannen vervangen", "en": "Replace loose tiles", "es": "Sustituir tejas sueltas" },
+                  "priceModifier": -8
                 }
               ]
             },
             "profiel": {
-              "label": {
-                "nl": "Type profiel",
-                "en": "Tile profile",
-                "es": "Perfil de teja"
-              },
+              "label": { "nl": "Type profiel", "en": "Tile profile", "es": "Perfil de teja" },
               "type": "select",
               "choices": [
                 {
                   "id": "romaans",
-                  "label": {
-                    "nl": "Romaans",
-                    "en": "Roman",
-                    "es": "Romano"
-                  },
+                  "label": { "nl": "Romaans", "en": "Roman", "es": "Romano" },
                   "priceModifier": 0
                 },
                 {
                   "id": "vlak",
-                  "label": {
-                    "nl": "Vlak",
-                    "en": "Flat",
-                    "es": "Plano"
-                  },
-                  "priceModifier": -3
+                  "label": { "nl": "Vlak", "en": "Flat", "es": "Plano" },
+                  "priceModifier": -2
                 },
                 {
                   "id": "golf",
-                  "label": {
-                    "nl": "Golf",
-                    "en": "Wave",
-                    "es": "Ola"
-                  },
-                  "priceModifier": 5
+                  "label": { "nl": "Golf", "en": "Wave", "es": "Ola" },
+                  "priceModifier": 3
                 }
               ]
             },
             "nokvorsten": {
-              "label": {
-                "nl": "Nokvorsten meenemen?",
-                "en": "Include ridge tiles?",
-                "es": "¿Incluir caballetes?"
-              },
+              "label": { "nl": "Nokvorsten meenemen?", "en": "Include ridge tiles?", "es": "¿Incluir caballetes?" },
               "type": "boolean_with_quantity",
               "unit": "m",
-              "pricePerUnitWhenTrue": 28
-            },
-            "windveren": {
-              "label": {
-                "nl": "Windveren vervangen?",
-                "en": "Replace verge tiles?",
-                "es": "¿Sustituir tejas de alero?"
-              },
-              "type": "boolean_with_quantity",
-              "unit": "stuks",
               "pricePerUnitWhenTrue": 15
             },
+            "windveren": {
+              "label": { "nl": "Windveren vervangen?", "en": "Replace verge tiles?", "es": "¿Sustituir tejas de alero?" },
+              "type": "boolean_with_quantity",
+              "unit": "stuks",
+              "pricePerUnitWhenTrue": 7
+            },
             "folie_lat_regelwerk": {
-              "label": {
-                "nl": "Folie + lat + regelwerk vernieuwen?",
-                "en": "Renew underlay + battens?",
-                "es": "¿Renovar fieltro + rastreles?"
-              },
+              "label": { "nl": "Folie + lat + regelwerk vernieuwen?", "en": "Renew underlay + battens?", "es": "¿Renovar fieltro + rastreles?" },
               "type": "boolean",
-              "pricePerM2WhenTrue": 11
+              "pricePerM2WhenTrue": 4
             }
           }
         },
@@ -646,98 +442,58 @@
             "es": "Tejado de pizarra"
           },
           "unit": "m²",
-          "basePrice": 65,
+          "basePrice": 25,
           "options": {
             "soort": {
-              "label": {
-                "nl": "Soort leien",
-                "en": "Slate type",
-                "es": "Tipo de pizarra"
-              },
+              "label": { "nl": "Soort leien", "en": "Slate type", "es": "Tipo de pizarra" },
               "type": "select",
               "choices": [
                 {
                   "id": "natuurleien",
-                  "label": {
-                    "nl": "Natuurleien",
-                    "en": "Natural slate",
-                    "es": "Pizarra natural"
-                  },
+                  "label": { "nl": "Natuurleien", "en": "Natural slate", "es": "Pizarra natural" },
                   "priceModifier": 0
                 },
                 {
                   "id": "kunststof",
-                  "label": {
-                    "nl": "Kunststof leien",
-                    "en": "Synthetic slate",
-                    "es": "Pizarra sintética"
-                  },
-                  "priceModifier": -18
+                  "label": { "nl": "Kunststof leien", "en": "Synthetic slate", "es": "Pizarra sintética" },
+                  "priceModifier": -10
                 }
               ]
             },
             "formaat": {
-              "label": {
-                "nl": "Formaat",
-                "en": "Size",
-                "es": "Tamaño"
-              },
+              "label": { "nl": "Formaat", "en": "Size", "es": "Tamaño" },
               "type": "select",
               "choices": [
                 {
                   "id": "standaard",
-                  "label": {
-                    "nl": "Standaard formaat",
-                    "en": "Standard size",
-                    "es": "Tamaño estándar"
-                  },
+                  "label": { "nl": "Standaard formaat", "en": "Standard size", "es": "Tamaño estándar" },
                   "priceModifier": 0
                 },
                 {
                   "id": "groot",
-                  "label": {
-                    "nl": "Groot formaat",
-                    "en": "Large format",
-                    "es": "Formato grande"
-                  },
-                  "priceModifier": 12
+                  "label": { "nl": "Groot formaat", "en": "Large format", "es": "Formato grande" },
+                  "priceModifier": 8
                 }
               ]
             },
             "bevestiging": {
-              "label": {
-                "nl": "Bevestigingsmethode",
-                "en": "Fixing method",
-                "es": "Método de fijación"
-              },
+              "label": { "nl": "Bevestigingsmethode", "en": "Fixing method", "es": "Método de fijación" },
               "type": "select",
               "choices": [
                 {
                   "id": "spijkers",
-                  "label": {
-                    "nl": "Spijkers",
-                    "en": "Nails",
-                    "es": "Clavos"
-                  },
+                  "label": { "nl": "Spijkers", "en": "Nails", "es": "Clavos" },
                   "priceModifier": 0
                 },
                 {
                   "id": "haken",
-                  "label": {
-                    "nl": "Haken",
-                    "en": "Hooks",
-                    "es": "Ganchos"
-                  },
-                  "priceModifier": 6
+                  "label": { "nl": "Haken", "en": "Hooks", "es": "Ganchos" },
+                  "priceModifier": 4
                 },
                 {
                   "id": "dubbelgedekt",
-                  "label": {
-                    "nl": "Dubbelgedekt",
-                    "en": "Double lap",
-                    "es": "Doble solape"
-                  },
-                  "priceModifier": 18
+                  "label": { "nl": "Dubbelgedekt", "en": "Double lap", "es": "Doble solape" },
+                  "priceModifier": 10
                 }
               ]
             }
@@ -752,62 +508,38 @@
             "es": "Cubierta metálica / Junta alzada"
           },
           "unit": "m²",
-          "basePrice": 75,
+          "basePrice": 30,
           "options": {
             "materiaal": {
-              "label": {
-                "nl": "Materiaal",
-                "en": "Material",
-                "es": "Material"
-              },
+              "label": { "nl": "Materiaal", "en": "Material", "es": "Material" },
               "type": "select",
               "choices": [
                 {
                   "id": "zink",
-                  "label": {
-                    "nl": "Zink",
-                    "en": "Zinc",
-                    "es": "Zinc"
-                  },
+                  "label": { "nl": "Zink", "en": "Zinc", "es": "Zinc" },
                   "priceModifier": 0
                 },
                 {
                   "id": "titaanzink",
-                  "label": {
-                    "nl": "Titaanzink",
-                    "en": "Titanium zinc",
-                    "es": "Zinc titánio"
-                  },
-                  "priceModifier": 18
-                },
-                {
-                  "id": "aluminium",
-                  "label": {
-                    "nl": "Aluminium",
-                    "en": "Aluminium",
-                    "es": "Aluminio"
-                  },
+                  "label": { "nl": "Titaanzink", "en": "Titanium zinc", "es": "Zinc titánio" },
                   "priceModifier": 12
                 },
                 {
+                  "id": "aluminium",
+                  "label": { "nl": "Aluminium", "en": "Aluminium", "es": "Aluminio" },
+                  "priceModifier": 8
+                },
+                {
                   "id": "cortenstaal",
-                  "label": {
-                    "nl": "Cortenstaal",
-                    "en": "Corten steel",
-                    "es": "Acero corten"
-                  },
-                  "priceModifier": 25
+                  "label": { "nl": "Cortenstaal", "en": "Corten steel", "es": "Acero corten" },
+                  "priceModifier": 18
                 }
               ]
             },
             "isolatie": {
-              "label": {
-                "nl": "Isolatie meenemen?",
-                "en": "Include insulation?",
-                "es": "¿Incluir aislamiento?"
-              },
+              "label": { "nl": "Isolatie meenemen?", "en": "Include insulation?", "es": "¿Incluir aislamiento?" },
               "type": "boolean",
-              "pricePerM2WhenTrue": 16
+              "pricePerM2WhenTrue": 8
             }
           }
         }
@@ -831,97 +563,57 @@
             "es": "Canalones de tejado"
           },
           "unit": "m",
-          "basePrice": 28,
+          "basePrice": 6,
           "options": {
             "soort": {
-              "label": {
-                "nl": "Soort goot",
-                "en": "Gutter type",
-                "es": "Tipo de canalón"
-              },
+              "label": { "nl": "Soort goot", "en": "Gutter type", "es": "Tipo de canalón" },
               "type": "select",
               "choices": [
                 {
                   "id": "pvc",
-                  "label": {
-                    "nl": "PVC",
-                    "en": "PVC",
-                    "es": "PVC"
-                  },
+                  "label": { "nl": "PVC", "en": "PVC", "es": "PVC" },
                   "priceModifier": 0
                 },
                 {
                   "id": "zink",
-                  "label": {
-                    "nl": "Zink",
-                    "en": "Zinc",
-                    "es": "Zinc"
-                  },
-                  "priceModifier": 12
-                },
-                {
-                  "id": "aluminium",
-                  "label": {
-                    "nl": "Aluminium",
-                    "en": "Aluminium",
-                    "es": "Aluminio"
-                  },
+                  "label": { "nl": "Zink", "en": "Zinc", "es": "Zinc" },
                   "priceModifier": 8
                 },
                 {
+                  "id": "aluminium",
+                  "label": { "nl": "Aluminium", "en": "Aluminium", "es": "Aluminio" },
+                  "priceModifier": 5
+                },
+                {
                   "id": "koper",
-                  "label": {
-                    "nl": "Koper",
-                    "en": "Copper",
-                    "es": "Cobre"
-                  },
-                  "priceModifier": 45
+                  "label": { "nl": "Koper", "en": "Copper", "es": "Cobre" },
+                  "priceModifier": 30
                 }
               ]
             },
             "werkzaamheid": {
-              "label": {
-                "nl": "Werkzaamheid",
-                "en": "Work type",
-                "es": "Tipo de trabajo"
-              },
+              "label": { "nl": "Werkzaamheid", "en": "Work type", "es": "Tipo de trabajo" },
               "type": "select",
               "choices": [
                 {
                   "id": "nieuw",
-                  "label": {
-                    "nl": "Nieuw plaatsen",
-                    "en": "New installation",
-                    "es": "Instalación nueva"
-                  },
+                  "label": { "nl": "Nieuw plaatsen", "en": "New installation", "es": "Instalación nueva" },
                   "priceModifier": 0
                 },
                 {
                   "id": "vervangen",
-                  "label": {
-                    "nl": "Vervangen",
-                    "en": "Replace",
-                    "es": "Sustituir"
-                  },
-                  "priceModifier": 5
+                  "label": { "nl": "Vervangen", "en": "Replace", "es": "Sustituir" },
+                  "priceModifier": 2
                 },
                 {
                   "id": "reinigen",
-                  "label": {
-                    "nl": "Reinigen",
-                    "en": "Clean",
-                    "es": "Limpiar"
-                  },
-                  "priceModifier": -18
+                  "label": { "nl": "Reinigen", "en": "Clean", "es": "Limpiar" },
+                  "priceModifier": -4
                 },
                 {
                   "id": "repareren",
-                  "label": {
-                    "nl": "Repareren",
-                    "en": "Repair",
-                    "es": "Reparar"
-                  },
-                  "priceModifier": -10
+                  "label": { "nl": "Repareren", "en": "Repair", "es": "Reparar" },
+                  "priceModifier": -3
                 }
               ]
             }
@@ -936,16 +628,12 @@
             "es": "Canalones de zinc a medida"
           },
           "unit": "m",
-          "basePrice": 45,
+          "basePrice": 18,
           "options": {
             "op_maat": {
-              "label": {
-                "nl": "Op maat gemaakt?",
-                "en": "Custom made?",
-                "es": "¿A medida?"
-              },
+              "label": { "nl": "Op maat gemaakt?", "en": "Custom made?", "es": "¿A medida?" },
               "type": "boolean",
-              "pricePerUnitWhenTrue": 18
+              "pricePerUnitWhenTrue": 10
             }
           }
         },
@@ -958,33 +646,21 @@
             "es": "Drenaje interno"
           },
           "unit": "afvoerpunt",
-          "basePrice": 180,
+          "basePrice": 65,
           "options": {
             "type": {
-              "label": {
-                "nl": "Type afvoer",
-                "en": "Drain type",
-                "es": "Tipo de desagüe"
-              },
+              "label": { "nl": "Type afvoer", "en": "Drain type", "es": "Tipo de desagüe" },
               "type": "select",
               "choices": [
                 {
                   "id": "pvc",
-                  "label": {
-                    "nl": "PVC",
-                    "en": "PVC",
-                    "es": "PVC"
-                  },
+                  "label": { "nl": "PVC", "en": "PVC", "es": "PVC" },
                   "priceModifier": 0
                 },
                 {
                   "id": "hdpe",
-                  "label": {
-                    "nl": "HDPE",
-                    "en": "HDPE",
-                    "es": "HDPE"
-                  },
-                  "priceModifier": 35
+                  "label": { "nl": "HDPE", "en": "HDPE", "es": "HDPE" },
+                  "priceModifier": 20
                 }
               ]
             }
@@ -1010,72 +686,44 @@
             "es": "Chimenea"
           },
           "unit": "m²",
-          "basePrice": 35,
+          "basePrice": 10,
           "options": {
             "loodwerk": {
-              "label": {
-                "nl": "Loodwerk vervangen?",
-                "en": "Replace lead flashing?",
-                "es": "¿Sustituir vierteaguas de plomo?"
-              },
+              "label": { "nl": "Loodwerk vervangen?", "en": "Replace lead flashing?", "es": "¿Sustituir vierteaguas de plomo?" },
               "type": "boolean_with_quantity",
               "unit": "m",
-              "pricePerUnitWhenTrue": 85
+              "pricePerUnitWhenTrue": 35
             },
             "kap": {
-              "label": {
-                "nl": "Schoorsteenkap plaatsen/vervangen?",
-                "en": "Install/replace chimney cap?",
-                "es": "¿Instalar/sustituir sombrero de chimenea?"
-              },
+              "label": { "nl": "Schoorsteenkap plaatsen/vervangen?", "en": "Install/replace chimney cap?", "es": "¿Instalar/sustituir sombrero de chimenea?" },
               "type": "select_with_boolean",
               "choices": [
                 {
                   "id": "geen",
-                  "label": {
-                    "nl": "Geen",
-                    "en": "None",
-                    "es": "Ninguno"
-                  },
+                  "label": { "nl": "Geen", "en": "None", "es": "Ninguno" },
                   "price": 0
                 },
                 {
                   "id": "rvs",
-                  "label": {
-                    "nl": "RVS",
-                    "en": "Stainless steel",
-                    "es": "Acero inoxidable"
-                  },
-                  "price": 185
+                  "label": { "nl": "RVS", "en": "Stainless steel", "es": "Acero inoxidable" },
+                  "price": 90
                 },
                 {
                   "id": "alu",
-                  "label": {
-                    "nl": "Aluminium",
-                    "en": "Aluminium",
-                    "es": "Aluminio"
-                  },
-                  "price": 145
+                  "label": { "nl": "Aluminium", "en": "Aluminium", "es": "Aluminio" },
+                  "price": 65
                 },
                 {
                   "id": "keramisch",
-                  "label": {
-                    "nl": "Keramisch",
-                    "en": "Ceramic",
-                    "es": "Cerámica"
-                  },
-                  "price": 225
+                  "label": { "nl": "Keramisch", "en": "Ceramic", "es": "Cerámica" },
+                  "price": 120
                 }
               ]
             },
             "schoorsteenveger": {
-              "label": {
-                "nl": "Schoorsteenveger inschakelen?",
-                "en": "Hire chimney sweep?",
-                "es": "¿Contratar deshollinador?"
-              },
+              "label": { "nl": "Schoorsteenveger inschakelen?", "en": "Hire chimney sweep?", "es": "¿Contratar deshollinador?" },
               "type": "boolean",
-              "flatPriceWhenTrue": 120
+              "flatPriceWhenTrue": 60
             }
           }
         },
@@ -1088,70 +736,42 @@
             "es": "Caballete / sellado de cumbrera"
           },
           "unit": "m",
-          "basePrice": 28,
+          "basePrice": 10,
           "options": {
             "werkzaamheid": {
-              "label": {
-                "nl": "Werkzaamheid",
-                "en": "Work type",
-                "es": "Tipo de trabajo"
-              },
+              "label": { "nl": "Werkzaamheid", "en": "Work type", "es": "Tipo de trabajo" },
               "type": "select",
               "choices": [
                 {
                   "id": "voegen",
-                  "label": {
-                    "nl": "Voegen bijwerken",
-                    "en": "Repoint mortar",
-                    "es": "Rejuntar"
-                  },
+                  "label": { "nl": "Voegen bijwerken", "en": "Repoint mortar", "es": "Rejuntar" },
                   "priceModifier": 0
                 },
                 {
                   "id": "vervangen",
-                  "label": {
-                    "nl": "Nokpannen vervangen",
-                    "en": "Replace ridge tiles",
-                    "es": "Sustituir tejas de cumbrera"
-                  },
-                  "priceModifier": 12
+                  "label": { "nl": "Nokpannen vervangen", "en": "Replace ridge tiles", "es": "Sustituir tejas de cumbrera" },
+                  "priceModifier": 5
                 },
                 {
                   "id": "nokpannen",
-                  "label": {
-                    "nl": "Nokpannen plaatsen (nieuw)",
-                    "en": "Install ridge tiles (new)",
-                    "es": "Instalar tejas de cumbrera (nuevo)"
-                  },
-                  "priceModifier": 18
+                  "label": { "nl": "Nokpannen plaatsen (nieuw)", "en": "Install ridge tiles (new)", "es": "Instalar tejas de cumbrera (nuevo)" },
+                  "priceModifier": 8
                 }
               ]
             },
             "afdichting": {
-              "label": {
-                "nl": "Type afdichting",
-                "en": "Sealing type",
-                "es": "Tipo de sellado"
-              },
+              "label": { "nl": "Type afdichting", "en": "Sealing type", "es": "Tipo de sellado" },
               "type": "select",
               "choices": [
                 {
                   "id": "traditioneel",
-                  "label": {
-                    "nl": "Traditioneel (mortel)",
-                    "en": "Traditional (mortar)",
-                    "es": "Tradicional (mortero)"
-                  },
+                  "label": { "nl": "Traditioneel (mortel)", "en": "Traditional (mortar)", "es": "Tradicional (mortero)" },
                   "priceModifier": 0
                 },
                 {
                   "id": "ventilerend",
-                  "label": {
-                    "nl": "Ventilerend systeem",
-                    "en": "Ventilated system",
-                    "es": "Sistema ventilado"
-                  },
-                  "priceModifier": 8
+                  "label": { "nl": "Ventilerend systeem", "en": "Ventilated system", "es": "Sistema ventilado" },
+                  "priceModifier": 4
                 }
               ]
             }
@@ -1166,42 +786,26 @@
             "es": "Limahoyas / vierteaguas"
           },
           "unit": "m",
-          "basePrice": 55,
+          "basePrice": 25,
           "options": {
             "materiaal": {
-              "label": {
-                "nl": "Materiaal",
-                "en": "Material",
-                "es": "Material"
-              },
+              "label": { "nl": "Materiaal", "en": "Material", "es": "Material" },
               "type": "select",
               "choices": [
                 {
                   "id": "lood",
-                  "label": {
-                    "nl": "Lood",
-                    "en": "Lead",
-                    "es": "Plomo"
-                  },
+                  "label": { "nl": "Lood", "en": "Lead", "es": "Plomo" },
                   "priceModifier": 0
                 },
                 {
                   "id": "zink",
-                  "label": {
-                    "nl": "Zink",
-                    "en": "Zinc",
-                    "es": "Zinc"
-                  },
-                  "priceModifier": -8
+                  "label": { "nl": "Zink", "en": "Zinc", "es": "Zinc" },
+                  "priceModifier": -5
                 },
                 {
                   "id": "aluminium",
-                  "label": {
-                    "nl": "Aluminium",
-                    "en": "Aluminium",
-                    "es": "Aluminio"
-                  },
-                  "priceModifier": -12
+                  "label": { "nl": "Aluminium", "en": "Aluminium", "es": "Aluminio" },
+                  "priceModifier": -8
                 }
               ]
             }
@@ -1227,108 +831,64 @@
             "es": "Velux / ventana de tejado"
           },
           "unit": "stuks",
-          "basePrice": 450,
+          "basePrice": 200,
           "options": {
             "maat": {
-              "label": {
-                "nl": "Maat",
-                "en": "Size",
-                "es": "Tamaño"
-              },
+              "label": { "nl": "Maat", "en": "Size", "es": "Tamaño" },
               "type": "select",
               "choices": [
                 {
                   "id": "standaard_55x78",
-                  "label": {
-                    "nl": "Standaard (55×78cm)",
-                    "en": "Standard (55×78cm)",
-                    "es": "Estándar (55×78cm)"
-                  },
+                  "label": { "nl": "Standaard (55×78cm)", "en": "Standard (55×78cm)", "es": "Estándar (55×78cm)" },
                   "priceModifier": 0
                 },
                 {
                   "id": "middel_78x118",
-                  "label": {
-                    "nl": "Middel (78×118cm)",
-                    "en": "Medium (78×118cm)",
-                    "es": "Mediano (78×118cm)"
-                  },
-                  "priceModifier": 300
+                  "label": { "nl": "Middel (78×118cm)", "en": "Medium (78×118cm)", "es": "Mediano (78×118cm)" },
+                  "priceModifier": 130
                 },
                 {
                   "id": "groot_114x118",
-                  "label": {
-                    "nl": "Groot (114×118cm)",
-                    "en": "Large (114×118cm)",
-                    "es": "Grande (114×118cm)"
-                  },
-                  "priceModifier": 750
+                  "label": { "nl": "Groot (114×118cm)", "en": "Large (114×118cm)", "es": "Grande (114×118cm)" },
+                  "priceModifier": 350
                 },
                 {
                   "id": "op_maat",
-                  "label": {
-                    "nl": "Op maat",
-                    "en": "Custom size",
-                    "es": "A medida"
-                  },
-                  "priceModifier": 1350
+                  "label": { "nl": "Op maat", "en": "Custom size", "es": "A medida" },
+                  "priceModifier": 700
                 }
               ]
             },
             "werkzaamheid": {
-              "label": {
-                "nl": "Werkzaamheid",
-                "en": "Work type",
-                "es": "Tipo de trabajo"
-              },
+              "label": { "nl": "Werkzaamheid", "en": "Work type", "es": "Tipo de trabajo" },
               "type": "select",
               "choices": [
                 {
                   "id": "nieuw",
-                  "label": {
-                    "nl": "Nieuw plaatsen",
-                    "en": "New installation",
-                    "es": "Instalación nueva"
-                  },
+                  "label": { "nl": "Nieuw plaatsen", "en": "New installation", "es": "Instalación nueva" },
                   "priceModifier": 0
                 },
                 {
                   "id": "vervangen",
-                  "label": {
-                    "nl": "Vervangen",
-                    "en": "Replace",
-                    "es": "Sustituir"
-                  },
-                  "priceModifier": 80
+                  "label": { "nl": "Vervangen", "en": "Replace", "es": "Sustituir" },
+                  "priceModifier": 30
                 },
                 {
                   "id": "afdichten",
-                  "label": {
-                    "nl": "Afdichten / repareren",
-                    "en": "Seal / repair",
-                    "es": "Sellar / reparar"
-                  },
-                  "priceModifier": -280
+                  "label": { "nl": "Afdichten / repareren", "en": "Seal / repair", "es": "Sellar / reparar" },
+                  "priceModifier": -140
                 },
                 {
                   "id": "onderhoud",
-                  "label": {
-                    "nl": "Onderhoud",
-                    "en": "Maintenance",
-                    "es": "Mantenimiento"
-                  },
-                  "priceModifier": -350
+                  "label": { "nl": "Onderhoud", "en": "Maintenance", "es": "Mantenimiento" },
+                  "priceModifier": -160
                 }
               ]
             },
             "rolluik": {
-              "label": {
-                "nl": "Rolluik / zonwering meenemen?",
-                "en": "Include roller blind / shading?",
-                "es": "¿Incluir persiana / protección solar?"
-              },
+              "label": { "nl": "Rolluik / zonwering meenemen?", "en": "Include roller blind / shading?", "es": "¿Incluir persiana / protección solar?" },
               "type": "boolean",
-              "flatPriceWhenTrue": 225
+              "flatPriceWhenTrue": 90
             }
           }
         },
@@ -1341,108 +901,64 @@
             "es": "Lucernario"
           },
           "unit": "stuks",
-          "basePrice": 380,
+          "basePrice": 150,
           "options": {
             "maat": {
-              "label": {
-                "nl": "Maat",
-                "en": "Size",
-                "es": "Tamaño"
-              },
+              "label": { "nl": "Maat", "en": "Size", "es": "Tamaño" },
               "type": "select",
               "choices": [
                 {
                   "id": "60x60",
-                  "label": {
-                    "nl": "60×60cm",
-                    "en": "60×60cm",
-                    "es": "60×60cm"
-                  },
+                  "label": { "nl": "60×60cm", "en": "60×60cm", "es": "60×60cm" },
                   "priceModifier": 0
                 },
                 {
                   "id": "80x80",
-                  "label": {
-                    "nl": "80×80cm",
-                    "en": "80×80cm",
-                    "es": "80×80cm"
-                  },
-                  "priceModifier": 140
+                  "label": { "nl": "80×80cm", "en": "80×80cm", "es": "80×80cm" },
+                  "priceModifier": 70
                 },
                 {
                   "id": "100x100",
-                  "label": {
-                    "nl": "100×100cm",
-                    "en": "100×100cm",
-                    "es": "100×100cm"
-                  },
-                  "priceModifier": 300
+                  "label": { "nl": "100×100cm", "en": "100×100cm", "es": "100×100cm" },
+                  "priceModifier": 150
                 },
                 {
                   "id": "op_maat",
-                  "label": {
-                    "nl": "Op maat",
-                    "en": "Custom size",
-                    "es": "A medida"
-                  },
-                  "priceModifier": 720
+                  "label": { "nl": "Op maat", "en": "Custom size", "es": "A medida" },
+                  "priceModifier": 380
                 }
               ]
             },
             "type": {
-              "label": {
-                "nl": "Type beglazing",
-                "en": "Glazing type",
-                "es": "Tipo de acristalamiento"
-              },
+              "label": { "nl": "Type beglazing", "en": "Glazing type", "es": "Tipo de acristalamiento" },
               "type": "select",
               "choices": [
                 {
                   "id": "enkel",
-                  "label": {
-                    "nl": "Enkel",
-                    "en": "Single glazed",
-                    "es": "Simple"
-                  },
+                  "label": { "nl": "Enkel", "en": "Single glazed", "es": "Simple" },
                   "priceModifier": 0
                 },
                 {
                   "id": "dubbel",
-                  "label": {
-                    "nl": "Dubbel",
-                    "en": "Double glazed",
-                    "es": "Doble"
-                  },
-                  "priceModifier": 95
+                  "label": { "nl": "Dubbel", "en": "Double glazed", "es": "Doble" },
+                  "priceModifier": 60
                 },
                 {
                   "id": "triple_hr",
-                  "label": {
-                    "nl": "Triple HR",
-                    "en": "Triple HR",
-                    "es": "Triple HR"
-                  },
-                  "priceModifier": 195
+                  "label": { "nl": "Triple HR", "en": "Triple HR", "es": "Triple HR" },
+                  "priceModifier": 120
                 }
               ]
             },
             "ventilerend": {
-              "label": {
-                "nl": "Ventilerend uitvoering?",
-                "en": "Ventilating model?",
-                "es": "¿Modelo ventilado?"
-              },
+              "label": { "nl": "Ventilerend uitvoering?", "en": "Ventilating model?", "es": "¿Modelo ventilado?" },
               "type": "boolean",
-              "flatPriceWhenTrue": 120
+              "flatPriceWhenTrue": 55
             },
             "opstand": {
-              "label": {
-                "nl": "Inclusief opstand (opstort)?",
-                "en": "Include upstand (kerb)?",
-                "es": "¿Incluir zócalo?"
-              },
+              "label": { "nl": "Inclusief opstand (opstort)?", "en": "Include upstand (kerb)?", "es": "¿Incluir zócalo?" },
               "type": "boolean",
-              "flatPriceWhenTrue": 185
+              "flatPriceWhenTrue": 75
             }
           }
         },
@@ -1455,51 +971,31 @@
             "es": "Pasos de cubierta"
           },
           "unit": "stuks",
-          "basePrice": 95,
+          "basePrice": 30,
           "options": {
             "type": {
-              "label": {
-                "nl": "Type doorvoer",
-                "en": "Penetration type",
-                "es": "Tipo de paso"
-              },
+              "label": { "nl": "Type doorvoer", "en": "Penetration type", "es": "Tipo de paso" },
               "type": "select",
               "choices": [
                 {
                   "id": "ventilatie",
-                  "label": {
-                    "nl": "Ventilatiedoorvoer",
-                    "en": "Ventilation",
-                    "es": "Ventilación"
-                  },
+                  "label": { "nl": "Ventilatiedoorvoer", "en": "Ventilation", "es": "Ventilación" },
                   "priceModifier": 0
                 },
                 {
                   "id": "elektra",
-                  "label": {
-                    "nl": "Elektra",
-                    "en": "Electrical",
-                    "es": "Electricidad"
-                  },
-                  "priceModifier": 15
+                  "label": { "nl": "Elektra", "en": "Electrical", "es": "Electricidad" },
+                  "priceModifier": 8
                 },
                 {
                   "id": "data",
-                  "label": {
-                    "nl": "Data / internet",
-                    "en": "Data / internet",
-                    "es": "Datos / internet"
-                  },
-                  "priceModifier": 15
+                  "label": { "nl": "Data / internet", "en": "Data / internet", "es": "Datos / internet" },
+                  "priceModifier": 8
                 },
                 {
                   "id": "warmtepomp",
-                  "label": {
-                    "nl": "Warmtepomp",
-                    "en": "Heat pump",
-                    "es": "Bomba de calor"
-                  },
-                  "priceModifier": 45
+                  "label": { "nl": "Warmtepomp", "en": "Heat pump", "es": "Bomba de calor" },
+                  "priceModifier": 20
                 }
               ]
             }
@@ -1525,51 +1021,31 @@
             "es": "Preparación cubierta para paneles solares"
           },
           "unit": "paneel",
-          "basePrice": 12,
+          "basePrice": 5,
           "options": {
             "constructie_versterken": {
-              "label": {
-                "nl": "Dakconstructie versterken?",
-                "en": "Reinforce roof structure?",
-                "es": "¿Reforzar estructura del tejado?"
-              },
+              "label": { "nl": "Dakconstructie versterken?", "en": "Reinforce roof structure?", "es": "¿Reforzar estructura del tejado?" },
               "type": "boolean",
-              "flatPriceWhenTrue": 350
+              "flatPriceWhenTrue": 200
             },
             "bevestiging": {
-              "label": {
-                "nl": "Type bevestiging",
-                "en": "Fixing type",
-                "es": "Tipo de fijación"
-              },
+              "label": { "nl": "Type bevestiging", "en": "Fixing type", "es": "Tipo de fijación" },
               "type": "select",
               "choices": [
                 {
                   "id": "op_pannen",
-                  "label": {
-                    "nl": "Op pannen",
-                    "en": "On tiles",
-                    "es": "Sobre tejas"
-                  },
+                  "label": { "nl": "Op pannen", "en": "On tiles", "es": "Sobre tejas" },
                   "priceModifier": 0
                 },
                 {
                   "id": "op_folie",
-                  "label": {
-                    "nl": "Op folie",
-                    "en": "On membrane",
-                    "es": "Sobre membrana"
-                  },
-                  "priceModifier": 3
+                  "label": { "nl": "Op folie", "en": "On membrane", "es": "Sobre membrana" },
+                  "priceModifier": 2
                 },
                 {
                   "id": "ballast_plat",
-                  "label": {
-                    "nl": "Ballastsysteem (plat dak)",
-                    "en": "Ballast system (flat roof)",
-                    "es": "Sistema de lastre (tejado plano)"
-                  },
-                  "priceModifier": 5
+                  "label": { "nl": "Ballastsysteem (plat dak)", "en": "Ballast system (flat roof)", "es": "Sistema de lastre (tejado plano)" },
+                  "priceModifier": 3
                 }
               ]
             }
@@ -1584,16 +1060,12 @@
             "es": "Inspección de cubierta para solar"
           },
           "unit": "m²",
-          "basePrice": 2.5,
+          "basePrice": 1,
           "options": {
             "rapportage": {
-              "label": {
-                "nl": "Rapportage gewenst?",
-                "en": "Report required?",
-                "es": "¿Informe requerido?"
-              },
+              "label": { "nl": "Rapportage gewenst?", "en": "Report required?", "es": "¿Informe requerido?" },
               "type": "boolean",
-              "flatPriceWhenTrue": 150
+              "flatPriceWhenTrue": 60
             }
           }
         }
@@ -1617,135 +1089,79 @@
             "es": "Aislamiento de cubierta"
           },
           "unit": "m²",
-          "basePrice": 8,
+          "basePrice": 4,
           "options": {
             "type": {
-              "label": {
-                "nl": "Type isolatie",
-                "en": "Insulation type",
-                "es": "Tipo de aislamiento"
-              },
+              "label": { "nl": "Type isolatie", "en": "Insulation type", "es": "Tipo de aislamiento" },
               "type": "select",
               "choices": [
                 {
                   "id": "eps",
-                  "label": {
-                    "nl": "EPS (piepschuim)",
-                    "en": "EPS (expanded polystyrene)",
-                    "es": "EPS (poliestireno expandido)"
-                  },
+                  "label": { "nl": "EPS (piepschuim)", "en": "EPS (expanded polystyrene)", "es": "EPS (poliestireno expandido)" },
                   "priceModifier": 0
                 },
                 {
                   "id": "pir",
-                  "label": {
-                    "nl": "PIR",
-                    "en": "PIR",
-                    "es": "PIR"
-                  },
-                  "priceModifier": 6
+                  "label": { "nl": "PIR", "en": "PIR", "es": "PIR" },
+                  "priceModifier": 4
                 },
                 {
                   "id": "pur",
-                  "label": {
-                    "nl": "PUR (gespoten)",
-                    "en": "PUR (spray foam)",
-                    "es": "PUR (espuma proyectada)"
-                  },
-                  "priceModifier": 8
+                  "label": { "nl": "PUR (gespoten)", "en": "PUR (spray foam)", "es": "PUR (espuma proyectada)" },
+                  "priceModifier": 6
                 },
                 {
                   "id": "glaswol",
-                  "label": {
-                    "nl": "Glaswol",
-                    "en": "Glass wool",
-                    "es": "Lana de vidrio"
-                  },
+                  "label": { "nl": "Glaswol", "en": "Glass wool", "es": "Lana de vidrio" },
                   "priceModifier": -1
                 },
                 {
                   "id": "rockwool",
-                  "label": {
-                    "nl": "Rockwool (steenwol)",
-                    "en": "Rockwool (mineral wool)",
-                    "es": "Lana de roca"
-                  },
+                  "label": { "nl": "Rockwool (steenwol)", "en": "Rockwool (mineral wool)", "es": "Lana de roca" },
                   "priceModifier": 1
                 }
               ]
             },
             "dikte": {
-              "label": {
-                "nl": "Dikte (mm)",
-                "en": "Thickness (mm)",
-                "es": "Grosor (mm)"
-              },
+              "label": { "nl": "Dikte (mm)", "en": "Thickness (mm)", "es": "Grosor (mm)" },
               "type": "select",
               "choices": [
                 {
                   "id": "60mm",
-                  "label": {
-                    "nl": "60mm",
-                    "en": "60mm",
-                    "es": "60mm"
-                  },
+                  "label": { "nl": "60mm", "en": "60mm", "es": "60mm" },
                   "priceMultiplier": 1
                 },
                 {
                   "id": "80mm",
-                  "label": {
-                    "nl": "80mm",
-                    "en": "80mm",
-                    "es": "80mm"
-                  },
+                  "label": { "nl": "80mm", "en": "80mm", "es": "80mm" },
                   "priceMultiplier": 1.15
                 },
                 {
                   "id": "100mm",
-                  "label": {
-                    "nl": "100mm",
-                    "en": "100mm",
-                    "es": "100mm"
-                  },
+                  "label": { "nl": "100mm", "en": "100mm", "es": "100mm" },
                   "priceMultiplier": 1.3
                 },
                 {
                   "id": "120mm",
-                  "label": {
-                    "nl": "120mm",
-                    "en": "120mm",
-                    "es": "120mm"
-                  },
+                  "label": { "nl": "120mm", "en": "120mm", "es": "120mm" },
                   "priceMultiplier": 1.45
                 },
                 {
                   "id": "140mm",
-                  "label": {
-                    "nl": "140mm",
-                    "en": "140mm",
-                    "es": "140mm"
-                  },
+                  "label": { "nl": "140mm", "en": "140mm", "es": "140mm" },
                   "priceMultiplier": 1.6
                 },
                 {
                   "id": "160mm",
-                  "label": {
-                    "nl": "160mm",
-                    "en": "160mm",
-                    "es": "160mm"
-                  },
+                  "label": { "nl": "160mm", "en": "160mm", "es": "160mm" },
                   "priceMultiplier": 1.75
                 }
               ]
             },
             "damprem": {
-              "label": {
-                "nl": "Damprem / dampscherm meenemen?",
-                "en": "Include vapour barrier?",
-                "es": "¿Incluir barrera de vapor?"
-              },
+              "label": { "nl": "Damprem / dampscherm meenemen?", "en": "Include vapour barrier?", "es": "¿Incluir barrera de vapor?" },
               "type": "boolean",
-              "pricePerM2WhenTrue": 3
+              "pricePerM2WhenTrue": 2
             }
           }
         }
@@ -1769,42 +1185,26 @@
             "es": "Revestimiento / limpieza de cubierta"
           },
           "unit": "m²",
-          "basePrice": 8,
+          "basePrice": 3,
           "options": {
             "werkzaamheid": {
-              "label": {
-                "nl": "Werkzaamheid",
-                "en": "Work type",
-                "es": "Tipo de trabajo"
-              },
+              "label": { "nl": "Werkzaamheid", "en": "Work type", "es": "Tipo de trabajo" },
               "type": "select",
               "choices": [
                 {
                   "id": "reiniging",
-                  "label": {
-                    "nl": "Reiniging (hogedruk)",
-                    "en": "Cleaning (high pressure)",
-                    "es": "Limpieza (alta presión)"
-                  },
+                  "label": { "nl": "Reiniging (hogedruk)", "en": "Cleaning (high pressure)", "es": "Limpieza (alta presión)" },
                   "priceModifier": 0
                 },
                 {
                   "id": "anti_mos",
-                  "label": {
-                    "nl": "Anti-mosbehandeling",
-                    "en": "Anti-moss treatment",
-                    "es": "Tratamiento anti-musgo"
-                  },
-                  "priceModifier": 4
+                  "label": { "nl": "Anti-mosbehandeling", "en": "Anti-moss treatment", "es": "Tratamiento anti-musgo" },
+                  "priceModifier": 2
                 },
                 {
                   "id": "coating",
-                  "label": {
-                    "nl": "Dakcoating aanbrengen",
-                    "en": "Apply roof coating",
-                    "es": "Aplicar revestimiento"
-                  },
-                  "priceModifier": 12
+                  "label": { "nl": "Dakcoating aanbrengen", "en": "Apply roof coating", "es": "Aplicar revestimiento" },
+                  "priceModifier": 6
                 }
               ]
             }
@@ -1819,42 +1219,26 @@
             "es": "Protección contra pájaros"
           },
           "unit": "m",
-          "basePrice": 22,
+          "basePrice": 8,
           "options": {
             "type": {
-              "label": {
-                "nl": "Type vogelwering",
-                "en": "Bird proofing type",
-                "es": "Tipo de protección"
-              },
+              "label": { "nl": "Type vogelwering", "en": "Bird proofing type", "es": "Tipo de protección" },
               "type": "select",
               "choices": [
                 {
                   "id": "pennen",
-                  "label": {
-                    "nl": "Pennen",
-                    "en": "Bird spikes (pin type)",
-                    "es": "Pinchos (tipo pin)"
-                  },
+                  "label": { "nl": "Pennen", "en": "Bird spikes (pin type)", "es": "Pinchos (tipo pin)" },
                   "priceModifier": 0
                 },
                 {
                   "id": "net",
-                  "label": {
-                    "nl": "Net",
-                    "en": "Bird net",
-                    "es": "Red anti-pájaros"
-                  },
-                  "priceModifier": 6
+                  "label": { "nl": "Net", "en": "Bird net", "es": "Red anti-pájaros" },
+                  "priceModifier": 4
                 },
                 {
                   "id": "spikes",
-                  "label": {
-                    "nl": "Spikes (breed)",
-                    "en": "Wide spikes",
-                    "es": "Pinchos anchos"
-                  },
-                  "priceModifier": 3
+                  "label": { "nl": "Spikes (breed)", "en": "Wide spikes", "es": "Pinchos anchos" },
+                  "priceModifier": 2
                 }
               ]
             }
@@ -1869,7 +1253,7 @@
             "es": "Capa base estándar"
           },
           "unit": "m²",
-          "basePrice": 26
+          "basePrice": 4
         },
         {
           "id": "onderlaag_zelfklevend",
@@ -1880,7 +1264,7 @@
             "es": "Capa base autoadhesiva"
           },
           "unit": "m²",
-          "basePrice": 35
+          "basePrice": 8
         },
         {
           "id": "mastieke_randen",
@@ -1888,10 +1272,10 @@
           "name": {
             "nl": "Mastieke randen",
             "en": "Mastic edge sealing",
-            "es": "Sellado de bordes met masilla"
+            "es": "Sellado de bordes con masilla"
           },
           "unit": "m",
-          "basePrice": 43
+          "basePrice": 10
         }
       ]
     },
@@ -1913,7 +1297,7 @@
             "es": "Cargo por llamada de emergencia"
           },
           "unit": "stuk",
-          "basePrice": 195,
+          "basePrice": 80,
           "description": {
             "nl": "Vaste vergoeding voor spoedoproep buiten reguliere werktijden of op korte termijn.",
             "en": "Fixed fee for emergency call-out outside regular hours or on short notice.",
@@ -1929,7 +1313,7 @@
             "es": "Cubierta de emergencia con lona"
           },
           "unit": "m²",
-          "basePrice": 14,
+          "basePrice": 5,
           "description": {
             "nl": "Tijdelijke waterdichte afdekking met folie of dekzeil om verdere schade te voorkomen.",
             "en": "Temporary waterproof covering to prevent further damage.",
@@ -1945,7 +1329,7 @@
             "es": "Reparación de emergencia de goteras"
           },
           "unit": "stuk",
-          "basePrice": 185,
+          "basePrice": 55,
           "description": {
             "nl": "Directe reparatie van actieve lekkage. Prijs per lekkagepunt.",
             "en": "Immediate repair of active leak. Price per leak point.",
@@ -1961,7 +1345,7 @@
             "es": "Daños por tormenta — inspección + reparación de emergencia"
           },
           "unit": "stuk",
-          "basePrice": 265,
+          "basePrice": 90,
           "description": {
             "nl": "Inspectie van stormschade en directe noodreparatie waar nodig.",
             "en": "Storm damage inspection and immediate emergency repair where needed.",
@@ -1977,7 +1361,7 @@
             "es": "Sellado impermeable temporal"
           },
           "unit": "m",
-          "basePrice": 48,
+          "basePrice": 15,
           "description": {
             "nl": "Tijdelijke afdichting van naden, scheuren of open verbindingen.",
             "en": "Temporary sealing of joints, cracks or open connections.",
@@ -1993,7 +1377,7 @@
             "es": "Inspección urgente del tejado"
           },
           "unit": "stuk",
-          "basePrice": 95,
+          "basePrice": 35,
           "description": {
             "nl": "Urgente inspectie van het dak met mondelinge en schriftelijke bevindingen.",
             "en": "Urgent roof inspection with verbal and written findings.",
@@ -2007,121 +1391,77 @@
     {
       "id": "container_small",
       "enabled": true,
-      "name": {
-        "nl": "Container huur 6m³",
-        "en": "Skip hire 6m³",
-        "es": "Alquiler contenedor 6m³"
-      },
+      "name": { "nl": "Container huur 6m³", "en": "Skip hire 6m³", "es": "Alquiler contenedor 6m³" },
       "unit": "dag",
       "basePrice": 95
     },
     {
       "id": "container_medium",
       "enabled": true,
-      "name": {
-        "nl": "Container huur 10m³",
-        "en": "Skip hire 10m³",
-        "es": "Alquiler contenedor 10m³"
-      },
+      "name": { "nl": "Container huur 10m³", "en": "Skip hire 10m³", "es": "Alquiler contenedor 10m³" },
       "unit": "dag",
       "basePrice": 130
     },
     {
       "id": "container_large",
       "enabled": true,
-      "name": {
-        "nl": "Container huur 20m³",
-        "en": "Skip hire 20m³",
-        "es": "Alquiler contenedor 20m³"
-      },
+      "name": { "nl": "Container huur 20m³", "en": "Skip hire 20m³", "es": "Alquiler contenedor 20m³" },
       "unit": "dag",
       "basePrice": 195
     },
     {
       "id": "scaffolding",
       "enabled": true,
-      "name": {
-        "nl": "Steiger huur (per steigervak)",
-        "en": "Scaffolding hire (per bay)",
-        "es": "Alquiler andamio (por módulo)"
-      },
+      "name": { "nl": "Steiger huur (per steigervak)", "en": "Scaffolding hire (per bay)", "es": "Alquiler andamio (por módulo)" },
       "unit": "week",
       "basePrice": 55
     },
     {
       "id": "tile_lift",
       "enabled": true,
-      "name": {
-        "nl": "Pannenlift huur",
-        "en": "Tile lift hire",
-        "es": "Alquiler elevador de tejas"
-      },
+      "name": { "nl": "Pannenlift huur", "en": "Tile lift hire", "es": "Alquiler elevador de tejas" },
       "unit": "dag",
       "basePrice": 85
     },
     {
       "id": "aerial_work_platform_12m",
       "enabled": true,
-      "name": {
-        "nl": "Hoogwerker 12m",
-        "en": "Aerial work platform 12m",
-        "es": "Plataforma elevadora 12m"
-      },
+      "name": { "nl": "Hoogwerker 12m", "en": "Aerial work platform 12m", "es": "Plataforma elevadora 12m" },
       "unit": "dag",
       "basePrice": 145
     },
     {
       "id": "aerial_work_platform_18m",
       "enabled": true,
-      "name": {
-        "nl": "Hoogwerker 18m",
-        "en": "Aerial work platform 18m",
-        "es": "Plataforma elevadora 18m"
-      },
+      "name": { "nl": "Hoogwerker 18m", "en": "Aerial work platform 18m", "es": "Plataforma elevadora 18m" },
       "unit": "dag",
       "basePrice": 195
     },
     {
       "id": "aerial_work_platform_24m",
       "enabled": true,
-      "name": {
-        "nl": "Hoogwerker 24m",
-        "en": "Aerial work platform 24m",
-        "es": "Plataforma elevadora 24m"
-      },
+      "name": { "nl": "Hoogwerker 24m", "en": "Aerial work platform 24m", "es": "Plataforma elevadora 24m" },
       "unit": "dag",
       "basePrice": 265
     },
     {
       "id": "trailer",
       "enabled": true,
-      "name": {
-        "nl": "Aanhangwagen huur",
-        "en": "Trailer hire",
-        "es": "Alquiler remolque"
-      },
+      "name": { "nl": "Aanhangwagen huur", "en": "Trailer hire", "es": "Alquiler remolque" },
       "unit": "dag",
       "basePrice": 45
     },
     {
       "id": "safety_line",
       "enabled": true,
-      "name": {
-        "nl": "Veiligheidslijn systeem",
-        "en": "Safety line system",
-        "es": "Sistema de línea de vida"
-      },
+      "name": { "nl": "Veiligheidslijn systeem", "en": "Safety line system", "es": "Sistema de línea de vida" },
       "unit": "dag",
       "basePrice": 25
     },
     {
       "id": "walkboards",
       "enabled": true,
-      "name": {
-        "nl": "Loopplanken / dakbeschermingsmateriaal",
-        "en": "Walkboards / roof protection",
-        "es": "Tablones de paso / protección de cubierta"
-      },
+      "name": { "nl": "Loopplanken / dakbeschermingsmateriaal", "en": "Walkboards / roof protection", "es": "Tablones de paso / protección de cubierta" },
       "unit": "dag",
       "basePrice": 35
     }

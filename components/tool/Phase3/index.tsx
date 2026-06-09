@@ -31,6 +31,7 @@ import InsulationConfigurator from "./InsulationConfigurator";
 import OtherWorkConfigurator from "./OtherWorkConfigurator";
 import SpoedConfigurator from "./SpoedConfigurator";
 import EquipmentRentals from "./EquipmentRentals";
+import LabourConfigurator from "./LabourConfigurator";
 import CustomItems from "./CustomItems";
 import DiscountSelector from "./DiscountSelector";
 import PaymentTerms from "./PaymentTerms";
@@ -186,9 +187,13 @@ export default function Phase3Quote({
   const [otherItems, setOtherItems] = useState<LineItem[]>([]);
   const [spoedItems, setSpoedItems] = useState<LineItem[]>([]);
 
-  // Equipment & custom items
+  // Equipment, labour & custom items
   const [equipmentItems, setEquipmentItems] = useState<LineItem[]>([]);
+  const [labourItems, setLabourItems] = useState<LineItem[]>([]);
   const [customItems, setCustomItems] = useState<LineItem[]>([]);
+
+  // Voorrijkosten
+  const [voorrijkosten, setVoorrijkosten] = useState<boolean>(false);
 
   // -------------------------------------------------------------------------
   // Discount & payment terms
@@ -243,6 +248,16 @@ export default function Phase3Quote({
     ...otherItems,
     ...spoedItems,
     ...equipmentItems,
+    ...labourItems,
+    ...(voorrijkosten ? [{
+      id: "voorrijkosten",
+      description: { nl: "Voorrijkosten", en: "Travel / call-out fee", es: "Gastos de desplazamiento" },
+      unit: "stuk",
+      quantity: 1,
+      unitPrice: 50,
+      total: 50,
+      vatRate: 0.21,
+    }] : []),
     ...customItems,
     ...additionalItems,
   ];
@@ -474,6 +489,33 @@ export default function Phase3Quote({
           onItemsChange={setEquipmentItems}
           language={language}
         />
+      </div>
+
+      {/* Labour */}
+      <LabourConfigurator
+        margins={margins}
+        onItemsChange={setLabourItems}
+        language={language}
+      />
+
+      {/* Voorrijkosten */}
+      <div className="rounded-lg border border-gray-700 bg-gray-900 p-4 flex items-center justify-between gap-4">
+        <div className="flex flex-col gap-0.5">
+          <span className="text-sm font-bold uppercase tracking-wider" style={{ color: '#d4af37' }}>
+            {language === 'nl' ? 'Voorrijkosten' : 'Travel / Call-out fee'}
+          </span>
+          <span className="text-xs text-gray-400">€50,00</span>
+        </div>
+        <button
+          type="button"
+          onClick={() => setVoorrijkosten(v => !v)}
+          className={`min-h-10 px-4 py-2 rounded text-sm font-medium transition-colors ${voorrijkosten ? 'bg-red-700 text-white hover:bg-red-800' : 'text-black hover:opacity-90'}`}
+          style={voorrijkosten ? undefined : { backgroundColor: '#d4af37' }}
+        >
+          {voorrijkosten
+            ? (language === 'nl' ? 'Verwijderen' : 'Remove')
+            : (language === 'nl' ? 'Toevoegen' : 'Add')}
+        </button>
       </div>
 
       {/* Custom Items */}
