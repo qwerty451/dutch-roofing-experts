@@ -31,7 +31,6 @@ import InsulationConfigurator from "./InsulationConfigurator";
 import OtherWorkConfigurator from "./OtherWorkConfigurator";
 import SpoedConfigurator from "./SpoedConfigurator";
 import EquipmentRentals from "./EquipmentRentals";
-import LabourConfigurator from "./LabourConfigurator";
 import CustomItems from "./CustomItems";
 import DiscountSelector from "./DiscountSelector";
 import PaymentTerms from "./PaymentTerms";
@@ -187,9 +186,8 @@ export default function Phase3Quote({
   const [otherItems, setOtherItems] = useState<LineItem[]>([]);
   const [spoedItems, setSpoedItems] = useState<LineItem[]>([]);
 
-  // Equipment, labour & custom items
+  // Equipment & custom items
   const [equipmentItems, setEquipmentItems] = useState<LineItem[]>([]);
-  const [labourItems, setLabourItems] = useState<LineItem[]>([]);
   const [customItems, setCustomItems] = useState<LineItem[]>([]);
 
   // -------------------------------------------------------------------------
@@ -245,7 +243,6 @@ export default function Phase3Quote({
     ...otherItems,
     ...spoedItems,
     ...equipmentItems,
-    ...labourItems,
     ...customItems,
     ...additionalItems,
   ];
@@ -478,13 +475,6 @@ export default function Phase3Quote({
           language={language}
         />
       </div>
-
-      {/* Labour */}
-      <LabourConfigurator
-        margins={margins}
-        onItemsChange={setLabourItems}
-        language={language}
-      />
 
       {/* Custom Items */}
       <CustomItems onItemsChange={setCustomItems} language={language} />
