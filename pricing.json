@@ -9,6 +9,9 @@
     "baseHourlyRate": 45,
     "enabled": true
   },
+  "voorrijkosten": {
+    "price": 50
+  },
   "categories": [
     {
       "id": "flat_roof",

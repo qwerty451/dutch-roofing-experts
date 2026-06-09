@@ -19,6 +19,7 @@ interface Phase3FormSession {
   warranty?: Warranty;
 }
 
+import pricingData from "../../../pricing.json";
 import CustomerInfoForm from "./CustomerInfo";
 import BuildingInfoForm from "./BuildingInfo";
 import FlatRoofConfigurator from "./FlatRoofConfigurator";
@@ -254,8 +255,8 @@ export default function Phase3Quote({
       description: { nl: "Voorrijkosten", en: "Travel / call-out fee", es: "Gastos de desplazamiento" },
       unit: "stuk",
       quantity: 1,
-      unitPrice: 50,
-      total: 50,
+      unitPrice: (pricingData as { voorrijkosten?: { price: number } }).voorrijkosten?.price ?? 50,
+      total: (pricingData as { voorrijkosten?: { price: number } }).voorrijkosten?.price ?? 50,
       vatRate: 0.21,
     }] : []),
     ...customItems,
@@ -504,7 +505,9 @@ export default function Phase3Quote({
           <span className="text-sm font-bold uppercase tracking-wider" style={{ color: '#d4af37' }}>
             {language === 'nl' ? 'Voorrijkosten' : 'Travel / Call-out fee'}
           </span>
-          <span className="text-xs text-gray-400">€50,00</span>
+          <span className="text-xs text-gray-400">
+            {((pricingData as { voorrijkosten?: { price: number } }).voorrijkosten?.price ?? 50).toLocaleString('nl-NL', { style: 'currency', currency: 'EUR' })}
+          </span>
         </div>
         <button
           type="button"

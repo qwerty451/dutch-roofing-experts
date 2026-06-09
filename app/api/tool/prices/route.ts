@@ -7,6 +7,7 @@ const TMP_FILE = path.join('/tmp', 'pricing.json');
 
 type PricingJson = {
   labor: { baseHourlyRate: number; enabled: boolean };
+  voorrijkosten: { price: number };
   categories: Array<{
     id: string;
     items: Array<{ id: string; name: { nl: string }; unit: string; basePrice: number; [k: string]: unknown }>;
@@ -73,7 +74,7 @@ export async function GET() {
     // Also return flat items list for backwards compat
     const items = sections.flatMap((s) => s.items.map((i) => ({ key: i.key, basePrice: i.basePrice })));
 
-    return NextResponse.json({ laborRate: data.labor.baseHourlyRate, sections, items });
+    return NextResponse.json({ laborRate: data.labor.baseHourlyRate, voorrijkostenPrice: data.voorrijkosten?.price ?? 50, sections, items });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);
     return NextResponse.json({ error: message }, { status: 500 });
@@ -84,6 +85,7 @@ export async function POST(req: NextRequest) {
   try {
     const body = (await req.json()) as {
       laborRate?: number;
+      voorrijkostenPrice?: number;
       items?: Record<string, number>;
     };
 
@@ -91,6 +93,11 @@ export async function POST(req: NextRequest) {
 
     if (typeof body.laborRate === 'number') {
       data.labor.baseHourlyRate = body.laborRate;
+    }
+
+    if (typeof body.voorrijkostenPrice === 'number') {
+      if (!data.voorrijkosten) data.voorrijkosten = { price: 50 };
+      data.voorrijkosten.price = body.voorrijkostenPrice;
     }
 
     if (body.items) {

@@ -17,6 +17,7 @@ interface Section {
 
 interface ApiResponse {
   laborRate: number;
+  voorrijkostenPrice: number;
   items: { key: string; basePrice: number }[];
 }
 
@@ -35,6 +36,7 @@ const CAT_LABELS: Record<string, string> = {
 
 export default function PricesEditor() {
   const [laborRate, setLaborRate] = useState(0);
+  const [voorrijkostenPrice, setVoorrijkostenPrice] = useState(50);
   const [sections, setSections] = useState<Section[]>([]);
   const [prices, setPrices] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState(true);
@@ -47,6 +49,7 @@ export default function PricesEditor() {
       .then((r) => r.json())
       .then((data: ApiResponse & { sections?: Section[] }) => {
         setLaborRate(data.laborRate);
+        setVoorrijkostenPrice(data.voorrijkostenPrice ?? 50);
 
         // Build section groupings from flat item list + metadata from API
         if (data.sections) {
@@ -78,7 +81,7 @@ export default function PricesEditor() {
       const res = await fetch('/api/tool/prices', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ laborRate, items: prices }),
+        body: JSON.stringify({ laborRate, voorrijkostenPrice, items: prices }),
       });
       if (res.ok) {
         setStatus('ok');
@@ -145,6 +148,31 @@ export default function PricesEditor() {
                 className="w-24 rounded bg-gray-800 border border-gray-600 px-3 py-2 text-right text-white focus:outline-none focus:border-[#d4af37]"
               />
               <span className="text-gray-500 text-sm">/ uur</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Voorrijkosten */}
+        <div className="rounded-lg border border-gray-700 bg-gray-900 p-4">
+          <h2 className="text-sm font-bold uppercase tracking-wider mb-4" style={{ color: '#d4af37' }}>
+            Voorrijkosten
+          </h2>
+          <div className="flex items-center justify-between gap-4">
+            <span className="text-sm text-gray-300">Voorrijkosten (per bezoek)</span>
+            <div className="flex items-center gap-2">
+              <span className="text-gray-400 text-sm">€</span>
+              <input
+                type="number"
+                min={0}
+                step={1}
+                value={voorrijkostenPrice}
+                onChange={(e) => {
+                  const n = parseFloat(e.target.value);
+                  if (!isNaN(n) && n >= 0) setVoorrijkostenPrice(n);
+                }}
+                className="w-24 rounded bg-gray-800 border border-gray-600 px-3 py-2 text-right text-white focus:outline-none focus:border-[#d4af37]"
+              />
+              <span className="text-gray-500 text-sm">/ stuk</span>
             </div>
           </div>
         </div>
