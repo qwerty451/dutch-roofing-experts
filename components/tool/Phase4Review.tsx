@@ -14,7 +14,85 @@ interface Phase4ReviewProps {
   quoteState: Phase3State;
   employee: string; // NEVER shown to customer or on PDF
   onReset: () => void;
+  language?: 'nl' | 'en';
 }
+
+// ---------------------------------------------------------------------------
+// UI translations (separate from PDF translations in quoteTranslations.ts)
+// ---------------------------------------------------------------------------
+
+const t = {
+  nl: {
+    saving: 'Offerte opslaan op server…',
+    retryBtn: 'Opnieuw proberen',
+    offerte: 'OFFERTE',
+    nr: 'Nr:',
+    datum: 'Datum:',
+    geldigTot: 'Geldig tot:',
+    klantgegevens: 'Klantgegevens',
+    werkzaamheden: 'Werkzaamheden',
+    colDesc: 'Omschrijving',
+    colUnit: 'Eenheid',
+    colQty: 'Aantal',
+    colUnitPrice: 'P/E',
+    colTotal: 'Totaal',
+    noItems: 'Geen posten toegevoegd.',
+    subtotal: 'Subtotaal ex. BTW:',
+    vat: 'BTW (21%):',
+    discount: 'Klantkorting',
+    grandTotal: 'TOTAAL INCL. BTW:',
+    paymentTerms: 'Betalingsvoorwaarden',
+    signatureCustomer: 'Handtekening klant:',
+    signatureCompany: 'Handtekening bedrijf:',
+    dateLabel: 'Datum:',
+    pdfLanguage: 'Taal voor offerte PDF:',
+    pdfGenerate: 'PDF Genereren',
+    pdfGenerating: 'PDF genereren…',
+    pdfError: 'PDF genereren mislukt. Probeer opnieuw.',
+    emailBtn: 'Per e-mail versturen',
+    emailSuccess: 'Offerte succesvol verstuurd per e-mail.',
+    newQuote: 'Nieuwe offerte',
+    confirmQuestion: 'Zeker weten? Dit wist de huidige offerte.',
+    confirmYes: 'Ja, nieuwe offerte',
+    confirmCancel: 'Annuleren',
+    saveError: 'Opslaan op server mislukt — offerte gebruikt lokaal nummer. PDF werkt gewoon.',
+  },
+  en: {
+    saving: 'Saving quote to server…',
+    retryBtn: 'Try again',
+    offerte: 'QUOTATION',
+    nr: 'No:',
+    datum: 'Date:',
+    geldigTot: 'Valid until:',
+    klantgegevens: 'Customer Details',
+    werkzaamheden: 'Work Items',
+    colDesc: 'Description',
+    colUnit: 'Unit',
+    colQty: 'Qty',
+    colUnitPrice: 'Unit Price',
+    colTotal: 'Total',
+    noItems: 'No items added.',
+    subtotal: 'Subtotal excl. VAT:',
+    vat: 'VAT (21%):',
+    discount: 'Customer discount',
+    grandTotal: 'TOTAL INCL. VAT:',
+    paymentTerms: 'Payment Terms',
+    signatureCustomer: 'Customer Signature:',
+    signatureCompany: 'Company Signature:',
+    dateLabel: 'Date:',
+    pdfLanguage: 'Language for quote PDF:',
+    pdfGenerate: 'Generate PDF',
+    pdfGenerating: 'Generating PDF…',
+    pdfError: 'Failed to generate PDF. Please try again.',
+    emailBtn: 'Send by email',
+    emailSuccess: 'Quote sent successfully by email.',
+    newQuote: 'New quote',
+    confirmQuestion: 'Are you sure? This clears the current quote.',
+    confirmYes: 'Yes, new quote',
+    confirmCancel: 'Cancel',
+    saveError: 'Failed to save to server — quote uses local number. PDF still works.',
+  },
+} as const;
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -36,8 +114,8 @@ function formatCurrency(amount: number): string {
   );
 }
 
-function formatDate(date: Date): string {
-  return date.toLocaleDateString("nl-NL");
+function formatDate(date: Date, language: 'nl' | 'en'): string {
+  return date.toLocaleDateString(language === 'nl' ? 'nl-NL' : 'en-GB');
 }
 
 function addDays(date: Date, days: number): Date {
@@ -67,6 +145,7 @@ export default function Phase4Review({
   quoteState,
   employee,
   onReset,
+  language = 'nl',
 }: Phase4ReviewProps) {
   // -------------------------------------------------------------------------
   // State
@@ -93,6 +172,8 @@ export default function Phase4Review({
   const [showResetConfirm, setShowResetConfirm] = useState(false);
 
   const hasSaved = useRef(false);
+
+  const labels = t[language];
 
   // -------------------------------------------------------------------------
   // Derived totals (used for both display and SavedQuote)
@@ -143,7 +224,7 @@ export default function Phase4Review({
       setSaveError(null);
     } catch (err: unknown) {
       console.error("Save quote error:", err);
-      setSaveError("Opslaan op server mislukt — offerte gebruikt lokaal nummer. PDF werkt gewoon.");
+      setSaveError(labels.saveError);
     } finally {
       setIsSaving(false);
     }
@@ -187,7 +268,7 @@ export default function Phase4Review({
       URL.revokeObjectURL(url);
     } catch (err: unknown) {
       console.error("PDF error:", err);
-      setPdfError("PDF genereren mislukt. Probeer opnieuw.");
+      setPdfError(labels.pdfError);
     } finally {
       setPdfLoading(false);
     }
@@ -228,7 +309,7 @@ export default function Phase4Review({
       setEmailError(
         err instanceof Error
           ? err.message
-          : "Versturen mislukt. Probeer opnieuw."
+          : language === 'nl' ? "Versturen mislukt. Probeer opnieuw." : "Failed to send. Please try again."
       );
     } finally {
       setEmailLoading(false);
@@ -251,7 +332,7 @@ export default function Phase4Review({
       {isSaving && (
         <div className="flex items-center gap-3 rounded-lg border border-gray-700 bg-gray-900 px-4 py-3 text-sm text-gray-400">
           <span className="inline-block h-4 w-4 shrink-0 animate-spin rounded-full border-2 border-gray-600 border-t-[#d4af37]" />
-          Offerte opslaan op server…
+          {labels.saving}
         </div>
       )}
       {saveError && !isSaving && (
@@ -262,7 +343,7 @@ export default function Phase4Review({
             onClick={() => void performSave()}
             className="self-start rounded bg-gray-700 px-4 py-2 text-xs font-semibold text-white hover:bg-gray-600"
           >
-            Opnieuw proberen
+            {labels.retryBtn}
           </button>
         </div>
       )}
@@ -291,18 +372,18 @@ export default function Phase4Review({
               className="text-2xl font-extrabold tracking-wider"
               style={{ color: "#cc0000" }}
             >
-              OFFERTE
+              {labels.offerte}
             </p>
             {quoteId && (
               <p className="text-sm text-gray-300 mt-1 font-mono">
-                Nr: {quoteId}
+                {labels.nr} {quoteId}
               </p>
             )}
             <p className="text-sm text-gray-400 mt-1">
-              Datum: {formatDate(today)}
+              {labels.datum} {formatDate(today, language)}
             </p>
             <p className="text-sm text-gray-400">
-              Geldig tot: {formatDate(validUntil)}
+              {labels.geldigTot} {formatDate(validUntil, language)}
             </p>
           </div>
         </div>
@@ -316,7 +397,7 @@ export default function Phase4Review({
           className="text-sm font-bold uppercase tracking-wider mb-3"
           style={{ color: "#d4af37" }}
         >
-          Klantgegevens
+          {labels.klantgegevens}
         </h3>
         <div className="text-sm text-gray-200 leading-relaxed space-y-0.5">
           <p className="font-semibold">{quoteState.customer.naam}</p>
@@ -341,7 +422,7 @@ export default function Phase4Review({
           className="text-sm font-bold uppercase tracking-wider px-6 py-4 border-b border-gray-700"
           style={{ color: "#d4af37" }}
         >
-          Werkzaamheden
+          {labels.werkzaamheden}
         </h3>
 
         <div className="overflow-x-auto">
@@ -349,19 +430,19 @@ export default function Phase4Review({
             <thead>
               <tr className="border-b border-gray-700 bg-gray-800">
                 <th className="px-4 py-3 text-left font-semibold text-gray-300">
-                  Omschrijving
+                  {labels.colDesc}
                 </th>
                 <th className="px-4 py-3 text-center font-semibold text-gray-300 whitespace-nowrap">
-                  Eenheid
+                  {labels.colUnit}
                 </th>
                 <th className="px-4 py-3 text-right font-semibold text-gray-300 whitespace-nowrap">
-                  Aantal
+                  {labels.colQty}
                 </th>
                 <th className="px-4 py-3 text-right font-semibold text-gray-300 whitespace-nowrap">
-                  P/E
+                  {labels.colUnitPrice}
                 </th>
                 <th className="px-4 py-3 text-right font-semibold text-gray-300 whitespace-nowrap">
-                  Totaal
+                  {labels.colTotal}
                 </th>
               </tr>
             </thead>
@@ -372,7 +453,7 @@ export default function Phase4Review({
                     colSpan={5}
                     className="px-4 py-8 text-center text-gray-500 italic"
                   >
-                    Geen posten toegevoegd.
+                    {labels.noItems}
                   </td>
                 </tr>
               ) : (
@@ -384,7 +465,7 @@ export default function Phase4Review({
                     }
                   >
                     <td className="px-4 py-3 text-gray-200">
-                      {item.description.nl}
+                      {item.description[language] ?? item.description.nl}
                     </td>
                     <td className="px-4 py-3 text-center text-gray-400">
                       {item.unit}
@@ -412,11 +493,11 @@ export default function Phase4Review({
       <div className="rounded-lg border border-gray-700 bg-gray-900 px-6 py-5">
         <div className="flex flex-col gap-2 max-w-xs ml-auto text-sm">
           <div className="flex justify-between text-gray-400">
-            <span>Subtotaal ex. BTW:</span>
+            <span>{labels.subtotal}</span>
             <span className="font-mono">{formatCurrency(subtotalExVat)}</span>
           </div>
           <div className="flex justify-between text-gray-400">
-            <span>BTW (21%):</span>
+            <span>{labels.vat}</span>
             <span className="font-mono">{formatCurrency(vatAmount)}</span>
           </div>
           {discount > 0 && (
@@ -425,7 +506,7 @@ export default function Phase4Review({
               style={{ color: "#cc0000" }}
             >
               <span>
-                Klantkorting ({Math.round(discount * 100)}%):
+                {labels.discount} ({Math.round(discount * 100)}%):
               </span>
               <span className="font-mono">-{formatCurrency(discountAmount)}</span>
             </div>
@@ -434,21 +515,21 @@ export default function Phase4Review({
             className="flex justify-between border-t border-gray-700 pt-3 mt-1 text-base font-bold"
             style={{ color: "#d4af37" }}
           >
-            <span>TOTAAL INCL. BTW:</span>
+            <span>{labels.grandTotal}</span>
             <span className="font-mono">{formatCurrency(grandTotal)}</span>
           </div>
         </div>
       </div>
 
       {/* ------------------------------------------------------------------ */}
-      {/* Section 5: Betalingsvoorwaarden                                     */}
+      {/* Section 5: Payment terms                                            */}
       {/* ------------------------------------------------------------------ */}
       <div className="rounded-lg border border-gray-700 bg-gray-900 px-6 py-5">
         <h3
           className="text-sm font-bold uppercase tracking-wider mb-2"
           style={{ color: "#d4af37" }}
         >
-          Betalingsvoorwaarden
+          {labels.paymentTerms}
         </h3>
         <p className="text-sm text-gray-300 leading-relaxed">
           {quoteState.paymentTerms}
@@ -456,7 +537,7 @@ export default function Phase4Review({
       </div>
 
       {/* ------------------------------------------------------------------ */}
-      {/* Section 6: Handtekening block                                       */}
+      {/* Section 6: Signature block                                          */}
       {/* ------------------------------------------------------------------ */}
       <div className="rounded-lg border border-gray-700 bg-gray-900 px-6 py-5">
         <div className="grid grid-cols-2 gap-8">
@@ -466,11 +547,11 @@ export default function Phase4Review({
               className="text-sm font-bold mb-6"
               style={{ color: "#d4af37" }}
             >
-              Handtekening klant:
+              {labels.signatureCustomer}
             </p>
             <div className="border-b border-gray-500 mb-3 h-8" />
             <p className="text-sm text-gray-400">
-              Datum: ___________
+              {labels.dateLabel} ___________
             </p>
           </div>
           {/* Right: company */}
@@ -479,7 +560,7 @@ export default function Phase4Review({
               className="text-sm font-bold mb-6"
               style={{ color: "#d4af37" }}
             >
-              Handtekening bedrijf:
+              {labels.signatureCompany}
             </p>
             <div className="border-b border-gray-500 mb-3 h-8" />
             <p className="text-sm text-gray-400">Dutch Roofing Experts</p>
@@ -488,11 +569,11 @@ export default function Phase4Review({
       </div>
 
       {/* ------------------------------------------------------------------ */}
-      {/* Section 7: Language selector                                        */}
+      {/* Section 7: PDF language selector                                    */}
       {/* ------------------------------------------------------------------ */}
       <div className="rounded-lg border border-gray-700 bg-gray-900 px-6 py-5">
         <p className="text-sm text-gray-400 mb-3">
-          Taal voor offerte PDF:
+          {labels.pdfLanguage}
         </p>
         <div className="flex gap-2">
           {(["nl", "en", "es"] as const).map((lang) => (
@@ -533,79 +614,29 @@ export default function Phase4Review({
           {pdfLoading ? (
             <>
               <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-black/30 border-t-black" />
-              PDF genereren…
+              {labels.pdfGenerating}
             </>
           ) : (
-            "PDF Genereren"
+            labels.pdfGenerate
           )}
         </button>
         {pdfError && (
           <p className="text-sm text-[#cc0000] px-1">{pdfError}</p>
         )}
 
-        {/* --- Email --- */}
-        {!showEmailForm ? (
-          <button
-            type="button"
-            onClick={() => {
-              setShowEmailForm(true);
-              setEmailSuccess(false);
-              setEmailError(null);
-            }}
-            className="min-h-12 rounded-lg px-6 py-3 font-semibold text-sm bg-gray-800 text-white border border-gray-600 hover:bg-gray-700 transition-colors"
-          >
-            Per e-mail versturen
-          </button>
-        ) : (
-          <form
-            onSubmit={handleSendEmail}
-            className="rounded-lg border border-gray-700 bg-gray-900 p-4 flex flex-col gap-3"
-          >
-            <label className="text-sm text-gray-400">E-mailadres klant:</label>
-            <input
-              type="email"
-              value={emailAddress}
-              onChange={(e) => setEmailAddress(e.target.value)}
-              placeholder="naam@voorbeeld.com"
-              required
-              className="rounded bg-gray-800 border border-gray-600 px-4 py-3 text-white text-sm focus:border-[#d4af37] focus:outline-none"
-            />
-            {emailError && (
-              <p className="text-sm text-[#cc0000]">{emailError}</p>
-            )}
-            <div className="flex gap-2">
-              <button
-                type="submit"
-                disabled={emailLoading || !emailAddress.trim()}
-                className="min-h-12 flex-1 rounded font-semibold text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                style={{ backgroundColor: "#d4af37", color: "#000" }}
-              >
-                {emailLoading ? (
-                  <>
-                    <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-black/30 border-t-black" />
-                    Versturen…
-                  </>
-                ) : (
-                  "Versturen"
-                )}
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setShowEmailForm(false);
-                  setEmailError(null);
-                }}
-                className="min-h-12 px-4 rounded bg-gray-800 border border-gray-600 text-gray-400 hover:text-white hover:bg-gray-700 text-sm transition-colors"
-              >
-                Annuleren
-              </button>
-            </div>
-          </form>
-        )}
+        {/* --- Email --- (disabled) */}
+        <button
+          type="button"
+          disabled
+          className="min-h-12 rounded-lg px-6 py-3 font-semibold text-sm bg-gray-800 text-gray-600 border border-gray-700 cursor-not-allowed opacity-50"
+          title={language === 'nl' ? 'E-mail functie tijdelijk niet beschikbaar' : 'Email function temporarily unavailable'}
+        >
+          {labels.emailBtn}
+        </button>
 
         {emailSuccess && (
           <div className="rounded-lg border border-green-800 bg-green-900/30 px-4 py-3 text-sm text-green-400">
-            Offerte succesvol verstuurd per e-mail.
+            {labels.emailSuccess}
           </div>
         )}
 
@@ -616,12 +647,12 @@ export default function Phase4Review({
             onClick={() => setShowResetConfirm(true)}
             className="min-h-12 rounded-lg px-6 py-3 font-semibold text-sm bg-gray-900 text-gray-400 border border-gray-700 hover:bg-gray-800 hover:text-white transition-colors mt-2"
           >
-            Nieuwe offerte
+            {labels.newQuote}
           </button>
         ) : (
           <div className="rounded-lg border border-gray-700 bg-gray-900 p-4 flex flex-col gap-3">
             <p className="text-sm text-gray-300">
-              Zeker weten? Dit wist de huidige offerte.
+              {labels.confirmQuestion}
             </p>
             <div className="flex gap-2">
               <button
@@ -630,14 +661,14 @@ export default function Phase4Review({
                 className="min-h-12 flex-1 rounded font-semibold text-sm text-white transition-colors"
                 style={{ backgroundColor: "#cc0000" }}
               >
-                Ja, nieuwe offerte
+                {labels.confirmYes}
               </button>
               <button
                 type="button"
                 onClick={() => setShowResetConfirm(false)}
                 className="min-h-12 px-4 rounded bg-gray-800 border border-gray-600 text-gray-400 hover:text-white hover:bg-gray-700 text-sm transition-colors"
               >
-                Annuleren
+                {labels.confirmCancel}
               </button>
             </div>
           </div>

@@ -211,21 +211,23 @@ interface ToggleProps {
   value: boolean;
   onChange: (v: boolean) => void;
   note?: string;
+  yes?: string;
+  no?: string;
 }
 
-function Toggle({ label, value, onChange, note }: ToggleProps) {
+function Toggle({ label, value, onChange, note, yes = 'Ja', no = 'Nee' }: ToggleProps) {
   return (
     <div className="flex flex-col gap-1.5">
       <FieldLabel>{label}</FieldLabel>
       {note && <span className="text-gray-500 text-xs">{note}</span>}
       <div className="flex gap-2">
-        {(['Ja', 'Nee'] as const).map((opt) => {
-          const isActive = (opt === 'Ja') === value;
+        {[{ l: yes, v: true }, { l: no, v: false }].map(({ l, v }) => {
+          const isActive = value === v;
           return (
             <button
-              key={opt}
+              key={l}
               type="button"
-              onClick={() => onChange(opt === 'Ja')}
+              onClick={() => onChange(v)}
               className="h-11 px-5 rounded-lg text-sm font-semibold transition-colors"
               style={
                 isActive
@@ -233,7 +235,7 @@ function Toggle({ label, value, onChange, note }: ToggleProps) {
                   : { backgroundColor: '#1f2937', color: '#9ca3af' }
               }
             >
-              {opt}
+              {l}
             </button>
           );
         })}
@@ -249,16 +251,17 @@ function Toggle({ label, value, onChange, note }: ToggleProps) {
 interface InsulationFormProps {
   options: IsolatieOptions;
   onChange: (opts: IsolatieOptions) => void;
+  lang?: 'nl' | 'en';
 }
 
-function InsulationForm({ options, onChange }: InsulationFormProps) {
+function InsulationForm({ options, onChange, lang = 'nl' }: InsulationFormProps) {
   return (
     <div className="rounded-lg border border-gray-700 bg-gray-800 px-3 py-3 flex flex-col gap-4">
       <span className="text-gray-300 text-xs font-semibold uppercase tracking-wide">
-        Isolatie-opties
+        {lang === 'nl' ? 'Isolatie-opties' : 'Insulation options'}
       </span>
       <ButtonGroup<IsolatieThickness>
-        label="Dikte"
+        label={lang === 'nl' ? 'Dikte' : 'Thickness'}
         options={[
           { id: '60mm', label: '60mm' },
           { id: '80mm', label: '80mm' },
@@ -269,7 +272,7 @@ function InsulationForm({ options, onChange }: InsulationFormProps) {
         onChange={(v) => onChange({ ...options, dikte: v })}
       />
       <ButtonGroup<IsolatieType>
-        label="Type isolatie"
+        label={lang === 'nl' ? 'Type isolatie' : 'Insulation type'}
         options={[
           { id: 'EPS', label: 'EPS' },
           { id: 'PIR', label: 'PIR' },
@@ -603,6 +606,7 @@ const DEFAULT_ISOLATIE: IsolatieOptions = { dikte: '80mm', type: 'PIR' };
 export default function FlatRoofConfigurator({
   margins,
   onItemsChange,
+  language,
 }: FlatRoofConfiguratorProps) {
   // Accordion open/close state
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({
@@ -684,48 +688,43 @@ export default function FlatRoofConfigurator({
     }
   }
 
+  const nl = language === 'nl';
+  const yes = nl ? 'Ja' : 'Yes';
+  const no = nl ? 'Nee' : 'No';
+  const removeNote = nl ? 'Verwijdering & afvoer van bestaande dakbedekking' : 'Removal & disposal of existing roofing';
+
   return (
     <div className="flex flex-col gap-4">
-      {/* ------------------------------------------------------------------ */}
-      {/* A. Bitumen                                                          */}
-      {/* ------------------------------------------------------------------ */}
+      {/* A. Bitumen */}
       <AccordionSection
-        title="Bitumen dakbedekking"
+        title={nl ? 'Bitumen dakbedekking' : 'Bitumen roofing'}
         isOpen={openSections.bitumen}
         onToggle={() => toggleSection('bitumen')}
         hasValues={hasValues('bitumen')}
       >
-        <NumberInput
-          label="Oppervlakte"
-          unit="m²"
-          value={bitumen.m2}
-          onChange={(v) => setBitumen((s) => ({ ...s, m2: v }))}
-        />
-
+        <NumberInput label={nl ? 'Oppervlakte' : 'Surface area'} unit="m²" value={bitumen.m2} onChange={(v) => setBitumen((s) => ({ ...s, m2: v }))} />
         <ButtonGroup<BitumenLagen>
-          label="Aantal lagen"
+          label={nl ? 'Aantal lagen' : 'Number of layers'}
           options={[
-            { id: '1_laags', label: '1-laags' },
-            { id: '2_laags', label: '2-laags' },
-            { id: '3_laags', label: '3-laags' },
+            { id: '1_laags', label: nl ? '1-laags' : 'Single layer' },
+            { id: '2_laags', label: nl ? '2-laags' : 'Double layer' },
+            { id: '3_laags', label: nl ? '3-laags' : 'Triple layer' },
           ]}
           value={bitumen.lagen}
           onChange={(v) => setBitumen((s) => ({ ...s, lagen: v }))}
         />
-
         <ButtonGroup<BitumenKwaliteit>
-          label="Kwaliteit"
+          label={nl ? 'Kwaliteit' : 'Quality'}
           options={[
-            { id: 'standaard', label: 'Standaard' },
-            { id: 'sbs', label: 'SBS Gemodificeerd' },
-            { id: 'app', label: 'APP Gemodificeerd' },
+            { id: 'standaard', label: nl ? 'Standaard' : 'Standard' },
+            { id: 'sbs', label: nl ? 'SBS Gemodificeerd' : 'SBS Modified' },
+            { id: 'app', label: nl ? 'APP Gemodificeerd' : 'APP Modified' },
           ]}
           value={bitumen.kwaliteit}
           onChange={(v) => setBitumen((s) => ({ ...s, kwaliteit: v }))}
         />
-
         <ButtonGroup<BitumenDikte>
-          label="Dikte"
+          label={nl ? 'Dikte' : 'Thickness'}
           options={[
             { id: '3mm', label: '3mm' },
             { id: '4mm', label: '4mm' },
@@ -734,56 +733,33 @@ export default function FlatRoofConfigurator({
           value={bitumen.dikte}
           onChange={(v) => setBitumen((s) => ({ ...s, dikte: v }))}
         />
-
         <ButtonGroup<BitumenAfwerking>
-          label="Afwerking"
+          label={nl ? 'Afwerking' : 'Finish'}
           options={[
-            { id: 'zand', label: 'Zand' },
-            { id: 'leisteen', label: 'Leisteen' },
-            { id: 'alu_folie', label: 'Alu-folie' },
+            { id: 'zand', label: nl ? 'Zand' : 'Sand' },
+            { id: 'leisteen', label: nl ? 'Leisteen' : 'Slate finish' },
+            { id: 'alu_folie', label: nl ? 'Alu-folie' : 'Aluminium foil' },
           ]}
           value={bitumen.afwerking}
           onChange={(v) => setBitumen((s) => ({ ...s, afwerking: v }))}
         />
-
-        <Toggle
-          label="Isolatie meenemen?"
-          value={bitumen.isolatie}
-          onChange={(v) => setBitumen((s) => ({ ...s, isolatie: v }))}
-        />
+        <Toggle label={nl ? 'Isolatie meenemen?' : 'Include insulation?'} value={bitumen.isolatie} onChange={(v) => setBitumen((s) => ({ ...s, isolatie: v }))} yes={yes} no={no} />
         {bitumen.isolatie && (
-          <InsulationForm
-            options={bitumen.isolatieOpts}
-            onChange={(opts) => setBitumen((s) => ({ ...s, isolatieOpts: opts }))}
-          />
+          <InsulationForm options={bitumen.isolatieOpts} onChange={(opts) => setBitumen((s) => ({ ...s, isolatieOpts: opts }))} lang={language} />
         )}
-
-        <Toggle
-          label="Dakbedekking verwijderen eerst?"
-          value={bitumen.verwijderen}
-          onChange={(v) => setBitumen((s) => ({ ...s, verwijderen: v }))}
-          note="Verwijdering & afvoer van bestaande dakbedekking"
-        />
+        <Toggle label={nl ? 'Dakbedekking verwijderen eerst?' : 'Remove existing roofing first?'} value={bitumen.verwijderen} onChange={(v) => setBitumen((s) => ({ ...s, verwijderen: v }))} note={removeNote} yes={yes} no={no} />
       </AccordionSection>
 
-      {/* ------------------------------------------------------------------ */}
-      {/* B. EPDM                                                             */}
-      {/* ------------------------------------------------------------------ */}
+      {/* B. EPDM */}
       <AccordionSection
-        title="EPDM (Rubber dak)"
+        title={nl ? 'EPDM (Rubber dak)' : 'EPDM (Rubber roof)'}
         isOpen={openSections.epdm}
         onToggle={() => toggleSection('epdm')}
         hasValues={hasValues('epdm')}
       >
-        <NumberInput
-          label="Oppervlakte"
-          unit="m²"
-          value={epdm.m2}
-          onChange={(v) => setEpdm((s) => ({ ...s, m2: v }))}
-        />
-
+        <NumberInput label={nl ? 'Oppervlakte' : 'Surface area'} unit="m²" value={epdm.m2} onChange={(v) => setEpdm((s) => ({ ...s, m2: v }))} />
         <ButtonGroup<EpdmDikte>
-          label="Dikte"
+          label={nl ? 'Dikte' : 'Thickness'}
           options={[
             { id: '1_0mm', label: '1.0mm' },
             { id: '1_2mm', label: '1.2mm' },
@@ -792,103 +768,66 @@ export default function FlatRoofConfigurator({
           value={epdm.dikte}
           onChange={(v) => setEpdm((s) => ({ ...s, dikte: v }))}
         />
-
         <ButtonGroup<EpdmBevestiging>
-          label="Bevestiging"
+          label={nl ? 'Bevestiging' : 'Attachment'}
           options={[
-            { id: 'gelijmd', label: 'Gelijmd' },
-            { id: 'mechanisch', label: 'Mechanisch' },
+            { id: 'gelijmd', label: nl ? 'Gelijmd' : 'Glued' },
+            { id: 'mechanisch', label: nl ? 'Mechanisch' : 'Mechanical' },
             { id: 'ballast', label: 'Ballast' },
           ]}
           value={epdm.bevestiging}
           onChange={(v) => setEpdm((s) => ({ ...s, bevestiging: v }))}
         />
-
-        <Toggle
-          label="Isolatie meenemen?"
-          value={epdm.isolatie}
-          onChange={(v) => setEpdm((s) => ({ ...s, isolatie: v }))}
-        />
+        <Toggle label={nl ? 'Isolatie meenemen?' : 'Include insulation?'} value={epdm.isolatie} onChange={(v) => setEpdm((s) => ({ ...s, isolatie: v }))} yes={yes} no={no} />
         {epdm.isolatie && (
-          <InsulationForm
-            options={epdm.isolatieOpts}
-            onChange={(opts) => setEpdm((s) => ({ ...s, isolatieOpts: opts }))}
-          />
+          <InsulationForm options={epdm.isolatieOpts} onChange={(opts) => setEpdm((s) => ({ ...s, isolatieOpts: opts }))} lang={language} />
         )}
-
-        <Toggle
-          label="Oude bedekking verwijderen?"
-          value={epdm.verwijderen}
-          onChange={(v) => setEpdm((s) => ({ ...s, verwijderen: v }))}
-          note="Verwijdering & afvoer van bestaande dakbedekking"
-        />
+        <Toggle label={nl ? 'Oude bedekking verwijderen?' : 'Remove old roofing?'} value={epdm.verwijderen} onChange={(v) => setEpdm((s) => ({ ...s, verwijderen: v }))} note={removeNote} yes={yes} no={no} />
       </AccordionSection>
 
-      {/* ------------------------------------------------------------------ */}
-      {/* C. Grind / Ballastdak                                               */}
-      {/* ------------------------------------------------------------------ */}
+      {/* C. Grind / Ballastdak */}
       <AccordionSection
-        title="Grind / Ballastdak"
+        title={nl ? 'Grind / Ballastdak' : 'Gravel / Ballast roof'}
         isOpen={openSections.grind}
         onToggle={() => toggleSection('grind')}
         hasValues={hasValues('grind')}
       >
-        <NumberInput
-          label="Oppervlakte"
-          unit="m²"
-          value={grind.m2}
-          onChange={(v) => setGrind((s) => ({ ...s, m2: v }))}
-        />
-
+        <NumberInput label={nl ? 'Oppervlakte' : 'Surface area'} unit="m²" value={grind.m2} onChange={(v) => setGrind((s) => ({ ...s, m2: v }))} />
         <ButtonGroup<GrindlaagDikte>
-          label="Grindlaag dikte"
+          label={nl ? 'Grindlaag dikte' : 'Gravel layer thickness'}
           options={[
-            { id: 'standaard', label: 'Standaard' },
-            { id: 'extra_dik', label: 'Extra dik' },
+            { id: 'standaard', label: nl ? 'Standaard' : 'Standard' },
+            { id: 'extra_dik', label: nl ? 'Extra dik' : 'Extra thick' },
           ]}
           value={grind.grindlaag}
           onChange={(v) => setGrind((s) => ({ ...s, grindlaag: v }))}
         />
-
-        <Toggle
-          label="Vlieslaag vernieuwen?"
-          value={grind.vlieslaag}
-          onChange={(v) => setGrind((s) => ({ ...s, vlieslaag: v }))}
-        />
+        <Toggle label={nl ? 'Vlieslaag vernieuwen?' : 'Renew fleece layer?'} value={grind.vlieslaag} onChange={(v) => setGrind((s) => ({ ...s, vlieslaag: v }))} yes={yes} no={no} />
       </AccordionSection>
 
-      {/* ------------------------------------------------------------------ */}
-      {/* D. Liquid roofing / coating                                         */}
-      {/* ------------------------------------------------------------------ */}
+      {/* D. Liquid roofing / coating */}
       <AccordionSection
         title="Liquid roofing / coating"
         isOpen={openSections.coating}
         onToggle={() => toggleSection('coating')}
         hasValues={hasValues('coating')}
       >
-        <NumberInput
-          label="Oppervlakte"
-          unit="m²"
-          value={coating.m2}
-          onChange={(v) => setCoating((s) => ({ ...s, m2: v }))}
-        />
-
+        <NumberInput label={nl ? 'Oppervlakte' : 'Surface area'} unit="m²" value={coating.m2} onChange={(v) => setCoating((s) => ({ ...s, m2: v }))} />
         <ButtonGroup<CoatingType>
-          label="Type coating"
+          label={nl ? 'Type coating' : 'Coating type'}
           options={[
-            { id: 'pur', label: 'Polyurethaan (PUR)' },
-            { id: 'pmma', label: 'PMMA acrylaat' },
+            { id: 'pur', label: nl ? 'Polyurethaan (PUR)' : 'Polyurethane (PUR)' },
+            { id: 'pmma', label: nl ? 'PMMA acrylaat' : 'PMMA acrylate' },
           ]}
           value={coating.type}
           onChange={(v) => setCoating((s) => ({ ...s, type: v }))}
         />
-
         <ButtonGroup<CoatingLagen>
-          label="Aantal lagen"
+          label={nl ? 'Aantal lagen' : 'Number of layers'}
           options={[
-            { id: '1', label: '1 laag' },
-            { id: '2', label: '2 lagen' },
-            { id: '3', label: '3 lagen' },
+            { id: '1', label: nl ? '1 laag' : '1 layer' },
+            { id: '2', label: nl ? '2 lagen' : '2 layers' },
+            { id: '3', label: nl ? '3 lagen' : '3 layers' },
           ]}
           value={coating.lagen}
           onChange={(v) => setCoating((s) => ({ ...s, lagen: v }))}

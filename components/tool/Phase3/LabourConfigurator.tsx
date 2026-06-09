@@ -94,12 +94,12 @@ export default function LabourConfigurator({
   }, [workers, days, buildItems, onItemsChange]);
 
   function handleWorkers(value: number) {
-    const clamped = Math.max(1, Math.min(20, value));
+    const clamped = Math.max(0, Math.min(20, value));
     setWorkers(clamped);
   }
 
   function handleDays(value: number) {
-    const clamped = Math.max(1, Math.min(365, value));
+    const clamped = Math.max(0, Math.min(365, value));
     setDays(clamped);
   }
 
@@ -122,17 +122,17 @@ export default function LabourConfigurator({
             <button
               type="button"
               onClick={() => handleWorkers(workers - 1)}
-              disabled={workers <= 1}
+              disabled={workers <= 0}
               className="w-12 h-12 rounded bg-gray-700 text-white text-xl font-bold disabled:opacity-40 hover:bg-gray-600 transition-colors"
             >
               −
             </button>
             <input
               type="number"
-              min={1}
+              min={0}
               max={20}
               value={workers}
-              onChange={(e) => handleWorkers(parseInt(e.target.value, 10) || 1)}
+              onChange={(e) => { const v = parseInt(e.target.value, 10); handleWorkers(isNaN(v) ? 0 : v); }}
               className="w-20 h-12 rounded bg-gray-800 border border-gray-600 text-white text-center text-xl font-semibold focus:outline-none focus:border-[#d4af37]"
             />
             <button
@@ -156,17 +156,17 @@ export default function LabourConfigurator({
             <button
               type="button"
               onClick={() => handleDays(days - 1)}
-              disabled={days <= 1}
+              disabled={days <= 0}
               className="w-12 h-12 rounded bg-gray-700 text-white text-xl font-bold disabled:opacity-40 hover:bg-gray-600 transition-colors"
             >
               −
             </button>
             <input
               type="number"
-              min={1}
+              min={0}
               max={365}
               value={days}
-              onChange={(e) => handleDays(parseInt(e.target.value, 10) || 1)}
+              onChange={(e) => { const v = parseInt(e.target.value, 10); handleDays(isNaN(v) ? 0 : v); }}
               className="w-20 h-12 rounded bg-gray-800 border border-gray-600 text-white text-center text-xl font-semibold focus:outline-none focus:border-[#d4af37]"
             />
             <button
@@ -185,12 +185,12 @@ export default function LabourConfigurator({
           <div className="flex justify-between">
             <span>{t.rateLabel}</span>
             <span className="text-white font-medium">
-              {formatEur(effectiveHourlyRate)}/uur
+              {formatEur(effectiveHourlyRate)}{language === 'nl' ? '/uur' : '/hr'}
             </span>
           </div>
           <div className="flex justify-between">
             <span>
-              {workers} × {days} dag{days !== 1 ? "en" : ""} × {HOURS_PER_DAY} uur
+              {workers} × {days} {language === 'nl' ? `dag${days !== 1 ? 'en' : ''}` : `day${days !== 1 ? 's' : ''}`} × {HOURS_PER_DAY} {language === 'nl' ? 'uur' : 'hrs'}
             </span>
             <span className="text-white font-medium">
               = {workers * days * HOURS_PER_DAY} uur

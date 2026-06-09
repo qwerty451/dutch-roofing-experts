@@ -13,6 +13,7 @@ interface CheckupPopupsProps {
   onAddItem: (item: LineItem) => void;
   onReturnToPhase3: () => void;
   onComplete: () => void;
+  language?: 'nl' | 'en';
 }
 
 type CheckAction =
@@ -22,7 +23,7 @@ type CheckAction =
 
 interface Check {
   condition: (state: Phase3State) => boolean;
-  message: (state: Phase3State) => string;
+  message: (state: Phase3State, lang: 'nl' | 'en') => string;
   onYes: CheckAction;
   itemToAdd?: (state: Phase3State) => LineItem;
 }
@@ -58,32 +59,23 @@ const CHECKS: Check[] = [
   {
     condition: (state) =>
       state.building.verdiepingen >= 2 &&
-      !hasItem(
-        state.items,
-        "scaffolding",
-        "aerial_work",
-        "hoogwerker",
-        "steigers"
-      ),
-    message: (state) =>
-      `Je hebt ${state.building.verdiepingen} verdiepingen opgegeven maar geen steigers of hoogwerker toegevoegd. Wil je dit alsnog toevoegen?`,
+      !hasItem(state.items, "scaffolding", "aerial_work", "hoogwerker", "steigers"),
+    message: (state, lang) =>
+      lang === 'nl'
+        ? `Je hebt ${state.building.verdiepingen} verdiepingen opgegeven maar geen steigers of hoogwerker toegevoegd. Wil je dit alsnog toevoegen?`
+        : `You specified ${state.building.verdiepingen} floors but no scaffolding or aerial work platform. Would you like to add this?`,
     onYes: "return_to_phase3",
   },
 
   // 2. Tile lift check
   {
     condition: (state) =>
-      hasItem(
-        state.items,
-        "tile",
-        "pannendak",
-        "concrete_tiles",
-        "ceramic",
-        "leien",
-        "metaaldak"
-      ) && !hasItem(state.items, "tile_lift", "pannenlift"),
-    message: () =>
-      "Er is een pannendak geselecteerd maar geen pannenlift. Toevoegen?",
+      hasItem(state.items, "tile", "pannendak", "concrete_tiles", "ceramic", "leien", "metaaldak") &&
+      !hasItem(state.items, "tile_lift", "pannenlift"),
+    message: (_state, lang) =>
+      lang === 'nl'
+        ? "Er is een pannendak geselecteerd maar geen pannenlift. Toevoegen?"
+        : "A tiled roof is selected but no tile lift. Add one?",
     onYes: "add_item_and_return",
     itemToAdd: () => ({
       id: "equipment_tile_lift",
@@ -104,8 +96,10 @@ const CHECKS: Check[] = [
   {
     condition: (state) =>
       state.items.length > 5 && !hasItem(state.items, "container"),
-    message: () =>
-      "Je hebt veel materiaal geselecteerd. Wil je een container toevoegen?",
+    message: (_state, lang) =>
+      lang === 'nl'
+        ? "Je hebt veel materiaal geselecteerd. Wil je een container toevoegen?"
+        : "You've selected a lot of materials. Would you like to add a container?",
     onYes: "return_to_phase3",
   },
 
@@ -114,7 +108,10 @@ const CHECKS: Check[] = [
     condition: (state) =>
       hasItem(state.items, "bitumen", "epdm") &&
       !hasCustomItemMention(state.items, "lijm", "primer"),
-    message: () => "Heb je lijm/primer kosten meegenomen?",
+    message: (_state, lang) =>
+      lang === 'nl'
+        ? "Heb je lijm/primer kosten meegenomen?"
+        : "Have you included adhesive/primer costs?",
     onYes: "return_to_phase3",
   },
 
@@ -123,8 +120,10 @@ const CHECKS: Check[] = [
     condition: (state) =>
       hasItem(state.items, "chimney", "schoorsteen") &&
       !hasItem(state.items, "lood", "flashing", "kilgoot"),
-    message: () =>
-      "Heb je loodwerkkosten meegenomen bij het schoorsteenwerk?",
+    message: (_state, lang) =>
+      lang === 'nl'
+        ? "Heb je loodwerkkosten meegenomen bij het schoorsteenwerk?"
+        : "Have you included lead work costs for the chimney work?",
     onYes: "return_to_phase3",
   },
 
@@ -133,24 +132,22 @@ const CHECKS: Check[] = [
     condition: (state) =>
       hasItem(state.items, "solar") &&
       !hasItem(state.items, "penetrat", "doorvoer"),
-    message: () => "Wil je waterdichte dakdoorvoeren toevoegen?",
+    message: (_state, lang) =>
+      lang === 'nl'
+        ? "Wil je waterdichte dakdoorvoeren toevoegen?"
+        : "Would you like to add waterproof roof penetrations?",
     onYes: "return_to_phase3",
   },
 
   // 7. Accessibility check
   {
     condition: (state) =>
-      state.building.bereikbaarheid ===
-        "Zeer moeilijk (geen oprit/lift)" &&
-      !hasItem(
-        state.items,
-        "aerial_work",
-        "scaffolding",
-        "hoogwerker",
-        "steigers"
-      ),
-    message: () =>
-      "Bereikbaarheid is als moeilijk gemarkeerd. Extra materieel toegevoegd?",
+      state.building.bereikbaarheid === "Zeer moeilijk (geen oprit/lift)" &&
+      !hasItem(state.items, "aerial_work", "scaffolding", "hoogwerker", "steigers"),
+    message: (_state, lang) =>
+      lang === 'nl'
+        ? "Bereikbaarheid is als moeilijk gemarkeerd. Extra materieel toegevoegd?"
+        : "Accessibility is marked as difficult. Have you added extra equipment?",
     onYes: "return_to_phase3",
   },
 ];
@@ -164,6 +161,7 @@ export default function CheckupPopups({
   onAddItem,
   onReturnToPhase3,
   onComplete,
+  language = 'nl',
 }: CheckupPopupsProps) {
   // Pre-filter once on mount — only checks whose condition is currently true
   const activeChecks = useMemo(
@@ -187,7 +185,7 @@ export default function CheckupPopups({
   }
 
   const check = activeChecks[step];
-  const message = check.message(quoteState);
+  const message = check.message(quoteState, language);
   const isLast = step === activeChecks.length - 1;
 
   function advance() {
@@ -227,7 +225,7 @@ export default function CheckupPopups({
       <div className="w-full max-w-sm rounded-xl border border-gray-700 bg-gray-900 shadow-2xl flex flex-col gap-5 p-6">
         {/* Title */}
         <h2 className="text-lg font-bold" style={{ color: "#d4af37" }}>
-          Aandachtspunt
+          {language === 'nl' ? 'Aandachtspunt' : 'Attention'}
         </h2>
 
         {/* Message */}
@@ -260,14 +258,14 @@ export default function CheckupPopups({
             onClick={handleYes}
             className="min-h-12 w-full rounded bg-[#d4af37] px-6 py-3 text-sm font-bold text-black hover:bg-yellow-400 transition-colors"
           >
-            Ja, toevoegen
+            {language === 'nl' ? 'Ja, toevoegen' : 'Yes, add'}
           </button>
           <button
             type="button"
             onClick={handleNo}
             className="min-h-12 w-full rounded bg-gray-700 px-6 py-3 text-sm font-semibold text-white hover:bg-gray-600 transition-colors"
           >
-            Nee, doorgaan
+            {language === 'nl' ? 'Nee, doorgaan' : 'No, continue'}
           </button>
         </div>
       </div>

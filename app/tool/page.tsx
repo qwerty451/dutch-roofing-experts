@@ -137,16 +137,20 @@ export default function ToolPage() {
         <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
         </svg>
-        Opnieuw
+        {language === 'nl' ? 'Opnieuw' : 'Start over'}
       </button>
 
       {/* ── Confirm reset dialog ──────────────────────────────────────────── */}
       {confirmReset && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 p-4">
           <div className="w-full max-w-xs rounded-xl border border-gray-700 bg-gray-900 p-6 flex flex-col gap-5">
-            <h2 className="text-base font-bold text-white">Opnieuw beginnen?</h2>
+            <h2 className="text-base font-bold text-white">
+              {language === 'nl' ? 'Opnieuw beginnen?' : 'Start over?'}
+            </h2>
             <p className="text-sm text-gray-400 leading-relaxed">
-              Alle ingevoerde gegevens worden gewist. Dit kan niet ongedaan worden gemaakt.
+              {language === 'nl'
+                ? 'Alle ingevoerde gegevens worden gewist. Dit kan niet ongedaan worden gemaakt.'
+                : 'All entered data will be cleared. This cannot be undone.'}
             </p>
             <div className="flex flex-col gap-2">
               <button
@@ -154,14 +158,14 @@ export default function ToolPage() {
                 onClick={handleReset}
                 className="min-h-11 w-full rounded bg-[#cc0000] px-4 py-2.5 text-sm font-bold text-white hover:bg-red-700 transition-colors"
               >
-                Ja, opnieuw beginnen
+                {language === 'nl' ? 'Ja, opnieuw beginnen' : 'Yes, start over'}
               </button>
               <button
                 type="button"
                 onClick={() => setConfirmReset(false)}
                 className="min-h-11 w-full rounded bg-gray-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-gray-600 transition-colors"
               >
-                Annuleren
+                {language === 'nl' ? 'Annuleren' : 'Cancel'}
               </button>
             </div>
           </div>
@@ -179,7 +183,7 @@ export default function ToolPage() {
       )}
 
       {phase === 2 && (
-        <Phase2Margins onComplete={handleMarginsConfirmed} currentPhase={2} />
+        <Phase2Margins onComplete={handleMarginsConfirmed} currentPhase={2} language={language} />
       )}
 
       {phase === 3 && (
@@ -198,6 +202,7 @@ export default function ToolPage() {
               onAddItem={handleCheckupAddItem}
               onReturnToPhase3={handleCheckupReturnToPhase3}
               onComplete={handleCheckupComplete}
+              language={language}
             />
           )}
         </>
@@ -208,6 +213,7 @@ export default function ToolPage() {
           quoteState={quoteState}
           employee={employee}
           onReset={handleReset}
+          language={language}
         />
       )}
     </main>

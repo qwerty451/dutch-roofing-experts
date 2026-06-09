@@ -3,7 +3,7 @@
     "region": "Alicante/Valencia, Spain",
     "currency": "EUR",
     "vatRate": 0.21,
-    "lastUpdated": "2026-06-07"
+    "lastUpdated": "2026-06-09"
   },
   "labor": {
     "baseHourlyRate": 46,
@@ -28,7 +28,7 @@
             "es": "Cubierta de betún"
           },
           "unit": "m²",
-          "basePrice": 39,
+          "basePrice": 20,
           "options": {
             "lagen": {
               "label": {
@@ -45,7 +45,7 @@
                     "en": "Single layer",
                     "es": "1 capa"
                   },
-                  "priceModifier": -6
+                  "priceModifier": -3
                 },
                 {
                   "id": "2_laags",
@@ -63,7 +63,7 @@
                     "en": "Triple layer",
                     "es": "3 capas"
                   },
-                  "priceModifier": 8
+                  "priceModifier": 4
                 }
               ]
             },
@@ -91,7 +91,7 @@
                     "en": "SBS Modified",
                     "es": "SBS Modificado"
                   },
-                  "priceModifier": 5
+                  "priceModifier": 3
                 },
                 {
                   "id": "app",
@@ -100,7 +100,7 @@
                     "en": "APP Modified",
                     "es": "APP Modificado"
                   },
-                  "priceModifier": 7
+                  "priceModifier": 4
                 }
               ]
             },
@@ -128,7 +128,7 @@
                     "en": "4mm",
                     "es": "4mm"
                   },
-                  "priceModifier": 4
+                  "priceModifier": 2
                 },
                 {
                   "id": "5mm",
@@ -137,7 +137,7 @@
                     "en": "5mm",
                     "es": "5mm"
                   },
-                  "priceModifier": 8
+                  "priceModifier": 4
                 }
               ]
             },
@@ -165,7 +165,7 @@
                     "en": "Slate finish",
                     "es": "Pizarra"
                   },
-                  "priceModifier": 3
+                  "priceModifier": 2
                 },
                 {
                   "id": "alu_folie",
@@ -174,7 +174,7 @@
                     "en": "Aluminium foil",
                     "es": "Papel aluminio"
                   },
-                  "priceModifier": 5
+                  "priceModifier": 3
                 }
               ]
             },
@@ -185,7 +185,7 @@
                 "es": "¿Incluir aislamiento?"
               },
               "type": "boolean",
-              "pricePerM2WhenTrue": 14
+              "pricePerM2WhenTrue": 7
             },
             "verwijderen": {
               "label": {
@@ -194,7 +194,7 @@
                 "es": "¿Retirar cubierta existente primero?"
               },
               "type": "boolean",
-              "pricePerM2WhenTrue": 9
+              "pricePerM2WhenTrue": 5
             }
           }
         },
@@ -207,7 +207,7 @@
             "es": "EPDM (Cubierta de goma)"
           },
           "unit": "m²",
-          "basePrice": 42,
+          "basePrice": 21,
           "options": {
             "dikte": {
               "label": {
@@ -233,7 +233,7 @@
                     "en": "1.2mm",
                     "es": "1.2mm"
                   },
-                  "priceModifier": 4
+                  "priceModifier": 2
                 },
                 {
                   "id": "1_5mm",
@@ -242,7 +242,7 @@
                     "en": "1.5mm",
                     "es": "1.5mm"
                   },
-                  "priceModifier": 9
+                  "priceModifier": 5
                 }
               ]
             },
@@ -270,7 +270,7 @@
                     "en": "Mechanical",
                     "es": "Mecánico"
                   },
-                  "priceModifier": 3
+                  "priceModifier": 2
                 },
                 {
                   "id": "ballast",
@@ -279,7 +279,7 @@
                     "en": "Ballast",
                     "es": "Lastre"
                   },
-                  "priceModifier": -4
+                  "priceModifier": -2
                 }
               ]
             },
@@ -290,7 +290,7 @@
                 "es": "¿Incluir aislamiento?"
               },
               "type": "boolean",
-              "pricePerM2WhenTrue": 14
+              "pricePerM2WhenTrue": 7
             },
             "verwijderen": {
               "label": {
@@ -299,7 +299,7 @@
                 "es": "¿Retirar cubierta antigua?"
               },
               "type": "boolean",
-              "pricePerM2WhenTrue": 9
+              "pricePerM2WhenTrue": 5
             }
           }
         },
@@ -312,7 +312,7 @@
             "es": "Cubierta de grava / lastre"
           },
           "unit": "m²",
-          "basePrice": 25,
+          "basePrice": 13,
           "options": {
             "grindlaag": {
               "label": {
@@ -338,7 +338,7 @@
                     "en": "Extra thick",
                     "es": "Extra grueso"
                   },
-                  "priceModifier": 7
+                  "priceModifier": 4
                 }
               ]
             },
@@ -349,7 +349,7 @@
                 "es": "¿Renovar capa de fieltro?"
               },
               "type": "boolean",
-              "pricePerM2WhenTrue": 5
+              "pricePerM2WhenTrue": 3
             }
           }
         },
@@ -362,7 +362,7 @@
             "es": "Impermeabilización líquida"
           },
           "unit": "m²",
-          "basePrice": 18,
+          "basePrice": 9,
           "options": {
             "type": {
               "label": {
@@ -379,7 +379,7 @@
                     "en": "Polyurethane (PUR)",
                     "es": "Poliuretano (PUR)"
                   },
-                  "priceModifier": 4
+                  "priceModifier": 2
                 },
                 {
                   "id": "pmma",
@@ -388,7 +388,7 @@
                     "en": "PMMA acrylate",
                     "es": "Acrilato PMMA"
                   },
-                  "priceModifier": 8
+                  "priceModifier": 4
                 }
               ]
             },
@@ -416,7 +416,7 @@
                     "en": "2 layers",
                     "es": "2 capas"
                   },
-                  "priceModifier": 5
+                  "priceModifier": 3
                 },
                 {
                   "id": "3",
@@ -425,7 +425,7 @@
                     "en": "3 layers",
                     "es": "3 capas"
                   },
-                  "priceModifier": 10
+                  "priceModifier": 5
                 }
               ]
             }
@@ -451,7 +451,7 @@
             "es": "Tejas de hormigón"
           },
           "unit": "m²",
-          "basePrice": 32,
+          "basePrice": 16,
           "options": {
             "werkzaamheid": {
               "label": {
@@ -477,7 +477,7 @@
                     "en": "Partial repair",
                     "es": "Reparación parcial"
                   },
-                  "priceModifier": -8
+                  "priceModifier": -4
                 },
                 {
                   "id": "losse_pannen",
@@ -486,7 +486,7 @@
                     "en": "Replace loose tiles",
                     "es": "Sustituir tejas sueltas"
                   },
-                  "priceModifier": -14
+                  "priceModifier": -7
                 }
               ]
             },
@@ -498,7 +498,7 @@
               },
               "type": "boolean_with_quantity",
               "unit": "m",
-              "pricePerUnitWhenTrue": 22
+              "pricePerUnitWhenTrue": 11
             },
             "windveren": {
               "label": {
@@ -508,7 +508,7 @@
               },
               "type": "boolean_with_quantity",
               "unit": "stuks",
-              "pricePerUnitWhenTrue": 12
+              "pricePerUnitWhenTrue": 6
             },
             "folie_lat_regelwerk": {
               "label": {
@@ -517,7 +517,7 @@
                 "es": "¿Renovar fieltro + rastreles?"
               },
               "type": "boolean",
-              "pricePerM2WhenTrue": 11
+              "pricePerM2WhenTrue": 6
             }
           }
         },
@@ -530,7 +530,7 @@
             "es": "Tejas cerámicas"
           },
           "unit": "m²",
-          "basePrice": 48,
+          "basePrice": 24,
           "options": {
             "werkzaamheid": {
               "label": {
@@ -556,7 +556,7 @@
                     "en": "Partial repair",
                     "es": "Reparación parcial"
                   },
-                  "priceModifier": -10
+                  "priceModifier": -5
                 },
                 {
                   "id": "losse_pannen",
@@ -565,7 +565,7 @@
                     "en": "Replace loose tiles",
                     "es": "Sustituir tejas sueltas"
                   },
-                  "priceModifier": -18
+                  "priceModifier": -9
                 }
               ]
             },
@@ -593,7 +593,7 @@
                     "en": "Flat",
                     "es": "Plano"
                   },
-                  "priceModifier": -3
+                  "priceModifier": -2
                 },
                 {
                   "id": "golf",
@@ -602,7 +602,7 @@
                     "en": "Wave",
                     "es": "Ola"
                   },
-                  "priceModifier": 5
+                  "priceModifier": 3
                 }
               ]
             },
@@ -614,7 +614,7 @@
               },
               "type": "boolean_with_quantity",
               "unit": "m",
-              "pricePerUnitWhenTrue": 28
+              "pricePerUnitWhenTrue": 14
             },
             "windveren": {
               "label": {
@@ -624,7 +624,7 @@
               },
               "type": "boolean_with_quantity",
               "unit": "stuks",
-              "pricePerUnitWhenTrue": 15
+              "pricePerUnitWhenTrue": 8
             },
             "folie_lat_regelwerk": {
               "label": {
@@ -633,7 +633,7 @@
                 "es": "¿Renovar fieltro + rastreles?"
               },
               "type": "boolean",
-              "pricePerM2WhenTrue": 11
+              "pricePerM2WhenTrue": 6
             }
           }
         },
@@ -646,7 +646,7 @@
             "es": "Tejado de pizarra"
           },
           "unit": "m²",
-          "basePrice": 65,
+          "basePrice": 33,
           "options": {
             "soort": {
               "label": {
@@ -672,7 +672,7 @@
                     "en": "Synthetic slate",
                     "es": "Pizarra sintética"
                   },
-                  "priceModifier": -18
+                  "priceModifier": -9
                 }
               ]
             },
@@ -700,7 +700,7 @@
                     "en": "Large format",
                     "es": "Formato grande"
                   },
-                  "priceModifier": 12
+                  "priceModifier": 6
                 }
               ]
             },
@@ -728,7 +728,7 @@
                     "en": "Hooks",
                     "es": "Ganchos"
                   },
-                  "priceModifier": 6
+                  "priceModifier": 3
                 },
                 {
                   "id": "dubbelgedekt",
@@ -737,7 +737,7 @@
                     "en": "Double lap",
                     "es": "Doble solape"
                   },
-                  "priceModifier": 18
+                  "priceModifier": 9
                 }
               ]
             }
@@ -752,7 +752,7 @@
             "es": "Cubierta metálica / Junta alzada"
           },
           "unit": "m²",
-          "basePrice": 75,
+          "basePrice": 38,
           "options": {
             "materiaal": {
               "label": {
@@ -778,7 +778,7 @@
                     "en": "Titanium zinc",
                     "es": "Zinc titánio"
                   },
-                  "priceModifier": 18
+                  "priceModifier": 9
                 },
                 {
                   "id": "aluminium",
@@ -787,7 +787,7 @@
                     "en": "Aluminium",
                     "es": "Aluminio"
                   },
-                  "priceModifier": 12
+                  "priceModifier": 6
                 },
                 {
                   "id": "cortenstaal",
@@ -796,7 +796,7 @@
                     "en": "Corten steel",
                     "es": "Acero corten"
                   },
-                  "priceModifier": 25
+                  "priceModifier": 13
                 }
               ]
             },
@@ -807,7 +807,7 @@
                 "es": "¿Incluir aislamiento?"
               },
               "type": "boolean",
-              "pricePerM2WhenTrue": 16
+              "pricePerM2WhenTrue": 8
             }
           }
         }
@@ -831,7 +831,7 @@
             "es": "Canalones de tejado"
           },
           "unit": "m",
-          "basePrice": 28,
+          "basePrice": 14,
           "options": {
             "soort": {
               "label": {
@@ -857,7 +857,7 @@
                     "en": "Zinc",
                     "es": "Zinc"
                   },
-                  "priceModifier": 12
+                  "priceModifier": 6
                 },
                 {
                   "id": "aluminium",
@@ -866,7 +866,7 @@
                     "en": "Aluminium",
                     "es": "Aluminio"
                   },
-                  "priceModifier": 8
+                  "priceModifier": 4
                 },
                 {
                   "id": "koper",
@@ -875,7 +875,7 @@
                     "en": "Copper",
                     "es": "Cobre"
                   },
-                  "priceModifier": 45
+                  "priceModifier": 23
                 }
               ]
             },
@@ -903,7 +903,7 @@
                     "en": "Replace",
                     "es": "Sustituir"
                   },
-                  "priceModifier": 5
+                  "priceModifier": 3
                 },
                 {
                   "id": "reinigen",
@@ -912,7 +912,7 @@
                     "en": "Clean",
                     "es": "Limpiar"
                   },
-                  "priceModifier": -18
+                  "priceModifier": -9
                 },
                 {
                   "id": "repareren",
@@ -921,7 +921,7 @@
                     "en": "Repair",
                     "es": "Reparar"
                   },
-                  "priceModifier": -10
+                  "priceModifier": -5
                 }
               ]
             }
@@ -936,7 +936,7 @@
             "es": "Canalones de zinc a medida"
           },
           "unit": "m",
-          "basePrice": 45,
+          "basePrice": 23,
           "options": {
             "op_maat": {
               "label": {
@@ -945,7 +945,7 @@
                 "es": "¿A medida?"
               },
               "type": "boolean",
-              "pricePerUnitWhenTrue": 18
+              "pricePerUnitWhenTrue": 9
             }
           }
         },
@@ -958,7 +958,7 @@
             "es": "Drenaje interno"
           },
           "unit": "afvoerpunt",
-          "basePrice": 180,
+          "basePrice": 90,
           "options": {
             "type": {
               "label": {
@@ -984,7 +984,7 @@
                     "en": "HDPE",
                     "es": "HDPE"
                   },
-                  "priceModifier": 35
+                  "priceModifier": 18
                 }
               ]
             }
@@ -1010,7 +1010,7 @@
             "es": "Chimenea"
           },
           "unit": "m²",
-          "basePrice": 35,
+          "basePrice": 18,
           "options": {
             "loodwerk": {
               "label": {
@@ -1020,7 +1020,7 @@
               },
               "type": "boolean_with_quantity",
               "unit": "m",
-              "pricePerUnitWhenTrue": 85
+              "pricePerUnitWhenTrue": 43
             },
             "kap": {
               "label": {
@@ -1046,7 +1046,7 @@
                     "en": "Stainless steel",
                     "es": "Acero inoxidable"
                   },
-                  "price": 185
+                  "price": 93
                 },
                 {
                   "id": "alu",
@@ -1055,7 +1055,7 @@
                     "en": "Aluminium",
                     "es": "Aluminio"
                   },
-                  "price": 145
+                  "price": 73
                 },
                 {
                   "id": "keramisch",
@@ -1064,7 +1064,7 @@
                     "en": "Ceramic",
                     "es": "Cerámica"
                   },
-                  "price": 225
+                  "price": 113
                 }
               ]
             },
@@ -1075,7 +1075,7 @@
                 "es": "¿Contratar deshollinador?"
               },
               "type": "boolean",
-              "flatPriceWhenTrue": 120
+              "flatPriceWhenTrue": 60
             }
           }
         },
@@ -1088,7 +1088,7 @@
             "es": "Caballete / sellado de cumbrera"
           },
           "unit": "m",
-          "basePrice": 28,
+          "basePrice": 14,
           "options": {
             "werkzaamheid": {
               "label": {
@@ -1114,7 +1114,7 @@
                     "en": "Replace ridge tiles",
                     "es": "Sustituir tejas de cumbrera"
                   },
-                  "priceModifier": 12
+                  "priceModifier": 6
                 },
                 {
                   "id": "nokpannen",
@@ -1123,7 +1123,7 @@
                     "en": "Install ridge tiles (new)",
                     "es": "Instalar tejas de cumbrera (nuevo)"
                   },
-                  "priceModifier": 18
+                  "priceModifier": 9
                 }
               ]
             },
@@ -1151,7 +1151,7 @@
                     "en": "Ventilated system",
                     "es": "Sistema ventilado"
                   },
-                  "priceModifier": 8
+                  "priceModifier": 4
                 }
               ]
             }
@@ -1166,7 +1166,7 @@
             "es": "Limahoyas / vierteaguas"
           },
           "unit": "m",
-          "basePrice": 55,
+          "basePrice": 28,
           "options": {
             "materiaal": {
               "label": {
@@ -1192,7 +1192,7 @@
                     "en": "Zinc",
                     "es": "Zinc"
                   },
-                  "priceModifier": -8
+                  "priceModifier": -4
                 },
                 {
                   "id": "aluminium",
@@ -1201,7 +1201,7 @@
                     "en": "Aluminium",
                     "es": "Aluminio"
                   },
-                  "priceModifier": -12
+                  "priceModifier": -6
                 }
               ]
             }
@@ -1227,7 +1227,7 @@
             "es": "Velux / ventana de tejado"
           },
           "unit": "stuks",
-          "basePrice": 450,
+          "basePrice": 225,
           "options": {
             "maat": {
               "label": {
@@ -1253,7 +1253,7 @@
                     "en": "Medium (78×118cm)",
                     "es": "Mediano (78×118cm)"
                   },
-                  "priceModifier": 300
+                  "priceModifier": 150
                 },
                 {
                   "id": "groot_114x118",
@@ -1262,7 +1262,7 @@
                     "en": "Large (114×118cm)",
                     "es": "Grande (114×118cm)"
                   },
-                  "priceModifier": 750
+                  "priceModifier": 375
                 },
                 {
                   "id": "op_maat",
@@ -1271,7 +1271,7 @@
                     "en": "Custom size",
                     "es": "A medida"
                   },
-                  "priceModifier": 1350
+                  "priceModifier": 675
                 }
               ]
             },
@@ -1299,7 +1299,7 @@
                     "en": "Replace",
                     "es": "Sustituir"
                   },
-                  "priceModifier": 80
+                  "priceModifier": 40
                 },
                 {
                   "id": "afdichten",
@@ -1308,7 +1308,7 @@
                     "en": "Seal / repair",
                     "es": "Sellar / reparar"
                   },
-                  "priceModifier": -280
+                  "priceModifier": -140
                 },
                 {
                   "id": "onderhoud",
@@ -1317,7 +1317,7 @@
                     "en": "Maintenance",
                     "es": "Mantenimiento"
                   },
-                  "priceModifier": -350
+                  "priceModifier": -175
                 }
               ]
             },
@@ -1328,7 +1328,7 @@
                 "es": "¿Incluir persiana / protección solar?"
               },
               "type": "boolean",
-              "flatPriceWhenTrue": 225
+              "flatPriceWhenTrue": 113
             }
           }
         },
@@ -1341,7 +1341,7 @@
             "es": "Lucernario"
           },
           "unit": "stuks",
-          "basePrice": 380,
+          "basePrice": 190,
           "options": {
             "maat": {
               "label": {
@@ -1367,7 +1367,7 @@
                     "en": "80×80cm",
                     "es": "80×80cm"
                   },
-                  "priceModifier": 140
+                  "priceModifier": 70
                 },
                 {
                   "id": "100x100",
@@ -1376,7 +1376,7 @@
                     "en": "100×100cm",
                     "es": "100×100cm"
                   },
-                  "priceModifier": 300
+                  "priceModifier": 150
                 },
                 {
                   "id": "op_maat",
@@ -1385,7 +1385,7 @@
                     "en": "Custom size",
                     "es": "A medida"
                   },
-                  "priceModifier": 720
+                  "priceModifier": 360
                 }
               ]
             },
@@ -1413,7 +1413,7 @@
                     "en": "Double glazed",
                     "es": "Doble"
                   },
-                  "priceModifier": 95
+                  "priceModifier": 48
                 },
                 {
                   "id": "triple_hr",
@@ -1422,7 +1422,7 @@
                     "en": "Triple HR",
                     "es": "Triple HR"
                   },
-                  "priceModifier": 195
+                  "priceModifier": 98
                 }
               ]
             },
@@ -1433,7 +1433,7 @@
                 "es": "¿Modelo ventilado?"
               },
               "type": "boolean",
-              "flatPriceWhenTrue": 120
+              "flatPriceWhenTrue": 60
             },
             "opstand": {
               "label": {
@@ -1442,7 +1442,7 @@
                 "es": "¿Incluir zócalo?"
               },
               "type": "boolean",
-              "flatPriceWhenTrue": 185
+              "flatPriceWhenTrue": 93
             }
           }
         },
@@ -1455,7 +1455,7 @@
             "es": "Pasos de cubierta"
           },
           "unit": "stuks",
-          "basePrice": 95,
+          "basePrice": 48,
           "options": {
             "type": {
               "label": {
@@ -1481,7 +1481,7 @@
                     "en": "Electrical",
                     "es": "Electricidad"
                   },
-                  "priceModifier": 15
+                  "priceModifier": 8
                 },
                 {
                   "id": "data",
@@ -1490,7 +1490,7 @@
                     "en": "Data / internet",
                     "es": "Datos / internet"
                   },
-                  "priceModifier": 15
+                  "priceModifier": 8
                 },
                 {
                   "id": "warmtepomp",
@@ -1499,7 +1499,7 @@
                     "en": "Heat pump",
                     "es": "Bomba de calor"
                   },
-                  "priceModifier": 45
+                  "priceModifier": 23
                 }
               ]
             }
@@ -1525,7 +1525,7 @@
             "es": "Preparación cubierta para paneles solares"
           },
           "unit": "paneel",
-          "basePrice": 12,
+          "basePrice": 6,
           "options": {
             "constructie_versterken": {
               "label": {
@@ -1534,7 +1534,7 @@
                 "es": "¿Reforzar estructura del tejado?"
               },
               "type": "boolean",
-              "flatPriceWhenTrue": 350
+              "flatPriceWhenTrue": 175
             },
             "bevestiging": {
               "label": {
@@ -1560,7 +1560,7 @@
                     "en": "On membrane",
                     "es": "Sobre membrana"
                   },
-                  "priceModifier": 3
+                  "priceModifier": 2
                 },
                 {
                   "id": "ballast_plat",
@@ -1569,7 +1569,7 @@
                     "en": "Ballast system (flat roof)",
                     "es": "Sistema de lastre (tejado plano)"
                   },
-                  "priceModifier": 5
+                  "priceModifier": 3
                 }
               ]
             }
@@ -1584,7 +1584,7 @@
             "es": "Inspección de cubierta para solar"
           },
           "unit": "m²",
-          "basePrice": 2.5,
+          "basePrice": 1.5,
           "options": {
             "rapportage": {
               "label": {
@@ -1593,7 +1593,7 @@
                 "es": "¿Informe requerido?"
               },
               "type": "boolean",
-              "flatPriceWhenTrue": 150
+              "flatPriceWhenTrue": 75
             }
           }
         }
@@ -1617,7 +1617,7 @@
             "es": "Aislamiento de cubierta"
           },
           "unit": "m²",
-          "basePrice": 8,
+          "basePrice": 4,
           "options": {
             "type": {
               "label": {
@@ -1643,7 +1643,7 @@
                     "en": "PIR",
                     "es": "PIR"
                   },
-                  "priceModifier": 6
+                  "priceModifier": 3
                 },
                 {
                   "id": "pur",
@@ -1652,7 +1652,7 @@
                     "en": "PUR (spray foam)",
                     "es": "PUR (espuma proyectada)"
                   },
-                  "priceModifier": 8
+                  "priceModifier": 4
                 },
                 {
                   "id": "glaswol",
@@ -1745,7 +1745,7 @@
                 "es": "¿Incluir barrera de vapor?"
               },
               "type": "boolean",
-              "pricePerM2WhenTrue": 3
+              "pricePerM2WhenTrue": 2
             }
           }
         }
@@ -1769,7 +1769,7 @@
             "es": "Revestimiento / limpieza de cubierta"
           },
           "unit": "m²",
-          "basePrice": 8,
+          "basePrice": 4,
           "options": {
             "werkzaamheid": {
               "label": {
@@ -1795,7 +1795,7 @@
                     "en": "Anti-moss treatment",
                     "es": "Tratamiento anti-musgo"
                   },
-                  "priceModifier": 4
+                  "priceModifier": 2
                 },
                 {
                   "id": "coating",
@@ -1804,7 +1804,7 @@
                     "en": "Apply roof coating",
                     "es": "Aplicar revestimiento"
                   },
-                  "priceModifier": 12
+                  "priceModifier": 6
                 }
               ]
             }
@@ -1819,7 +1819,7 @@
             "es": "Protección contra pájaros"
           },
           "unit": "m",
-          "basePrice": 22,
+          "basePrice": 11,
           "options": {
             "type": {
               "label": {
@@ -1845,7 +1845,7 @@
                     "en": "Bird net",
                     "es": "Red anti-pájaros"
                   },
-                  "priceModifier": 6
+                  "priceModifier": 3
                 },
                 {
                   "id": "spikes",
@@ -1854,7 +1854,7 @@
                     "en": "Wide spikes",
                     "es": "Pinchos anchos"
                   },
-                  "priceModifier": 3
+                  "priceModifier": 2
                 }
               ]
             }
@@ -1869,7 +1869,7 @@
             "es": "Capa base estándar"
           },
           "unit": "m²",
-          "basePrice": 26
+          "basePrice": 13
         },
         {
           "id": "onderlaag_zelfklevend",
@@ -1880,7 +1880,7 @@
             "es": "Capa base autoadhesiva"
           },
           "unit": "m²",
-          "basePrice": 35
+          "basePrice": 18
         },
         {
           "id": "mastieke_randen",
@@ -1891,7 +1891,7 @@
             "es": "Sellado de bordes con masilla"
           },
           "unit": "m",
-          "basePrice": 43
+          "basePrice": 22
         }
       ]
     },
@@ -1913,7 +1913,7 @@
             "es": "Cargo por llamada de emergencia"
           },
           "unit": "stuk",
-          "basePrice": 195,
+          "basePrice": 98,
           "description": {
             "nl": "Vaste vergoeding voor spoedoproep buiten reguliere werktijden of op korte termijn.",
             "en": "Fixed fee for emergency call-out outside regular hours or on short notice.",
@@ -1929,7 +1929,7 @@
             "es": "Cubierta de emergencia con lona"
           },
           "unit": "m²",
-          "basePrice": 14,
+          "basePrice": 7,
           "description": {
             "nl": "Tijdelijke waterdichte afdekking met folie of dekzeil om verdere schade te voorkomen.",
             "en": "Temporary waterproof covering to prevent further damage.",
@@ -1945,7 +1945,7 @@
             "es": "Reparación de emergencia de goteras"
           },
           "unit": "stuk",
-          "basePrice": 185,
+          "basePrice": 93,
           "description": {
             "nl": "Directe reparatie van actieve lekkage. Prijs per lekkagepunt.",
             "en": "Immediate repair of active leak. Price per leak point.",
@@ -1961,7 +1961,7 @@
             "es": "Daños por tormenta — inspección + reparación de emergencia"
           },
           "unit": "stuk",
-          "basePrice": 265,
+          "basePrice": 133,
           "description": {
             "nl": "Inspectie van stormschade en directe noodreparatie waar nodig.",
             "en": "Storm damage inspection and immediate emergency repair where needed.",
@@ -1977,7 +1977,7 @@
             "es": "Sellado impermeable temporal"
           },
           "unit": "m",
-          "basePrice": 48,
+          "basePrice": 24,
           "description": {
             "nl": "Tijdelijke afdichting van naden, scheuren of open verbindingen.",
             "en": "Temporary sealing of joints, cracks or open connections.",
@@ -1993,7 +1993,7 @@
             "es": "Inspección urgente del tejado"
           },
           "unit": "stuk",
-          "basePrice": 95,
+          "basePrice": 48,
           "description": {
             "nl": "Urgente inspectie van het dak met mondelinge en schriftelijke bevindingen.",
             "en": "Urgent roof inspection with verbal and written findings.",
@@ -2013,7 +2013,7 @@
         "es": "Alquiler contenedor 6m³"
       },
       "unit": "dag",
-      "basePrice": 95
+      "basePrice": 48
     },
     {
       "id": "container_medium",
@@ -2024,7 +2024,7 @@
         "es": "Alquiler contenedor 10m³"
       },
       "unit": "dag",
-      "basePrice": 130
+      "basePrice": 65
     },
     {
       "id": "container_large",
@@ -2035,7 +2035,7 @@
         "es": "Alquiler contenedor 20m³"
       },
       "unit": "dag",
-      "basePrice": 195
+      "basePrice": 98
     },
     {
       "id": "scaffolding",
@@ -2046,7 +2046,7 @@
         "es": "Alquiler andamio (por módulo)"
       },
       "unit": "week",
-      "basePrice": 55
+      "basePrice": 28
     },
     {
       "id": "tile_lift",
@@ -2057,7 +2057,7 @@
         "es": "Alquiler elevador de tejas"
       },
       "unit": "dag",
-      "basePrice": 85
+      "basePrice": 43
     },
     {
       "id": "aerial_work_platform_12m",
@@ -2068,7 +2068,7 @@
         "es": "Plataforma elevadora 12m"
       },
       "unit": "dag",
-      "basePrice": 145
+      "basePrice": 73
     },
     {
       "id": "aerial_work_platform_18m",
@@ -2079,7 +2079,7 @@
         "es": "Plataforma elevadora 18m"
       },
       "unit": "dag",
-      "basePrice": 195
+      "basePrice": 98
     },
     {
       "id": "aerial_work_platform_24m",
@@ -2090,7 +2090,7 @@
         "es": "Plataforma elevadora 24m"
       },
       "unit": "dag",
-      "basePrice": 265
+      "basePrice": 133
     },
     {
       "id": "trailer",
@@ -2101,7 +2101,7 @@
         "es": "Alquiler remolque"
       },
       "unit": "dag",
-      "basePrice": 45
+      "basePrice": 23
     },
     {
       "id": "safety_line",
@@ -2112,7 +2112,7 @@
         "es": "Sistema de línea de vida"
       },
       "unit": "dag",
-      "basePrice": 25
+      "basePrice": 13
     },
     {
       "id": "walkboards",
@@ -2123,7 +2123,7 @@
         "es": "Tablones de paso / protección de cubierta"
       },
       "unit": "dag",
-      "basePrice": 35
+      "basePrice": 18
     }
   ]
 }

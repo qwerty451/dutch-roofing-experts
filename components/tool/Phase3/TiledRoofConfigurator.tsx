@@ -145,21 +145,23 @@ interface ToggleProps {
   value: boolean;
   onChange: (v: boolean) => void;
   note?: string;
+  yes?: string;
+  no?: string;
 }
 
-function Toggle({ label, value, onChange, note }: ToggleProps) {
+function Toggle({ label, value, onChange, note, yes = 'Ja', no = 'Nee' }: ToggleProps) {
   return (
     <div className="flex flex-col gap-1.5">
       <FieldLabel>{label}</FieldLabel>
       {note && <span className="text-gray-500 text-xs">{note}</span>}
       <div className="flex gap-2">
-        {(['Ja', 'Nee'] as const).map((opt) => {
-          const isActive = (opt === 'Ja') === value;
+        {[{ l: yes, v: true }, { l: no, v: false }].map(({ l, v }) => {
+          const isActive = value === v;
           return (
             <button
-              key={opt}
+              key={l}
               type="button"
-              onClick={() => onChange(opt === 'Ja')}
+              onClick={() => onChange(v)}
               className="h-11 px-5 rounded-lg text-sm font-semibold transition-colors"
               style={
                 isActive
@@ -167,7 +169,7 @@ function Toggle({ label, value, onChange, note }: ToggleProps) {
                   : { backgroundColor: '#1f2937', color: '#9ca3af' }
               }
             >
-              {opt}
+              {l}
             </button>
           );
         })}
@@ -235,6 +237,8 @@ interface ToggleWithQtyProps {
   onQuantityChange: (v: number | '') => void;
   unit: string;
   note?: string;
+  yes?: string;
+  no?: string;
 }
 
 function ToggleWithQty({
@@ -245,10 +249,12 @@ function ToggleWithQty({
   onQuantityChange,
   unit,
   note,
+  yes,
+  no,
 }: ToggleWithQtyProps) {
   return (
     <div className="flex flex-col gap-2">
-      <Toggle label={label} value={enabled} onChange={onEnabledChange} note={note} />
+      <Toggle label={label} value={enabled} onChange={onEnabledChange} note={note} yes={yes} no={no} />
       {enabled && (
         <div className="pl-2 flex items-center gap-2">
           <input
@@ -606,6 +612,7 @@ function computeMetalRoofItems(state: MetalRoofState, margins: Margins): LineIte
 export default function TiledRoofConfigurator({
   margins,
   onItemsChange,
+  language,
 }: TiledRoofConfiguratorProps) {
   // Accordion open/close state
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({
@@ -691,240 +698,134 @@ export default function TiledRoofConfigurator({
     }
   }
 
-  // ≈10 tiles per m² info text
+  const nl = language === 'nl';
+  const yes = nl ? 'Ja' : 'Yes';
+  const no = nl ? 'Nee' : 'No';
+
   const tilecountInfo = (m2: number | '') =>
     m2 !== '' && m2 > 0
-      ? `≈ ${Math.round((m2 as number) * 10)} pannen`
+      ? `≈ ${Math.round((m2 as number) * 10)} ${nl ? 'pannen' : 'tiles'}`
       : undefined;
+
+  const werkOptions = [
+    { id: 'volledig' as const, label: nl ? 'Volledig vervangen' : 'Full replacement' },
+    { id: 'gedeeltelijk' as const, label: nl ? 'Gedeeltelijk repareren' : 'Partial repair' },
+    { id: 'losse_pannen' as const, label: nl ? 'Losse pannen vervangen' : 'Replace loose tiles' },
+  ];
+
+  const gutterNote = nl
+    ? 'Verwijs naar de sectie Goten & Afwatering voor prijsberekening'
+    : 'Refer to the Gutters & Drainage section for pricing';
+  const gutterPrompt = nl
+    ? 'Voeg dakgoten toe via de categorie "Goten & Afwatering" hieronder.'
+    : 'Add gutters via the "Gutters & Drainage" category below.';
 
   return (
     <div className="flex flex-col gap-4">
-      {/* ------------------------------------------------------------------ */}
-      {/* A. Betonpannen                                                      */}
-      {/* ------------------------------------------------------------------ */}
+      {/* A. Concrete tiles */}
       <AccordionSection
-        title="Betonpannen"
+        title={nl ? 'Betonpannen' : 'Concrete tiles'}
         isOpen={openSections.concrete}
         onToggle={() => toggleSection('concrete')}
         hasValues={hasValues('concrete')}
       >
-        <NumberInput
-          label="Oppervlakte"
-          unit="m²"
-          value={concrete.m2}
-          note={tilecountInfo(concrete.m2)}
-          onChange={(v) => setConcrete((s) => ({ ...s, m2: v }))}
-        />
-
-        <ButtonGroup<TileWerkzaamheid>
-          label="Werkzaamheid"
-          options={[
-            { id: 'volledig', label: 'Volledig vervangen' },
-            { id: 'gedeeltelijk', label: 'Gedeeltelijk repareren' },
-            { id: 'losse_pannen', label: 'Losse pannen vervangen' },
-          ]}
-          value={concrete.werkzaamheid}
-          onChange={(v) => setConcrete((s) => ({ ...s, werkzaamheid: v }))}
-        />
-
-        <ToggleWithQty
-          label="Nokvorsten meenemen?"
-          enabled={concrete.nokvorsten}
-          quantity={concrete.nokvorsteMeters}
-          onEnabledChange={(v) => setConcrete((s) => ({ ...s, nokvorsten: v }))}
-          onQuantityChange={(v) => setConcrete((s) => ({ ...s, nokvorsteMeters: v }))}
-          unit="m"
-        />
-
-        <ToggleWithQty
-          label="Windveren vervangen?"
-          enabled={concrete.windveren}
-          quantity={concrete.windverenAantal}
-          onEnabledChange={(v) => setConcrete((s) => ({ ...s, windveren: v }))}
-          onQuantityChange={(v) => setConcrete((s) => ({ ...s, windverenAantal: v }))}
-          unit="stuks"
-        />
-
-        <Toggle
-          label="Folie + lat + regelwerk vernieuwen?"
-          value={concrete.folieLatRegelwerk}
-          onChange={(v) => setConcrete((s) => ({ ...s, folieLatRegelwerk: v }))}
-        />
-
+        <NumberInput label={nl ? 'Oppervlakte' : 'Surface area'} unit="m²" value={concrete.m2} note={tilecountInfo(concrete.m2)} onChange={(v) => setConcrete((s) => ({ ...s, m2: v }))} />
+        <ButtonGroup<TileWerkzaamheid> label={nl ? 'Werkzaamheid' : 'Work type'} options={werkOptions} value={concrete.werkzaamheid} onChange={(v) => setConcrete((s) => ({ ...s, werkzaamheid: v }))} />
+        <ToggleWithQty label={nl ? 'Nokvorsten meenemen?' : 'Include ridge tiles?'} enabled={concrete.nokvorsten} quantity={concrete.nokvorsteMeters} onEnabledChange={(v) => setConcrete((s) => ({ ...s, nokvorsten: v }))} onQuantityChange={(v) => setConcrete((s) => ({ ...s, nokvorsteMeters: v }))} unit="m" yes={yes} no={no} />
+        <ToggleWithQty label={nl ? 'Windveren vervangen?' : 'Replace verge tiles?'} enabled={concrete.windveren} quantity={concrete.windverenAantal} onEnabledChange={(v) => setConcrete((s) => ({ ...s, windveren: v }))} onQuantityChange={(v) => setConcrete((s) => ({ ...s, windverenAantal: v }))} unit={nl ? 'stuks' : 'pcs'} yes={yes} no={no} />
+        <Toggle label={nl ? 'Folie + lat + regelwerk vernieuwen?' : 'Renew underlay + battens?'} value={concrete.folieLatRegelwerk} onChange={(v) => setConcrete((s) => ({ ...s, folieLatRegelwerk: v }))} yes={yes} no={no} />
         <div className="rounded-lg border border-gray-700 bg-gray-800 px-3 py-3">
-          <Toggle
-            label="Dakgoten meenemen?"
-            value={concrete.dakgoten}
-            onChange={(v) => setConcrete((s) => ({ ...s, dakgoten: v }))}
-            note="Verwijs naar de sectie Goten & Afwatering voor prijsberekening"
-          />
-          {concrete.dakgoten && (
-            <p className="mt-2 text-xs text-yellow-400">
-              Voeg dakgoten toe via de categorie &quot;Goten &amp; Afwatering&quot; hieronder.
-            </p>
-          )}
+          <Toggle label={nl ? 'Dakgoten meenemen?' : 'Include gutters?'} value={concrete.dakgoten} onChange={(v) => setConcrete((s) => ({ ...s, dakgoten: v }))} note={gutterNote} yes={yes} no={no} />
+          {concrete.dakgoten && <p className="mt-2 text-xs text-yellow-400">{gutterPrompt}</p>}
         </div>
       </AccordionSection>
 
-      {/* ------------------------------------------------------------------ */}
-      {/* B. Keramische pannen                                                */}
-      {/* ------------------------------------------------------------------ */}
+      {/* B. Ceramic tiles */}
       <AccordionSection
-        title="Keramische pannen"
+        title={nl ? 'Keramische pannen' : 'Ceramic tiles'}
         isOpen={openSections.ceramic}
         onToggle={() => toggleSection('ceramic')}
         hasValues={hasValues('ceramic')}
       >
-        <NumberInput
-          label="Oppervlakte"
-          unit="m²"
-          value={ceramic.m2}
-          note={tilecountInfo(ceramic.m2)}
-          onChange={(v) => setCeramic((s) => ({ ...s, m2: v }))}
-        />
-
-        <ButtonGroup<TileWerkzaamheid>
-          label="Werkzaamheid"
-          options={[
-            { id: 'volledig', label: 'Volledig vervangen' },
-            { id: 'gedeeltelijk', label: 'Gedeeltelijk repareren' },
-            { id: 'losse_pannen', label: 'Losse pannen vervangen' },
-          ]}
-          value={ceramic.werkzaamheid}
-          onChange={(v) => setCeramic((s) => ({ ...s, werkzaamheid: v }))}
-        />
-
+        <NumberInput label={nl ? 'Oppervlakte' : 'Surface area'} unit="m²" value={ceramic.m2} note={tilecountInfo(ceramic.m2)} onChange={(v) => setCeramic((s) => ({ ...s, m2: v }))} />
+        <ButtonGroup<TileWerkzaamheid> label={nl ? 'Werkzaamheid' : 'Work type'} options={werkOptions} value={ceramic.werkzaamheid} onChange={(v) => setCeramic((s) => ({ ...s, werkzaamheid: v }))} />
         <ButtonGroup<CeramicProfiel>
-          label="Type profiel"
+          label={nl ? 'Type profiel' : 'Profile type'}
           options={[
-            { id: 'romaans', label: 'Romaans' },
-            { id: 'vlak', label: 'Vlak' },
-            { id: 'golf', label: 'Golf' },
+            { id: 'romaans', label: nl ? 'Romaans' : 'Roman' },
+            { id: 'vlak', label: nl ? 'Vlak' : 'Flat' },
+            { id: 'golf', label: nl ? 'Golf' : 'Wave' },
           ]}
           value={ceramic.profiel}
           onChange={(v) => setCeramic((s) => ({ ...s, profiel: v }))}
         />
-
-        <ToggleWithQty
-          label="Nokvorsten meenemen?"
-          enabled={ceramic.nokvorsten}
-          quantity={ceramic.nokvorsteMeters}
-          onEnabledChange={(v) => setCeramic((s) => ({ ...s, nokvorsten: v }))}
-          onQuantityChange={(v) => setCeramic((s) => ({ ...s, nokvorsteMeters: v }))}
-          unit="m"
-        />
-
-        <ToggleWithQty
-          label="Windveren vervangen?"
-          enabled={ceramic.windveren}
-          quantity={ceramic.windverenAantal}
-          onEnabledChange={(v) => setCeramic((s) => ({ ...s, windveren: v }))}
-          onQuantityChange={(v) => setCeramic((s) => ({ ...s, windverenAantal: v }))}
-          unit="stuks"
-        />
-
-        <Toggle
-          label="Folie + lat + regelwerk vernieuwen?"
-          value={ceramic.folieLatRegelwerk}
-          onChange={(v) => setCeramic((s) => ({ ...s, folieLatRegelwerk: v }))}
-        />
-
+        <ToggleWithQty label={nl ? 'Nokvorsten meenemen?' : 'Include ridge tiles?'} enabled={ceramic.nokvorsten} quantity={ceramic.nokvorsteMeters} onEnabledChange={(v) => setCeramic((s) => ({ ...s, nokvorsten: v }))} onQuantityChange={(v) => setCeramic((s) => ({ ...s, nokvorsteMeters: v }))} unit="m" yes={yes} no={no} />
+        <ToggleWithQty label={nl ? 'Windveren vervangen?' : 'Replace verge tiles?'} enabled={ceramic.windveren} quantity={ceramic.windverenAantal} onEnabledChange={(v) => setCeramic((s) => ({ ...s, windveren: v }))} onQuantityChange={(v) => setCeramic((s) => ({ ...s, windverenAantal: v }))} unit={nl ? 'stuks' : 'pcs'} yes={yes} no={no} />
+        <Toggle label={nl ? 'Folie + lat + regelwerk vernieuwen?' : 'Renew underlay + battens?'} value={ceramic.folieLatRegelwerk} onChange={(v) => setCeramic((s) => ({ ...s, folieLatRegelwerk: v }))} yes={yes} no={no} />
         <div className="rounded-lg border border-gray-700 bg-gray-800 px-3 py-3">
-          <Toggle
-            label="Dakgoten meenemen?"
-            value={ceramic.dakgoten}
-            onChange={(v) => setCeramic((s) => ({ ...s, dakgoten: v }))}
-            note="Verwijs naar de sectie Goten & Afwatering voor prijsberekening"
-          />
-          {ceramic.dakgoten && (
-            <p className="mt-2 text-xs text-yellow-400">
-              Voeg dakgoten toe via de categorie &quot;Goten &amp; Afwatering&quot; hieronder.
-            </p>
-          )}
+          <Toggle label={nl ? 'Dakgoten meenemen?' : 'Include gutters?'} value={ceramic.dakgoten} onChange={(v) => setCeramic((s) => ({ ...s, dakgoten: v }))} note={gutterNote} yes={yes} no={no} />
+          {ceramic.dakgoten && <p className="mt-2 text-xs text-yellow-400">{gutterPrompt}</p>}
         </div>
       </AccordionSection>
 
-      {/* ------------------------------------------------------------------ */}
-      {/* C. Leien dak                                                        */}
-      {/* ------------------------------------------------------------------ */}
+      {/* C. Slate roof */}
       <AccordionSection
-        title="Leien dak"
+        title={nl ? 'Leien dak' : 'Slate roof'}
         isOpen={openSections.slate}
         onToggle={() => toggleSection('slate')}
         hasValues={hasValues('slate')}
       >
-        <NumberInput
-          label="Oppervlakte"
-          unit="m²"
-          value={slate.m2}
-          onChange={(v) => setSlate((s) => ({ ...s, m2: v }))}
-        />
-
+        <NumberInput label={nl ? 'Oppervlakte' : 'Surface area'} unit="m²" value={slate.m2} onChange={(v) => setSlate((s) => ({ ...s, m2: v }))} />
         <ButtonGroup<LeienSoort>
-          label="Soort leien"
+          label={nl ? 'Soort leien' : 'Slate type'}
           options={[
-            { id: 'natuurleien', label: 'Natuurleien' },
-            { id: 'kunststof', label: 'Kunststof leien' },
+            { id: 'natuurleien', label: nl ? 'Natuurleien' : 'Natural slate' },
+            { id: 'kunststof', label: nl ? 'Kunststof leien' : 'Synthetic slate' },
           ]}
           value={slate.soort}
           onChange={(v) => setSlate((s) => ({ ...s, soort: v }))}
         />
-
         <ButtonGroup<LeienFormaat>
-          label="Formaat"
+          label={nl ? 'Formaat' : 'Format'}
           options={[
-            { id: 'standaard', label: 'Standaard formaat' },
-            { id: 'groot', label: 'Groot formaat' },
+            { id: 'standaard', label: nl ? 'Standaard formaat' : 'Standard size' },
+            { id: 'groot', label: nl ? 'Groot formaat' : 'Large format' },
           ]}
           value={slate.formaat}
           onChange={(v) => setSlate((s) => ({ ...s, formaat: v }))}
         />
-
         <ButtonGroup<LeienBevestiging>
-          label="Bevestigingsmethode"
+          label={nl ? 'Bevestigingsmethode' : 'Fixing method'}
           options={[
-            { id: 'spijkers', label: 'Spijkers' },
-            { id: 'haken', label: 'Haken' },
-            { id: 'dubbelgedekt', label: 'Dubbelgedekt' },
+            { id: 'spijkers', label: nl ? 'Spijkers' : 'Nails' },
+            { id: 'haken', label: nl ? 'Haken' : 'Hooks' },
+            { id: 'dubbelgedekt', label: nl ? 'Dubbelgedekt' : 'Double lap' },
           ]}
           value={slate.bevestiging}
           onChange={(v) => setSlate((s) => ({ ...s, bevestiging: v }))}
         />
       </AccordionSection>
 
-      {/* ------------------------------------------------------------------ */}
-      {/* D. Metaaldak / Staande naad                                         */}
-      {/* ------------------------------------------------------------------ */}
+      {/* D. Metal roof / Standing seam */}
       <AccordionSection
-        title="Metaaldak / Staande naad"
+        title={nl ? 'Metaaldak / Staande naad' : 'Metal roof / Standing seam'}
         isOpen={openSections.metal}
         onToggle={() => toggleSection('metal')}
         hasValues={hasValues('metal')}
       >
-        <NumberInput
-          label="Oppervlakte"
-          unit="m²"
-          value={metalRoof.m2}
-          onChange={(v) => setMetalRoof((s) => ({ ...s, m2: v }))}
-        />
-
+        <NumberInput label={nl ? 'Oppervlakte' : 'Surface area'} unit="m²" value={metalRoof.m2} onChange={(v) => setMetalRoof((s) => ({ ...s, m2: v }))} />
         <ButtonGroup<MetaalMateriaal>
-          label="Materiaal"
+          label={nl ? 'Materiaal' : 'Material'}
           options={[
-            { id: 'zink', label: 'Zink' },
-            { id: 'titaanzink', label: 'Titaanzink' },
+            { id: 'zink', label: 'Zinc' },
+            { id: 'titaanzink', label: nl ? 'Titaanzink' : 'Titanium zinc' },
             { id: 'aluminium', label: 'Aluminium' },
-            { id: 'cortenstaal', label: 'Cortenstaal' },
+            { id: 'cortenstaal', label: nl ? 'Cortenstaal' : 'Corten steel' },
           ]}
           value={metalRoof.materiaal}
           onChange={(v) => setMetalRoof((s) => ({ ...s, materiaal: v }))}
         />
-
-        <Toggle
-          label="Isolatie meenemen?"
-          value={metalRoof.isolatie}
-          onChange={(v) => setMetalRoof((s) => ({ ...s, isolatie: v }))}
-        />
+        <Toggle label={nl ? 'Isolatie meenemen?' : 'Include insulation?'} value={metalRoof.isolatie} onChange={(v) => setMetalRoof((s) => ({ ...s, isolatie: v }))} yes={yes} no={no} />
       </AccordionSection>
     </div>
   );

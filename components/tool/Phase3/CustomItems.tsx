@@ -153,8 +153,8 @@ export default function CustomItems({ onItemsChange, language }: CustomItemsProp
                   {item.description[lang]}
                 </span>
                 <span className="text-sm text-gray-400">
-                  {formatEur(item.total)} excl. BTW &mdash;{" "}
-                  {Math.round(item.vatRate * 100)}% BTW
+                  {formatEur(item.total)} {lang === 'nl' ? 'excl. BTW' : 'excl. VAT'} &mdash;{" "}
+                  {Math.round(item.vatRate * 100)}% {lang === 'nl' ? 'BTW' : 'VAT'}
                 </span>
               </div>
               <button

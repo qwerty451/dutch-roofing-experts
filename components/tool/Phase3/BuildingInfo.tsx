@@ -51,6 +51,24 @@ const t = {
     urgentieNote: "Spoedreparaties worden automatisch in het offerte-onderdeel toegevoegd.",
     notities: "Bijzonderheden / notities",
     notitiesPlaceholder: "Bijv. smal straatje, geen parkeerplaats, hoge dakrand...",
+    gebouwtypeLabels: {
+      "Villa": "Villa",
+      "Appartement": "Appartement",
+      "Commercieel": "Commercieel",
+      "Industrieel": "Industrieel",
+      "Anders": "Anders",
+    },
+    bereikbaarheidLabels: {
+      "Goed bereikbaar": "Goed bereikbaar",
+      "Lastig bereikbaar": "Lastig bereikbaar",
+      "Zeer moeilijk (geen oprit/lift)": "Zeer moeilijk (geen oprit/lift)",
+    },
+    urgentieLabels: {
+      "Normaal / Gepland": "Normaal / Gepland",
+      "Zo snel mogelijk (1–2 weken)": "Zo snel mogelijk (1–2 weken)",
+      "Dringend (2–3 dagen)": "Dringend (2–3 dagen)",
+      "Spoedreparatie (zelfde/volgende dag)": "Spoedreparatie (zelfde/volgende dag)",
+    },
   },
   en: {
     title: "Building Information",
@@ -61,6 +79,24 @@ const t = {
     urgentieNote: "Emergency repairs will be highlighted in the works section.",
     notities: "Notes / remarks",
     notitiesPlaceholder: "E.g. narrow street, no parking, high parapet...",
+    gebouwtypeLabels: {
+      "Villa": "Villa",
+      "Appartement": "Apartment",
+      "Commercieel": "Commercial",
+      "Industrieel": "Industrial",
+      "Anders": "Other",
+    },
+    bereikbaarheidLabels: {
+      "Goed bereikbaar": "Easily accessible",
+      "Lastig bereikbaar": "Difficult access",
+      "Zeer moeilijk (geen oprit/lift)": "Very difficult (no driveway/lift)",
+    },
+    urgentieLabels: {
+      "Normaal / Gepland": "Normal / Planned",
+      "Zo snel mogelijk (1–2 weken)": "As soon as possible (1–2 weeks)",
+      "Dringend (2–3 dagen)": "Urgent (2–3 days)",
+      "Spoedreparatie (zelfde/volgende dag)": "Emergency (same/next day)",
+    },
   },
 } as const;
 
@@ -153,7 +189,7 @@ export default function BuildingInfoForm({
                   : "bg-gray-700 text-white hover:bg-gray-600"
               }`}
             >
-              {opt}
+              {labels.gebouwtypeLabels[opt]}
             </button>
           ))}
         </div>
@@ -176,7 +212,7 @@ export default function BuildingInfoForm({
                   : "bg-gray-700 text-white hover:bg-gray-600"
               }`}
             >
-              {opt}
+              {labels.bereikbaarheidLabels[opt]}
             </button>
           ))}
         </div>
@@ -207,7 +243,7 @@ export default function BuildingInfoForm({
                     : "bg-gray-700 text-white hover:bg-gray-600"
                 }`}
               >
-                {opt.emoji} {opt.value}
+                {opt.emoji} {labels.urgentieLabels[opt.value]}
               </button>
             );
           })}

@@ -108,8 +108,10 @@ const DEFAULT_BUILDING: BuildingInfo = {
   notities: "",
 };
 
-const DEFAULT_PAYMENT_TERMS =
-  "50% aanbetaling voor aanvang werkzaamheden, 50% na oplevering.";
+const DEFAULT_PAYMENT_TERMS = {
+  nl: "50% aanbetaling voor aanvang werkzaamheden, 50% na oplevering.",
+  en: "50% deposit before commencement of works, 50% upon completion.",
+} as const;
 
 function loadPhase3Session(): Phase3FormSession | null {
   if (typeof window === "undefined") return null;
@@ -197,7 +199,7 @@ export default function Phase3Quote({
     restoredSession?.discount ?? 0
   );
   const [paymentTerms, setPaymentTerms] = useState<string>(
-    restoredSession?.paymentTerms ?? DEFAULT_PAYMENT_TERMS
+    restoredSession?.paymentTerms ?? DEFAULT_PAYMENT_TERMS[language]
   );
   const [warranty, setWarranty] = useState<Warranty>(
     restoredSession?.warranty ?? { enabled: false, period: "2 jaar" }
@@ -360,8 +362,13 @@ export default function Phase3Quote({
       {showRestoredBanner && (
         <div className="sticky top-0 z-40 flex items-start justify-between gap-3 rounded bg-gray-800 border border-[#d4af37] px-4 py-3 text-sm text-white shadow-lg">
           <span>
-            <span className="font-semibold" style={{ color: "#d4af37" }}>Sessie hersteld.</span>{" "}
-            Klant- en gebouwgegevens zijn teruggezet. Voer de dakwerkzaamheden opnieuw in.
+            <span className="font-semibold" style={{ color: "#d4af37" }}>
+              {language === 'nl' ? 'Sessie hersteld.' : 'Session restored.'}
+            </span>{" "}
+            {language === 'nl'
+              ? 'Klant- en gebouwgegevens zijn teruggezet. Voer de dakwerkzaamheden opnieuw in.'
+              : 'Customer and building info has been restored. Please re-enter the roofing work.'
+            }
           </span>
           <button
             type="button"
@@ -519,7 +526,14 @@ export default function Phase3Quote({
               {language === 'nl' ? 'Garantieperiode:' : 'Warranty period:'}
             </span>
             <div className="flex flex-wrap gap-2">
-              {['1 jaar', '2 jaar', '5 jaar', '10 jaar'].map(p => (
+              {(['1 jaar', '2 jaar', '5 jaar', '10 jaar'] as const).map(p => {
+                const periodDisplay: Record<typeof p, Record<'nl' | 'en', string>> = {
+                  '1 jaar': { nl: '1 jaar', en: '1 year' },
+                  '2 jaar': { nl: '2 jaar', en: '2 years' },
+                  '5 jaar': { nl: '5 jaar', en: '5 years' },
+                  '10 jaar': { nl: '10 jaar', en: '10 years' },
+                };
+                return (
                 <button
                   key={p}
                   type="button"
@@ -527,9 +541,10 @@ export default function Phase3Quote({
                   className={`min-h-10 px-4 py-2 rounded text-sm font-medium transition-colors ${warranty.period === p ? 'text-black' : 'bg-gray-700 text-white hover:bg-gray-600'}`}
                   style={warranty.period === p ? { backgroundColor: '#d4af37' } : undefined}
                 >
-                  {p}
+                  {periodDisplay[p][language]}
                 </button>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}
